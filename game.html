@@ -3,33 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake Game - Foysal Raja</title>
+    <title>Games | Foysal Raja</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        .game-container {
-            text-align: center;
-            padding: 50px 20px;
-        }
-        canvas {
-            background-color: #1e293b;
-            border: 3px solid #38bdf8;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
-        }
-        .score-board {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #fff;
-        }
-        .back-btn {
-            display: inline-block;
-            margin-top: 20px;
-            color: #38bdf8;
-            text-decoration: none;
-        }
+        /* গেম পেজের জন্য আলাদা স্টাইল */
+        .games-container { padding: 40px 8%; text-align: center; }
+        .game-section { margin-bottom: 60px; background: #111827; padding: 30px; border-radius: 20px; border: 1px solid #1e293b; }
+        .game-title { color: #00d4ff; margin-bottom: 20px; font-size: 2rem; }
+        
+        /* Snake Game CSS */
+        canvas { background-color: #0b1120; border: 3px solid #00d4ff; border-radius: 10px; touch-action: none; }
+        .score-board { font-size: 1.5rem; margin-bottom: 15px; color: #fff; }
+        .controls { margin-top: 20px; display: grid; grid-template-columns: repeat(3, 60px); gap: 10px; justify-content: center; }
+        .controls button { width: 60px; height: 60px; font-size: 1.5rem; background: #1e293b; color: #00d4ff; border: 2px solid #00d4ff; border-radius: 10px; cursor: pointer; }
+        .controls button:active { background: #00d4ff; color: #0b1120; }
+        .empty { visibility: hidden; }
+
+        /* Tic Tac Toe CSS */
+        .ttt-board { display: grid; grid-template-columns: repeat(3, 80px); gap: 10px; justify-content: center; margin-bottom: 20px; }
+        .ttt-cell { width: 80px; height: 80px; background: #0b1120; border: 2px solid #334155; font-size: 2.5rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px; }
+        .ttt-cell:hover { border-color: #00d4ff; }
+        .ttt-status { color: #fff; font-size: 1.2rem; margin-bottom: 15px; font-weight: bold; }
+        .reset-btn { padding: 10px 20px; background: #00d4ff; color: #0b1120; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 1rem; }
     </style>
 </head>
 <body>
+
     <nav class="navbar">
         <div class="logo">Foysal<span>.Raja</span></div>
         <ul class="nav-links">
@@ -39,50 +39,98 @@
         </ul>
     </nav>
 
-    <div class="game-container">
-        <h1 style="color: #fff; margin-bottom: 20px;">Snake Game 🐍</h1>
-        <div class="score-board">Score: <span id="score">0</span></div>
-        <canvas id="gameCanvas" width="300" height="300"></canvas>
-        <br>
-        <a href="index.html" class="back-btn">← Back to Home</a>
+    <div class="games-container">
+        
+        <!-- Snake Game -->
+        <div class="game-section">
+            <h2 class="game-title">Snake Game 🐍</h2>
+            <div class="score-board">Score: <span id="snakeScore">0</span></div>
+            <canvas id="gameCanvas" width="300" height="300"></canvas>
+            
+            <!-- মোবাইলের জন্য কন্ট্রোল বাটন -->
+            <div class="controls">
+                <button class="empty"></button>
+                <button onclick="setDir('UP')">⬆️</button>
+                <button class="empty"></button>
+                <button onclick="setDir('LEFT')">⬅️</button>
+                <button onclick="setDir('DOWN')">⬇️</button>
+                <button onclick="setDir('RIGHT')">➡️</button>
+            </div>
+        </div>
+
+        <!-- Tic Tac Toe Game -->
+        <div class="game-section">
+            <h2 class="game-title">Tic-Tac-Toe ❌⭕</h2>
+            <div class="ttt-status" id="tttStatus">Player X's Turn</div>
+            <div class="ttt-board" id="tttBoard">
+                <div class="ttt-cell" onclick="playTTT(0)"></div>
+                <div class="ttt-cell" onclick="playTTT(1)"></div>
+                <div class="ttt-cell" onclick="playTTT(2)"></div>
+                <div class="ttt-cell" onclick="playTTT(3)"></div>
+                <div class="ttt-cell" onclick="playTTT(4)"></div>
+                <div class="ttt-cell" onclick="playTTT(5)"></div>
+                <div class="ttt-cell" onclick="playTTT(6)"></div>
+                <div class="ttt-cell" onclick="playTTT(7)"></div>
+                <div class="ttt-cell" onclick="playTTT(8)"></div>
+            </div>
+            <button class="reset-btn" onclick="resetTTT()">Restart Game</button>
+        </div>
+
     </div>
 
+    <footer>
+        <p>&copy; 2023 Foysal Raja. All rights reserved.</p>
+    </footer>
+
+    <!-- ================= JAVA SCRIPT ================= -->
     <script>
+        // ---- SNAKE GAME LOGIC ----
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
-        const scoreElement = document.getElementById("score");
-
-        const box = 15;
+        const scoreElement = document.getElementById("snakeScore");
+        let box = 15;
         let snake = [{ x: 10 * box, y: 10 * box }];
         let direction = "RIGHT";
-        let food = {
-            x: Math.floor(Math.random() * 19 + 1) * box,
-            y: Math.floor(Math.random() * 19 + 1) * box
-        };
+        let nextDirection = "RIGHT";
+        let food = { x: Math.floor(Math.random() * 19 + 1) * box, y: Math.floor(Math.random() * 19 + 1) * box };
         let score = 0;
+        let game;
 
-        document.addEventListener("keydown", directionControl);
+        // কন্ট্রোল ফাংশন (মোবাইল ও পিসি উভয়ের জন্য)
+        function setDir(newDir) {
+            if (newDir === "UP" && direction !== "DOWN") nextDirection = "UP";
+            if (newDir === "DOWN" && direction !== "UP") nextDirection = "DOWN";
+            if (newDir === "LEFT" && direction !== "RIGHT") nextDirection = "LEFT";
+            if (newDir === "RIGHT" && direction !== "LEFT") nextDirection = "RIGHT";
+        }
 
-        function directionControl(event) {
-            if (event.keyCode === 37 && direction !== "RIGHT") direction = "LEFT";
-            else if (event.keyCode === 38 && direction !== "DOWN") direction = "UP";
-            else if (event.keyCode === 39 && direction !== "LEFT") direction = "RIGHT";
-            else if (event.keyCode === 40 && direction !== "UP") direction = "DOWN";
+        // পিসিতে কিবোর্ড কন্ট্রোল
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowUp") setDir("UP");
+            if (e.key === "ArrowDown") setDir("DOWN");
+            if (e.key === "ArrowLeft") setDir("LEFT");
+            if (e.key === "ArrowRight") setDir("RIGHT");
+        });
+
+        function startSnake() {
+            game = setInterval(drawGame, 120);
         }
 
         function drawGame() {
-            ctx.fillStyle = "#1e293b";
+            direction = nextDirection; // আপডেট ডিরেকশন
+
+            ctx.fillStyle = "#0b1120";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            for (let i = 0; i < snake.length; i++) {
-                ctx.fillStyle = (i === 0) ? "#38bdf8" : "#0ea5e9";
-                ctx.fillRect(snake[i].x, snake[i].y, box, box);
-                ctx.strokeStyle = "#0f172a";
-                ctx.strokeRect(snake[i].x, snake[i].y, box, box);
-            }
-
-            ctx.fillStyle = "#ef4444"; // লাল রঙের খাবার
+            // খাবার আঁকা
+            ctx.fillStyle = "#ef4444";
             ctx.fillRect(food.x, food.y, box, box);
+
+            // সাপ আঁকা
+            for (let i = 0; i < snake.length; i++) {
+                ctx.fillStyle = (i === 0) ? "#00d4ff" : "#0ea5e9";
+                ctx.fillRect(snake[i].x, snake[i].y, box, box);
+            }
 
             let snakeX = snake[0].x;
             let snakeY = snake[0].y;
@@ -92,23 +140,22 @@
             if (direction === "RIGHT") snakeX += box;
             if (direction === "DOWN") snakeY += box;
 
+            // খাবার খাওয়া
             if (snakeX === food.x && snakeY === food.y) {
                 score++;
                 scoreElement.innerText = score;
-                food = {
-                    x: Math.floor(Math.random() * 19 + 1) * box,
-                    y: Math.floor(Math.random() * 19 + 1) * box
-                };
+                food = { x: Math.floor(Math.random() * 19 + 1) * box, y: Math.floor(Math.random() * 19 + 1) * box };
             } else {
                 snake.pop();
             }
 
             let newHead = { x: snakeX, y: snakeY };
 
+            // গেম ওভার চেক
             if (snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)) {
                 clearInterval(game);
-                alert("Game Over! Your score: " + score);
-                location.reload();
+                setTimeout(() => { alert("Game Over! Score: " + score); location.reload(); }, 100);
+                return;
             }
 
             snake.unshift(newHead);
@@ -120,8 +167,66 @@
             }
             return false;
         }
+        startSnake(); // সাপের গেম শুরু
 
-        let game = setInterval(drawGame, 120);
+
+        // ---- TIC TAC TOE LOGIC ----
+        let tttBoard = ["", "", "", "", "", "", "", "", ""];
+        let currentPlayer = "X";
+        let isGameActive = true;
+
+        const winPatterns = [
+            [0,1,2], [3,4,5], [6,7,8], // Rows
+            [0,3,6], [1,4,7], [2,5,8], // Columns
+            [0,4,8], [2,4,6]           // Diagonals
+        ];
+
+        function playTTT(index) {
+            if (tttBoard[index] !== "" || !isGameActive) return;
+
+            tttBoard[index] = currentPlayer;
+            document.getElementById("tttBoard").children[index].innerText = currentPlayer;
+            document.getElementById("tttBoard").children[index].style.color = currentPlayer === "X" ? "#00d4ff" : "#ef4444";
+
+            checkWinner();
+        }
+
+        function checkWinner() {
+            let roundWon = false;
+            for (let i = 0; i < winPatterns.length; i++) {
+                const [a, b, c] = winPatterns[i];
+                if (tttBoard[a] && tttBoard[a] === tttBoard[b] && tttBoard[a] === tttBoard[c]) {
+                    roundWon = true;
+                    break;
+                }
+            }
+
+            if (roundWon) {
+                document.getElementById("tttStatus").innerText = `Player ${currentPlayer} Wins! 🎉`;
+                isGameActive = false;
+                return;
+            }
+
+            if (!tttBoard.includes("")) {
+                document.getElementById("tttStatus").innerText = "It's a Draw! 🤝";
+                isGameActive = false;
+                return;
+            }
+
+            currentPlayer = currentPlayer === "X" ? "O" : "X";
+            document.getElementById("tttStatus").innerText = `Player ${currentPlayer}'s Turn`;
+        }
+
+        function resetTTT() {
+            tttBoard = ["", "", "", "", "", "", "", "", ""];
+            currentPlayer = "X";
+            isGameActive = true;
+            document.getElementById("tttStatus").innerText = "Player X's Turn";
+            const cells = document.getElementById("tttBoard").children;
+            for (let i = 0; i < cells.length; i++) {
+                cells[i].innerText = "";
+            }
+        }
     </script>
 </body>
 </html>

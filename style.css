@@ -1,20 +1,17 @@
-/* গ্লোবাল স্টাইল */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
-    background-color: #0b1120; /* প্রিমিয়াম ডার্ক ব্লু */
+    background-color: #0b1120;
     color: #e2e8f0;
     line-height: 1.6;
 }
 
-.highlight {
-    color: #00d4ff; /* সায়ান কালার */
-}
+.highlight { color: #00d4ff; }
 
 /* নেভিগেশন বার */
 .navbar {
@@ -25,313 +22,89 @@ body {
     background-color: rgba(11, 17, 32, 0.95);
     position: sticky;
     top: 0;
-    backdrop-filter: blur(10px);
+    z-index: 100;
     border-bottom: 1px solid #1e293b;
+    backdrop-filter: blur(10px);
 }
 
-.logo {
-    font-size: 1.6rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-    color: #fff;
-}
-
+.logo { font-size: 1.6rem; font-weight: 800; color: #fff; }
 .logo span { color: #00d4ff; }
 
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 25px;
-}
+.nav-links { list-style: none; display: flex; gap: 25px; }
+.nav-links a { color: #94a3b8; text-decoration: none; font-weight: 600; transition: 0.3s; }
+.nav-links a:hover, .nav-links a.active { color: #00d4ff; }
 
-.nav-links a {
-    color: #94a3b8;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.05rem;
-    transition: 0.3s;
-}
-
-.nav-links a:hover, .nav-links a.active {
-    color: #00d4ff;
-}
-
-/* হিরো সেকশন (ছবি ও লেখা পাশাপাশি) */
+/* হোম পেজ (Hero Section) */
 .hero {
     display: flex;
     align-items: center;
-    justify-content: center;
-    min-height: 80vh;
-    padding: 40px 8%;
+    justify-content: space-between;
+    min-height: 85vh;
+    padding: 40px 10%;
     gap: 50px;
-    background: radial-gradient(circle at top right, #1e293b 0%, #0b1120 70%);
 }
 
-.hero-content {
-    max-width: 600px;
-}
-
-.profile-img {
-    width: 280px;
-    height: 280px;
-    border-radius: 30px; /* গোল না করে সুন্দর শেপ */
+.hero-image img {
+    width: 350px;
+    height: 350px;
     object-fit: cover;
+    border-radius: 50%; /* গোল ছবি */
     border: 4px solid #00d4ff;
-    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
-    transform: rotate(-3deg); /* একটু ঘোরানো লুক */
-    transition: 0.4s ease;
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
 }
 
-.profile-img:hover {
-    transform: rotate(0deg) scale(1.05);
-}
+.hero-content h1 { font-size: 3.5rem; color: #fff; line-height: 1.2; margin-bottom: 10px; }
+.hero-content h2 { font-size: 1.5rem; color: #94a3b8; margin-bottom: 20px; font-weight: 500; }
+.hero-content p { font-size: 1.1rem; color: #cbd5e1; margin-bottom: 30px; max-width: 500px; }
 
-.hero h1 {
-    font-size: 3.5rem;
-    margin-bottom: 15px;
-    color: #fff;
-    line-height: 1.1;
-}
-
-.hero p {
-    font-size: 1.2rem;
-    color: #94a3b8;
-    margin-bottom: 20px;
-}
-
-/* গেমস গ্রিড */
-.games-preview {
-    padding: 80px 8%;
-    text-align: center;
-}
-
-.games-preview h2 {
-    font-size: 2.5rem;
-    margin-bottom: 40px;
-    color: #fff;
-}
-
-.game-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-}
-
-.game-card {
-    background: linear-gradient(145deg, #111827, #1f2937);
-    padding: 40px 20px;
-    border-radius: 20px;
-    border: 1px solid #334155;
-    transition: 0.4s;
-}
-
-.game-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.6);
-    border-color: #00d4ff;
-}
-
-.game-card .icon {
-    font-size: 3.5rem;
-    margin-bottom: 15px;
-}
-
-.game-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    color: #fff;
-}
-
-.game-card p {
-    color: #94a3b8;
-    margin-bottom: 25px;
-    font-size: 0.95rem;
-}
+.hero-btns { display: flex; gap: 15px; }
 
 .btn {
     display: inline-block;
     padding: 12px 30px;
-    background: linear-gradient(to right, #00d4ff, #0084ff);
-    color: #fff;
+    background: #00d4ff;
+    color: #0b1120;
     text-decoration: none;
     border-radius: 50px;
     font-weight: 700;
     transition: 0.3s;
-    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+    border: 2px solid #00d4ff;
 }
 
-.btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 212, 255, 0.6);
+.btn:hover { background: transparent; color: #00d4ff; }
+
+.btn-outline {
+    background: transparent;
+    color: #00d4ff;
 }
+.btn-outline:hover { background: #00d4ff; color: #0b1120; }
+
+/* About Page Styles */
+.about-section { padding: 60px 8%; min-height: 85vh; display: flex; justify-content: center; align-items: center; }
+.about-container { display: flex; align-items: center; justify-content: space-between; gap: 50px; max-width: 1100px; width: 100%; background: #111827; padding: 40px; border-radius: 20px; border: 1px solid #1e293b; }
+.about-image img { width: 320px; height: 380px; object-fit: cover; border-radius: 15px; border: 3px solid #00d4ff; }
+.about-content { flex: 1; }
+.about-content h2 { font-size: 2.5rem; color: #fff; margin-bottom: 5px; }
+.about-content h3 { font-size: 1.3rem; color: #94a3b8; margin-bottom: 15px; }
+.info-grid { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; margin-top: 20px; }
+.info-item { display: flex; align-items: center; gap: 15px; background: #1e293b; padding: 12px 20px; border-radius: 10px; border-left: 4px solid #00d4ff; }
+.info-item a { color: #94a3b8; text-decoration: none; }
+.info-item a:hover { color: #00d4ff; }
+.skills h4 { color: #fff; margin-bottom: 10px; margin-top: 20px;}
+.skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+.skill-tags span { background: #0f172a; color: #00d4ff; padding: 6px 15px; border-radius: 5px; font-size: 0.85rem; border: 1px solid #334155; }
 
 /* ফুটার */
-footer {
-    text-align: center;
-    padding: 30px;
-    background-color: #0b1120;
-    border-top: 1px solid #1e293b;
-    color: #64748b;
-}
-
-/* মোবাইলের জন্য রেস্পন্সিভ ডিজাইন */
-@media (max-width: 768px) {
-    .hero {
-        flex-direction: column-reverse;
-        text-align: center;
-        gap: 30px;
-    }
-    .hero h1 { font-size: 2.5rem; }
-    .profile-img { width: 220px; height: 220px; }
-    .navbar { padding: 15px 5%; flex-direction: column; gap: 15px; }
-    .nav-links { gap: 15px; }
-}
-/* =========================================
-   Advanced About Page Styles
-   ========================================= */
-
-.about-section {
-    padding: 60px 8%;
-    min-height: 85vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.about-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 50px;
-    max-width: 1100px;
-    width: 100%;
-    background: #111827; /* হালকা ডার্ক বক্স */
-    padding: 40px;
-    border-radius: 20px;
-    border: 1px solid #1e293b;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-}
-
-.about-image img {
-    width: 320px;
-    height: 400px;
-    object-fit: cover;
-    border-radius: 15px;
-    border: 3px solid #00d4ff;
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-}
-
-.about-content {
-    flex: 1;
-}
-
-.about-content h2 {
-    font-size: 2.5rem;
-    color: #fff;
-    margin-bottom: 5px;
-}
-
-.about-content h3 {
-    font-size: 1.3rem;
-    color: #94a3b8;
-    margin-bottom: 15px;
-    font-weight: 500;
-}
-
-.typing-text {
-    color: #00d4ff;
-    font-weight: 700;
-}
-
-.about-content p {
-    color: #cbd5e1;
-    font-size: 1rem;
-    margin-bottom: 25px;
-    line-height: 1.6;
-}
-
-/* নতুন যোগাযোগ (Contact) গ্রিড */
-.info-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 25px;
-}
-
-.info-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    background: #1e293b;
-    padding: 12px 20px;
-    border-radius: 10px;
-    border-left: 4px solid #00d4ff;
-}
-
-.info-item .icon {
-    font-size: 1.5rem;
-}
-
-.info-item strong {
-    color: #fff;
-    font-size: 0.9rem;
-}
-
-.info-item a, .info-item div {
-    color: #94a3b8;
-    text-decoration: none;
-    font-size: 0.95rem;
-    transition: 0.3s;
-}
-
-.info-item a:hover {
-    color: #00d4ff;
-}
-
-/* স্কিল ট্যাগ */
-.skills {
-    margin-bottom: 30px;
-}
-
-.skills h4 {
-    color: #fff;
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-}
-
-.skill-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.skill-tags span {
-    background-color: #0f172a;
-    color: #00d4ff;
-    padding: 6px 15px;
-    border-radius: 5px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    border: 1px solid #334155;
-    transition: 0.3s;
-}
-
-.skill-tags span:hover {
-    background-color: #00d4ff;
-    color: #0b1120;
-    transform: scale(1.05);
-}
+footer { text-align: center; padding: 30px; background: #0b1120; border-top: 1px solid #1e293b; color: #64748b; margin-top: 50px; }
 
 /* মোবাইল রেস্পন্সিভ */
 @media (max-width: 900px) {
-    .about-container {
-        flex-direction: column;
-        padding: 30px 20px;
-    }
-    .about-image img {
-        width: 100%;
-        max-width: 300px;
-        height: auto;
-    }
-    .about-content h2 { font-size: 2rem; }
+    .hero { flex-direction: column-reverse; text-align: center; padding: 60px 5%; gap: 30px; }
+    .hero-content p { margin: 0 auto 30px auto; }
+    .hero-btns { justify-content: center; }
+    .hero-image img { width: 250px; height: 250px; }
+    .hero-content h1 { font-size: 2.5rem; }
+    .about-container { flex-direction: column; padding: 30px 20px; }
+    .about-image img { width: 100%; max-width: 300px; height: auto; }
+    .navbar { padding: 15px 5%; flex-direction: column; gap: 15px; }
 }
