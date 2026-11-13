@@ -3,9 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rock Paper Scissors | Foysal Raja</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Legendary RPS | Foysal Raja</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* RPS পেজের জন্য এক্সক্লুসিভ লেজেন্ডারি স্টাইল */
+        .rps-wrapper {
+            padding: 20px 5%;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .arena {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            background: rgba(30, 41, 59, 0.5);
+            padding: 20px;
+            border-radius: 20px;
+            border: 2px solid #334155;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .player-side, .cpu-side {
+            flex: 1;
+        }
+
+        .vs-text {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #ef4444;
+            text-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
+            padding: 0 15px;
+        }
+
+        .choice-box {
+            font-size: 4rem;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0b1120;
+            border-radius: 15px;
+            border: 2px dashed #00d4ff;
+            margin-bottom: 10px;
+            transition: 0.3s;
+        }
+
+        .choice-box.cpu {
+            border-color: #ef4444;
+        }
+
+        .label {
+            font-size: 1rem;
+            color: #94a3b8;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .result-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            min-height: 40px;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .win-text { color: #10b981; text-shadow: 0 0 15px rgba(16, 185, 129, 0.5); }
+        .lose-text { color: #ef4444; text-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
+        .tie-text { color: #f59e0b; text-shadow: 0 0 15px rgba(245, 158, 11, 0.5); }
+
+        .score-board {
+            display: flex;
+            justify-content: space-around;
+            background: #111827;
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid #334155;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .score-player { color: #00d4ff; }
+        .score-cpu { color: #ef4444; }
+
+        /* গ্লোয়িং বাটন */
+        .rps-btn {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border: 2px solid #334155;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 5px 5px 10px #000, -5px -5px 10px #1e293b;
+        }
+
+        .rps-btn:hover, .rps-btn:active {
+            transform: scale(1.1);
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+    </style>
 </head>
 <body>
 
@@ -23,23 +136,44 @@
         </ul>
     </nav>
 
-    <div style="padding: 20px 5%; max-width: 600px; margin: 0 auto; text-align: center;">
+    <div class="rps-wrapper">
         <a href="game.html" style="color: #00d4ff; text-decoration: none; display: block; margin-bottom: 20px; text-align: left;">← Back to Games</a>
         
-        <h2 style="color: #fff; margin-bottom: 10px;">Rock Paper Scissors ✊✋✌️</h2>
-        <p style="color: #94a3b8; margin-bottom: 20px;">First to win 3 rounds wins the match!</p>
-        
-        <div style="font-size: 3rem; margin-bottom: 20px; display: flex; justify-content: center; gap: 20px;">
-            <button onclick="playRPS('rock')" style="background:none; border:none; font-size:3rem; cursor:pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">✊</button>
-            <button onclick="playRPS('paper')" style="background:none; border:none; font-size:3rem; cursor:pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">✋</button>
-            <button onclick="playRPS('scissors')" style="background:none; border:none; font-size:3rem; cursor:pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">✌️</button>
+        <h2 style="color: #fff; font-size: 2.2rem; text-shadow: 0 0 10px rgba(255,255,255,0.3);">Legendary RPS</h2>
+        <p style="color: #94a3b8;">First to 3 points wins the ultimate battle!</p>
+
+        <!-- স্কোর বোর্ড -->
+        <div class="score-board">
+            <div class="score-player">YOU: <span id="playerScore">0</span></div>
+            <div style="color: #64748b;">|</div>
+            <div class="score-cpu">CPU: <span id="cpuScore">0</span></div>
         </div>
 
-        <div id="result" style="color: #fff; font-size: 1.2rem; margin-bottom: 10px; min-height: 30px;">Choose your move!</div>
-        <div id="scoreBoard" style="color: #00d4ff; font-weight: bold; font-size: 1.3rem; background: #111827; padding: 10px; border-radius: 10px; border: 1px solid #1e293b;">You: 0 | Computer: 0</div>
+        <!-- এরিনা (কে কি দিল) -->
+        <div class="arena">
+            <div class="player-side">
+                <div class="choice-box" id="playerChoiceBox">❓</div>
+                <div class="label">Your Move</div>
+            </div>
+            <div class="vs-text">VS</div>
+            <div class="cpu-side">
+                <div class="choice-box cpu" id="cpuChoiceBox">❓</div>
+                <div class="label">CPU Move</div>
+            </div>
+        </div>
+
+        <!-- রেজাল্ট টেক্সট -->
+        <div class="result-text" id="resultText" style="color: #fff;">Choose your weapon!</div>
+
+        <!-- কন্ট্রোল বাটন -->
+        <div class="controls">
+            <button class="rps-btn" onclick="playRPS('rock')">✊</button>
+            <button class="rps-btn" onclick="playRPS('paper')">✋</button>
+            <button class="rps-btn" onclick="playRPS('scissors')">✌️</button>
+        </div>
     </div>
 
-    <!-- Victory Modal -->
+    <!-- Victory Modal (অভিনন্দন বার্তা) -->
     <div class="victory-modal" id="victoryModal">
         <div class="victory-content">
             <h2 id="victoryTitle">Congratulations! 🎉</h2>
@@ -53,6 +187,7 @@
 
     <script>
         let pScore = 0, cScore = 0;
+        let isGameActive = true;
 
         function playSound(type) {
             if(type === 'click') document.getElementById('clickSound').play().catch(e=>{});
@@ -60,35 +195,64 @@
         }
 
         function playRPS(playerChoice) {
+            if (!isGameActive) return; // গেম শেষ হলে বন্ধ
             playSound('click');
-            const choices = ['rock', 'paper', 'scissors'];
-            const cChoice = choices[Math.floor(Math.random() * 3)];
-            let result = "";
 
-            if (playerChoice === cChoice) {
-                result = "It's a tie! 🤝";
-            } else if (
-                (playerChoice === 'rock' && cChoice === 'scissors') ||
-                (playerChoice === 'paper' && cChoice === 'rock') ||
-                (playerChoice === 'scissors' && cChoice === 'paper')
-            ) {
-                result = "You win this round! 🎉"; 
-                pScore++;
-            } else {
-                result = "Computer wins this round! 🤖"; 
-                cScore++;
-            }
+            // বাটনে ক্লিক করার পরপরই কম্পিউটারের চয়েস দেখানোর জন্য অ্যানিমেশন
+            document.getElementById("playerChoiceBox").innerText = "🤔";
+            document.getElementById("cpuChoiceBox").innerText = "🤔";
+            document.getElementById("resultText").innerText = "Thinking...";
 
-            document.getElementById("result").innerText = `You chose ${playerChoice}, PC chose ${cChoice}. ${result}`;
-            document.getElementById("scoreBoard").innerText = `You: ${pScore} | Computer: ${cScore}`;
+            setTimeout(() => {
+                const choices = ['rock', 'paper', 'scissors'];
+                const emojis = { 'rock': '✊', 'paper': '✋', 'scissors': '✌️' };
+                const cChoice = choices[Math.floor(Math.random() * 3)];
+                
+                // UI আপডেট (কে কি দিল)
+                document.getElementById("playerChoiceBox").innerText = emojis[playerChoice];
+                document.getElementById("cpuChoiceBox").innerText = emojis[cChoice];
 
-            // ম্যাচ জেতার চেক (3 পয়েন্ট)
-            if (pScore === 3) {
-                playSound('win');
-                showVictory("🏆 You Won the Match!", "You beat the computer 3 times!");
-            } else if (cScore === 3) {
-                showVictory("🤖 Computer Won!", "Try again next time!");
-            }
+                let resultText = "";
+                const resultDiv = document.getElementById("resultText");
+                resultDiv.className = "result-text"; // রিসেট ক্লাস
+
+                // লজিক
+                if (playerChoice === cChoice) {
+                    resultText = "It's a Tie! 🤝";
+                    resultDiv.classList.add("tie-text");
+                } else if (
+                    (playerChoice === 'rock' && cChoice === 'scissors') ||
+                    (playerChoice === 'paper' && cChoice === 'rock') ||
+                    (playerChoice === 'scissors' && cChoice === 'paper')
+                ) {
+                    resultText = "You Win this round! 🎉"; 
+                    pScore++;
+                    resultDiv.classList.add("win-text");
+                } else {
+                    resultText = "Computer Wins! 🤖"; 
+                    cScore++;
+                    resultDiv.classList.add("lose-text");
+                }
+
+                // স্কোর আপডেট
+                document.getElementById("playerScore").innerText = pScore;
+                document.getElementById("cpuScore").innerText = cScore;
+                resultDiv.innerText = resultText;
+
+                // ৩ পয়েন্ট হলে ম্যাচ শেষ
+                if (pScore === 3) {
+                    isGameActive = false;
+                    playSound('win');
+                    setTimeout(() => {
+                        showVictory("🏆 You Won the Match!", "You are a Legend!");
+                    }, 800);
+                } else if (cScore === 3) {
+                    isGameActive = false;
+                    setTimeout(() => {
+                        showVictory("🤖 Computer Won!", "Better luck next time!");
+                    }, 800);
+                }
+            }, 600); // ০.৬ সেকেন্ড পর রেজাল্ট দেখাবে
         }
 
         function showVictory(title, text) {
@@ -100,10 +264,17 @@
         function playAgainAction() {
             playSound('click');
             document.getElementById("victoryModal").classList.remove("active");
-            // স্কোর রিসেট
-            pScore = 0; cScore = 0;
-            document.getElementById("scoreBoard").innerText = `You: 0 | Computer: 0`;
-            document.getElementById("result").innerText = "Choose your move!";
+            
+            // সবকিছু রিসেট
+            pScore = 0; cScore = 0; isGameActive = true;
+            document.getElementById("playerScore").innerText = pScore;
+            document.getElementById("cpuScore").innerText = cScore;
+            document.getElementById("playerChoiceBox").innerText = "❓";
+            document.getElementById("cpuChoiceBox").innerText = "❓";
+            const resultDiv = document.getElementById("resultText");
+            resultDiv.innerText = "Choose your weapon!";
+            resultDiv.className = "result-text";
+            resultDiv.style.color = "#fff";
         }
     </script>
 </body>

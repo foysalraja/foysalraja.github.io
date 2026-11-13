@@ -6,6 +6,15 @@
     <title>Snake Game | Foysal Raja</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* শুধু এই পেজের জন্য কিছু বাড়তি স্টাইল */
+        .ctrl-btn {
+            width: 70px; height: 70px; font-size: 2rem; background: #1e293b; color: #00d4ff; 
+            border: 2px solid #00d4ff; border-radius: 15px; cursor: pointer; user-select: none;
+            transition: 0.1s;
+        }
+        .ctrl-btn:active { background: #00d4ff; color: #0b1120; transform: scale(0.95); }
+    </style>
 </head>
 <body>
 
@@ -136,11 +145,12 @@
             document.getElementById("victoryText").innerText = text;
             document.getElementById("victoryModal").classList.add("active");
         }
+
         function playAgainAction() {
             playSound('click');
             document.getElementById("victoryModal").classList.remove("active");
             document.getElementById("startBtn").style.display = "inline-block";
-            document.getElementById("startBtn").innerText = "Start Game";
+            document.getElementById("startBtn").innerText = "Play Again";
         }
     </script>
 </body>

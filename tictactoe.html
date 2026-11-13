@@ -43,13 +43,31 @@
         <button class="btn" onclick="resetGame()" style="margin-top: 15px;">Restart Game</button>
     </div>
 
+    <!-- Victory Modal -->
+    <div class="victory-modal" id="victoryModal">
+        <div class="victory-content">
+            <h2 id="victoryTitle">Congratulations! 🎉</h2>
+            <p id="victoryText">You Win!</p>
+            <button class="btn" onclick="playAgainAction()">Play Again</button>
+        </div>
+    </div>
+
+    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"></audio>
+    <audio id="winSound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3"></audio>
+
     <script>
         let board = ["", "", "", "", "", "", "", "", ""];
         let currentPlayer = "X", isGameActive = true;
         const winPatterns = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
 
+        function playSound(type) {
+            if(type === 'click') document.getElementById('clickSound').play().catch(e=>{});
+            if(type === 'win') document.getElementById('winSound').play().catch(e=>{});
+        }
+
         function play(index) {
             if (board[index] !== "" || !isGameActive || currentPlayer !== "X") return;
+            playSound('click');
             makeMove(index, "X");
             if (isGameActive) {
                 document.getElementById("status").innerText = "Computer's Turn...";
@@ -101,16 +119,32 @@
             for (let i = 0; i < winPatterns.length; i++) { const [a, b, c] = winPatterns[i]; if (board[a] && board[a] === board[b] && board[a] === board[c]) { roundWon = true; break; } }
             if (roundWon) {
                 document.getElementById("status").innerText = currentPlayer === 'X' ? "You Win! 🎉" : "Computer Wins! 🤖";
-                isGameActive = false; return;
+                isGameActive = false; 
+                if(currentPlayer === 'X') playSound('win');
+                showVictory(currentPlayer === 'X' ? "Congratulations! 🎉" : "You Lost! 🤖", currentPlayer === 'X' ? "You beat the AI!" : "AI Wins!");
+                return;
             }
             if (!board.includes("")) { document.getElementById("status").innerText = "It's a Draw! 🤝"; isGameActive = false; }
         }
 
         function resetGame() {
+            playSound('click');
             board = ["", "", "", "", "", "", "", "", ""]; currentPlayer = "X"; isGameActive = true;
             document.getElementById("status").innerText = "Your Turn (X)";
             const cells = document.getElementById("board").children;
             for (let i = 0; i < cells.length; i++) { cells[i].innerText = ""; }
+        }
+
+        function showVictory(title, text) {
+            document.getElementById("victoryTitle").innerText = title;
+            document.getElementById("victoryText").innerText = text;
+            document.getElementById("victoryModal").classList.add("active");
+        }
+
+        function playAgainAction() {
+            playSound('click');
+            document.getElementById("victoryModal").classList.remove("active");
+            resetGame();
         }
     </script>
 </body>
