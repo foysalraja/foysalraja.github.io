@@ -50,7 +50,10 @@ body {
     background-color: #0b1120;
 }
 
-.logo span { color: #00d4ff; margin-left: 0; }
+.logo span { 
+    color: #00d4ff; 
+    margin-left: 5px; /* "Foysal" এবং "Raja" এর মাঝে সুন্দর একটি স্পেস তৈরি হবে */
+}
 
 .nav-links { list-style: none; display: flex; gap: 15px; flex-wrap: wrap; }
 .nav-links a { color: #94a3b8; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
