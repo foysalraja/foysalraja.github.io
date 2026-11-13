@@ -6,29 +6,6 @@
     <title>Games | Foysal Raja</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>
-        .games-container { padding: 40px 5%; text-align: center; max-width: 600px; margin: 0 auto; }
-        .game-section { margin-bottom: 50px; background: #111827; padding: 20px; border-radius: 20px; border: 1px solid #1e293b; }
-        .game-title { color: #00d4ff; margin-bottom: 15px; font-size: 1.8rem; }
-        
-        /* Snake Game CSS */
-        .canvas-wrapper { width: 100%; display: flex; justify-content: center; overflow: hidden; }
-        canvas { background-color: #0b1120; border: 3px solid #00d4ff; border-radius: 10px; touch-action: none; max-width: 100%; }
-        .score-board { font-size: 1.2rem; margin-bottom: 10px; color: #fff; }
-        
-        .mobile-controls { margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-        .d-pad-row { display: flex; gap: 10px; }
-        .mobile-controls button { width: 70px; height: 70px; font-size: 2rem; background: #1e293b; color: #00d4ff; border: 2px solid #00d4ff; border-radius: 15px; cursor: pointer; user-select: none; }
-        .mobile-controls button:active { background: #00d4ff; color: #0b1120; }
-        .empty { visibility: hidden; }
-
-        /* Tic Tac Toe CSS */
-        .ttt-board { display: grid; grid-template-columns: repeat(3, 80px); gap: 10px; justify-content: center; margin-bottom: 20px; }
-        .ttt-cell { width: 80px; height: 80px; background: #0b1120; border: 2px solid #334155; font-size: 2.5rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px; }
-        .ttt-cell:hover { border-color: #00d4ff; }
-        .ttt-status { color: #fff; font-size: 1.2rem; margin-bottom: 15px; font-weight: bold; }
-        .reset-btn { padding: 10px 20px; background: #00d4ff; color: #0b1120; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 1rem; }
-    </style>
 </head>
 <body>
 
@@ -37,23 +14,24 @@
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
             <li><a href="game.html" class="active">Games</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
     </nav>
 
-    <div class="games-container">
+    <div class="games-container" style="padding: 40px 5%; text-align: center; max-width: 600px; margin: 0 auto;">
         
         <!-- Snake Game -->
-        <div class="game-section">
-            <h2 class="game-title">Snake Game 🐍</h2>
-            <div class="score-board">Score: <span id="snakeScore">0</span></div>
+        <div class="game-section" style="margin-bottom: 50px; background: #111827; padding: 20px; border-radius: 20px; border: 1px solid #1e293b;">
+            <h2 class="game-title" style="color: #00d4ff; margin-bottom: 15px; font-size: 1.8rem;">Snake Game 🐍</h2>
+            <div class="score-board" style="font-size: 1.2rem; margin-bottom: 10px; color: #fff;">Score: <span id="snakeScore">0</span></div>
+            
             <div class="canvas-wrapper">
-                <!-- মোবাইলে ফিট হওয়ার জন্য width ও height ছোট করা হয়েছে -->
                 <canvas id="gameCanvas" width="280" height="280"></canvas>
             </div>
             
-            <!-- মোবাইলের জন্য বড় কন্ট্রোল বাটন -->
+            <!-- মোবাইল কন্ট্রোল -->
             <div class="mobile-controls">
                 <button onclick="setDir('UP')">⬆️</button>
                 <div class="d-pad-row">
@@ -62,26 +40,27 @@
                     <button onclick="setDir('RIGHT')">➡️</button>
                 </div>
             </div>
+            <p style="color: #94a3b8; font-size: 0.8rem; margin-top: 10px;">(পিসিতে তীর চিহ্ন দিয়ে খেলুন)</p>
             <br>
             <button class="btn" onclick="startSnakeGame()" id="startBtn">Start Game</button>
         </div>
 
         <!-- Tic Tac Toe Game -->
-        <div class="game-section">
-            <h2 class="game-title">Tic-Tac-Toe ❌⭕</h2>
-            <div class="ttt-status" id="tttStatus">Player X's Turn</div>
-            <div class="ttt-board" id="tttBoard">
-                <div class="ttt-cell" onclick="playTTT(0)"></div>
-                <div class="ttt-cell" onclick="playTTT(1)"></div>
-                <div class="ttt-cell" onclick="playTTT(2)"></div>
-                <div class="ttt-cell" onclick="playTTT(3)"></div>
-                <div class="ttt-cell" onclick="playTTT(4)"></div>
-                <div class="ttt-cell" onclick="playTTT(5)"></div>
-                <div class="ttt-cell" onclick="playTTT(6)"></div>
-                <div class="ttt-cell" onclick="playTTT(7)"></div>
-                <div class="ttt-cell" onclick="playTTT(8)"></div>
+        <div class="game-section" style="margin-bottom: 50px; background: #111827; padding: 20px; border-radius: 20px; border: 1px solid #1e293b;">
+            <h2 class="game-title" style="color: #00d4ff; margin-bottom: 15px; font-size: 1.8rem;">Tic-Tac-Toe ❌⭕</h2>
+            <div class="ttt-status" id="tttStatus" style="color: #fff; font-size: 1.2rem; margin-bottom: 15px; font-weight: bold;">Player X's Turn</div>
+            <div class="ttt-board" id="tttBoard" style="display: grid; grid-template-columns: repeat(3, 80px); gap: 10px; justify-content: center; margin-bottom: 20px;">
+                <div class="ttt-cell" onclick="playTTT(0)" style="width: 80px; height: 80px; background: #0b1120; border: 2px solid #334155; font-size: 2.5rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px;"></div>
+                <div class="ttt-cell" onclick="playTTT(1)" style="width: 80px; height: 80px; background: #0b1120; border: 2px solid #334155; font-size: 2.5rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px;"></div>
+                <div class="ttt-cell" onclick="playTTT(2)" style="width: 80px; height: 80px; background: #0b1120; border: 2px solid #334155; font-size: 2.5rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px;"></div>
+                <div class="ttt-cell" onclick="playTTT(3)" style="width: 80px; height: 80px; background: #0b1120; border: 2px solid #334155; font-size: 2.5rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px;"></div>
+                <div class="ttt-cell" onclick="playTTT(4)" style="width: 80px; height: 80px; background: #0b1120; border: 2px solid #334155; font-size: 2.5rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px;"></div>
+                <div class="ttt-cell" onclick="playTTT(5)" style="width: 80px; height: 80px; background: #0b1120; border: 2px solid #334155; font-size: 2.5rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px;"></div>
+                <div class="ttt-cell" onclick="playTTT(6)" style="width: 80px; height: 80px; background: #0b1120; border: 2px solid #334155; font-size: 2.5rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px;"></div>
+                <div class="ttt-cell" onclick="playTTT(7)" style="width: 80px; height: 80px; background: #0b1120; border: 2px solid #334155; font-size: 2.5rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px;"></div>
+                <div class="ttt-cell" onclick="playTTT(8)" style="width: 80px; height: 80px; background: #0b1120; border: 2px solid #334155; font-size: 2.5rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px;"></div>
             </div>
-            <button class="reset-btn" onclick="resetTTT()">Restart Game</button>
+            <button class="reset-btn" onclick="resetTTT()" style="padding: 10px 20px; background: #00d4ff; color: #0b1120; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 1rem;">Restart Game</button>
         </div>
 
     </div>
@@ -90,13 +69,22 @@
         <p>&copy; 2026 Foysal Raja. All rights reserved.</p>
     </footer>
 
+    <!-- Victory Modal (অভিনন্দন বার্তা) -->
+    <div class="victory-modal" id="victoryModal">
+        <div class="victory-content">
+            <h2 id="victoryTitle">Congratulations! 🎉</h2>
+            <p id="victoryText">You Win!</p>
+            <button class="btn" onclick="closeModal()">Great!</button>
+        </div>
+    </div>
+
     <script>
-        // ---- SNAKE GAME LOGIC (আপডেট করা হয়েছে) ----
+        // ---- SNAKE GAME LOGIC ----
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
         const scoreElement = document.getElementById("snakeScore");
         
-        let box = 14; // ছোট বক্স সাইজ
+        let box = 14;
         let snake = [];
         let direction = "RIGHT";
         let nextDirection = "RIGHT";
@@ -106,11 +94,10 @@
         let isPlaying = false;
 
         function startSnakeGame() {
-            if (isPlaying) return; // যদি আগে থেকেই চলতে থাকে
+            if (isPlaying) return;
             isPlaying = true;
-            document.getElementById("startBtn").style.display = "none"; // বাটন লুকানো
+            document.getElementById("startBtn").style.display = "none";
             
-            // গেম রিসেট
             snake = [{ x: 5 * box, y: 5 * box }];
             direction = "RIGHT";
             nextDirection = "RIGHT";
@@ -130,23 +117,16 @@
         }
 
         function generateFood() {
-            food = {
-                x: Math.floor(Math.random() * 18 + 1) * box,
-                y: Math.floor(Math.random() * 18 + 1) * box
-            };
+            food = { x: Math.floor(Math.random() * 18 + 1) * box, y: Math.floor(Math.random() * 18 + 1) * box };
         }
 
         function drawGame() {
-            direction = nextDirection; // ডিরেকশন আপডেট
-
+            direction = nextDirection;
             ctx.fillStyle = "#0b1120";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // খাবার
             ctx.fillStyle = "#ef4444";
             ctx.fillRect(food.x, food.y, box, box);
 
-            // সাপ
             for (let i = 0; i < snake.length; i++) {
                 ctx.fillStyle = (i === 0) ? "#00d4ff" : "#0ea5e9";
                 ctx.fillRect(snake[i].x, snake[i].y, box, box);
@@ -160,27 +140,22 @@
             if (direction === "RIGHT") snakeX += box;
             if (direction === "DOWN") snakeY += box;
 
-            // খাবার খাওয়া
             if (snakeX === food.x && snakeY === food.y) {
                 score++;
                 scoreElement.innerText = score;
                 generateFood();
-            } else {
-                snake.pop();
-            }
+            } else { snake.pop(); }
 
             let newHead = { x: snakeX, y: snakeY };
 
-            // গেম ওভার
             if (snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)) {
                 clearInterval(gameInterval);
                 isPlaying = false;
-                document.getElementById("startBtn").style.display = "inline-block"; // আবার বাটন দেখানো
+                document.getElementById("startBtn").style.display = "inline-block";
                 document.getElementById("startBtn").innerText = "Play Again";
-                setTimeout(() => { alert("Game Over! Score: " + score); }, 100);
+                showVictory("Game Over!", "Your Score: " + score); // মডাল দেখানো
                 return;
             }
-
             snake.unshift(newHead);
         }
 
@@ -191,7 +166,6 @@
             return false;
         }
 
-        // পিসিতে কিবোর্ড কন্ট্রোল
         document.addEventListener("keydown", (e) => {
             if (e.key === "ArrowUp") setDir("UP");
             if (e.key === "ArrowDown") setDir("DOWN");
@@ -204,20 +178,14 @@
         let tttBoard = ["", "", "", "", "", "", "", "", ""];
         let currentPlayer = "X";
         let isGameActive = true;
-
-        const winPatterns = [
-            [0,1,2], [3,4,5], [6,7,8],
-            [0,3,6], [1,4,7], [2,5,8],
-            [0,4,8], [2,4,6]
-        ];
+        const winPatterns = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
 
         function playTTT(index) {
             if (tttBoard[index] !== "" || !isGameActive) return;
-
             tttBoard[index] = currentPlayer;
-            document.getElementById("tttBoard").children[index].innerText = currentPlayer;
-            document.getElementById("tttBoard").children[index].style.color = currentPlayer === "X" ? "#00d4ff" : "#ef4444";
-
+            const cell = document.getElementById("tttBoard").children[index];
+            cell.innerText = currentPlayer;
+            cell.style.color = currentPlayer === "X" ? "#00d4ff" : "#ef4444";
             checkWinner();
         }
 
@@ -226,14 +194,14 @@
             for (let i = 0; i < winPatterns.length; i++) {
                 const [a, b, c] = winPatterns[i];
                 if (tttBoard[a] && tttBoard[a] === tttBoard[b] && tttBoard[a] === tttBoard[c]) {
-                    roundWon = true;
-                    break;
+                    roundWon = true; break;
                 }
             }
 
             if (roundWon) {
                 document.getElementById("tttStatus").innerText = `Player ${currentPlayer} Wins! 🎉`;
                 isGameActive = false;
+                showVictory("Congratulations! 🎉", `Player ${currentPlayer} Wins!`); // মডাল দেখানো
                 return;
             }
 
@@ -253,9 +221,17 @@
             isGameActive = true;
             document.getElementById("tttStatus").innerText = "Player X's Turn";
             const cells = document.getElementById("tttBoard").children;
-            for (let i = 0; i < cells.length; i++) {
-                cells[i].innerText = "";
-            }
+            for (let i = 0; i < cells.length; i++) { cells[i].innerText = ""; }
+        }
+
+        // মডাল (Victory Popup) লজিক
+        function showVictory(title, text) {
+            document.getElementById("victoryTitle").innerText = title;
+            document.getElementById("victoryText").innerText = text;
+            document.getElementById("victoryModal").classList.add("active");
+        }
+        function closeModal() {
+            document.getElementById("victoryModal").classList.remove("active");
         }
     </script>
 </body>

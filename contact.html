@@ -14,33 +14,35 @@
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
             <li><a href="game.html">Games</a></li>
             <li><a href="contact.html" class="active">Contact</a></li>
-        </ul>
+    </ul>
     </nav>
 
     <section class="contact-section">
         <div class="contact-container">
-            <h2>Contact <span class="highlight">Me</span></h2>
-            <p>Feel free to reach out to me through any of these platforms.</p>
-            
-            <div class="contact-card">
-                <div class="contact-icon">📧</div>
-                <h3>Email</h3>
-                <a href="mailto:foysalraja07@gmail.com">foysalraja07@gmail.com</a>
-            </div>
+            <h2>Get in <span class="highlight">Touch</span></h2>
+            <p>If you have any questions or want to work with me, send a message!</p>
 
-            <div class="contact-card">
-                <div class="contact-icon">📞</div>
-                <h3>Phone</h3>
-                <a href="tel:+8801718041025">+880 1718 041025</a>
-            </div>
-
-            <div class="contact-card">
-                <div class="contact-icon">📍</div>
-                <h3>Location</h3>
-                <p>শিশিরপাড়া, মেহেরপুর সদর, মেহেরপুর, খুলনা, বাংলাদেশ</p>
-            </div>
+            <!-- মেসেজ ফর্ম -->
+            <form action="https://formsubmit.co/foysalraja07@gmail.com" method="POST">
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" name="name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label>Your Email</label>
+                    <input type="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea name="message" placeholder="Write your message here..." required></textarea>
+                </div>
+                <!-- ফর্ম সাবমিট হলে যেন সাকসেস মেসেজ দেখায় -->
+                <input type="hidden" name="_next" value="https://foysalraja.github.io/contact.html">
+                <button type="submit" class="btn" style="width: 100%;">Send Message</button>
+            </form>
         </div>
     </section>
 
