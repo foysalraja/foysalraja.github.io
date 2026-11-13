@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foysal Raja - Personal Website</title>
+    <title>Foysal Raja | Personal Portfolio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <!-- নেভিগেশন বার -->
     <nav class="navbar">
-        <div class="logo">Foysal Raja</div>
+        <div class="logo">Foysal<span>.Raja</span></div>
         <ul class="nav-links">
             <li><a href="index.html" class="active">Home</a></li>
             <li><a href="about.html">About</a></li>
@@ -18,31 +20,43 @@
         </ul>
     </nav>
 
-    <!-- হিরো সেকশন (আপনার ছবি ও পরিচিতি) -->
+    <!-- হিরো সেকশন -->
     <section class="hero">
         <div class="hero-content">
+            <!-- এখানে আপনার ছবির নাম দিতে হবে -->
             <img src="your-photo.jpg" alt="Foysal Raja" class="profile-img">
-            <h1>Hi, I'm Foysal Raja</h1>
-            <p>Welcome to my personal space. I build websites and love playing games.</p>
+            <h1>Hi, I'm <span class="highlight">Foysal Raja</span></h1>
+            <p>Web Developer & Gamer. Welcome to my digital space.</p>
         </div>
     </section>
 
     <!-- গেমস প্রিভিউ সেকশন -->
     <section class="games-preview">
-        <h2>My Favorite Games</h2>
+        <h2>My Favorite <span class="highlight">Games</span></h2>
         <div class="game-grid">
+            <!-- Snake Game Card -->
             <div class="game-card">
-                <h3>Snake</h3>
-                <p>Classic snake game.</p>
+                <div class="icon">🐍</div>
+                <h3>Snake Game</h3>
+                <p>Play the classic snake game right in your browser.</p>
                 <a href="game.html" class="btn">Play Now</a>
             </div>
+            
+            <!-- 2048 Game Card -->
             <div class="game-card">
+                <div class="icon">🔢</div>
                 <h3>2048</h3>
-                <p>Join the numbers!</p>
-                <a href="game.html" class="btn">Play Now</a>
+                <p>Join the numbers and get to the 2048 tile!</p>
+                <!-- এখানে আমরা একটি ফ্রি গেমের লিংক দিচ্ছি -->
+                <a href="https://play2048.co/" target="_blank" class="btn">Play Now</a>
             </div>
         </div>
     </section>
+
+    <!-- ফুটার -->
+    <footer>
+        <p>&copy; 2023 Foysal Raja. All rights reserved.</p>
+    </footer>
 
 </body>
 </html>
