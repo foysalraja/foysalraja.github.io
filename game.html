@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Games | Foysal Raja</title>
+    <title>Games Menu | Foysal Raja</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -23,404 +23,50 @@
         </ul>
     </nav>
 
-    <!-- ================= ১. গেমস লিস্ট ভিউ (মেনু) ================= -->
-    <div class="games-menu-view" id="gamesMenu">
-        <h2>Select a <span class="highlight">Game</span></h2>
-        <div class="games-list">
+    <div class="games-dashboard">
+        <div class="dash-header">
+            <h2>Game <span class="highlight">Zone</span></h2>
+            <p style="color:#94a3b8;">Select a game to play.</p>
+        </div>
+
+        <div class="games-grid">
             <!-- Snake Game Card -->
-            <div class="game-list-card">
-                <div class="emoji-icon">🐍</div>
-                <h3>Snake Game</h3>
-                <p>Classic game, never gets old!</p>
-                <button class="play-btn" onclick="openGame('snake')">Play Now →</button>
-            </div>
-
-            <!-- Tic Tac Toe Game Card -->
-            <div class="game-list-card">
-                <div class="emoji-icon">❌⭕</div>
-                <h3>Tic-Tac-Toe</h3>
-                <p>Challenge the Smart AI!</p>
-                <button class="play-btn" onclick="openGame('ttt')">Play Now →</button>
-            </div>
-
-            <!-- RPS Game Card -->
-            <div class="game-list-card">
-                <div class="emoji-icon">✊✋✌️</div>
-                <h3>Rock Paper Scissors</h3>
-                <p>Show your move!</p>
-                <button class="play-btn" onclick="openGame('rps')">Play Now →</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ================= ২. গেম প্লেয়িং ভিউ ================= -->
-    <div class="game-playing-view" id="gamePlaying">
-        <div class="game-header">
-            <button class="back-btn" onclick="backToMenu()">← Back to Games</button>
-            <h3 id="currentGameTitle" style="color: #00d4ff; margin: 0;">Game</h3>
-        </div>
-
-        <!-- Snake Game Area -->
-        <div class="game-area" id="snakeGameArea" style="display: none;">
-            <div style="font-size: 1.2rem; margin-bottom: 10px; color: #fff;">Score: <span id="snakeScore">0</span></div>
-            <div class="canvas-wrapper" style="width: 100%; display: flex; justify-content: center;">
-                <canvas id="gameCanvas" width="300" height="300"></canvas>
-            </div>
-            <div class="mobile-controls" style="margin-top: 15px; display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                <button onclick="setDir('UP')">⬆️</button>
-                <div style="display: flex; gap: 10px;">
-                    <button onclick="setDir('LEFT')">⬅️</button>
-                    <button onclick="setDir('DOWN')">⬇️</button>
-                    <button onclick="setDir('RIGHT')">➡️</button>
+            <div class="game-card-modern">
+                <div class="badge popular">🔥 Popular</div>
+                <div class="game-thumb">🐍</div>
+                <div class="game-info">
+                    <h3>Snake Game</h3>
+                    <p>Eat the food and grow longer!</p>
+                    <a href="snake.html" class="play-card-btn">Play Now</a>
                 </div>
             </div>
-            <br>
-            <button class="btn" onclick="startSnakeGame()" id="startBtnSnake">Start Game</button>
-        </div>
 
-        <!-- Tic Tac Toe Game Area -->
-        <div class="game-area" id="tttGameArea" style="display: none;">
-            <div id="tttStatus" style="color: #fff; font-size: 1.2rem; margin-bottom: 10px; font-weight: bold;">Your Turn (X)</div>
-            <div class="ttt-board" id="tttBoard">
-                <div class="ttt-cell" onclick="playTTT(0)"></div>
-                <div class="ttt-cell" onclick="playTTT(1)"></div>
-                <div class="ttt-cell" onclick="playTTT(2)"></div>
-                <div class="ttt-cell" onclick="playTTT(3)"></div>
-                <div class="ttt-cell" onclick="playTTT(4)"></div>
-                <div class="ttt-cell" onclick="playTTT(5)"></div>
-                <div class="ttt-cell" onclick="playTTT(6)"></div>
-                <div class="ttt-cell" onclick="playTTT(7)"></div>
-                <div class="ttt-cell" onclick="playTTT(8)"></div>
+            <!-- Tic Tac Toe Card -->
+            <div class="game-card-modern">
+                <div class="badge player">👥 AI</div>
+                <div class="game-thumb">❌⭕</div>
+                <div class="game-info">
+                    <h3>Tic-Tac-Toe</h3>
+                    <p>Play against a smart AI!</p>
+                    <a href="tictactoe.html" class="play-card-btn">Play Now</a>
+                </div>
             </div>
-            <button class="btn btn-outline" onclick="resetTTT()" style="margin-top: 15px;">Restart Round</button>
-        </div>
 
-        <!-- RPS Game Area -->
-        <div class="game-area" id="rpsGameArea" style="display: none;">
-            <div style="font-size: 3rem; margin-bottom: 20px;">
-                <button style="background:none; border:none; font-size:3rem; cursor:pointer;" onclick="playRPS('rock')">✊</button>
-                <button style="background:none; border:none; font-size:3rem; cursor:pointer;" onclick="playRPS('paper')">✋</button>
-                <button style="background:none; border:none; font-size:3rem; cursor:pointer;" onclick="playRPS('scissors')">✌️</button>
+            <!-- RPS Card -->
+            <div class="game-card-modern">
+                <div class="game-thumb">✊✋✌️</div>
+                <div class="game-info">
+                    <h3>Rock Paper Scissors</h3>
+                    <p>Beat the computer!</p>
+                    <a href="rps.html" class="play-card-btn">Play Now</a>
+                </div>
             </div>
-            <div id="rpsResult" style="color: #fff; font-size: 1.2rem; margin-bottom: 10px;">Choose your move!</div>
-            <div id="rpsScoreBoard" style="color: #00d4ff; font-weight: bold;">You: 0 | Computer: 0</div>
         </div>
-
     </div>
 
     <footer>
         <p>&copy; 2026 Foysal Raja. All rights reserved.</p>
     </footer>
 
-    <!-- Victory Modal -->
-    <div class="victory-modal" id="victoryModal">
-        <div class="victory-content">
-            <h2 id="victoryTitle">Congratulations! 🎉</h2>
-            <p id="victoryText">You Win!</p>
-           <button class="btn" onclick="playAgainAction()">Play Again</button>
-        </div>
-    </div>
-
-    <!-- সাউন্ড ইফেক্টের জন্য অডিও (ফ্রি অনলাইন সোর্স) -->
-    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"></audio>
-    <audio id="winSound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3"></audio>
-
-    <script>
-        // সাউন্ড প্লে করার ফাংশন
-        function playSound(type) {
-            if(type === 'click') document.getElementById('clickSound').play().catch(e=>{});
-            if(type === 'win') document.getElementById('winSound').play().catch(e=>{});
-        }
-
-        // গেম মেনু ওপেন/ক্লোজ লজিক
-        function openGame(gameId) {
-            playSound('click');
-            document.getElementById('gamesMenu').style.display = 'none';
-            document.getElementById('gamePlaying').style.display = 'block';
-            
-            // সব গেম লুকিয়ে ফেলা
-            document.getElementById('snakeGameArea').style.display = 'none';
-            document.getElementById('tttGameArea').style.display = 'none';
-            document.getElementById('rpsGameArea').style.display = 'none';
-
-            if (gameId === 'snake') {
-                document.getElementById('currentGameTitle').innerText = "Snake Game 🐍";
-                document.getElementById('snakeGameArea').style.display = 'block';
-            } else if (gameId === 'ttt') {
-                document.getElementById('currentGameTitle').innerText = "Tic-Tac-Toe ❌⭕";
-                document.getElementById('tttGameArea').style.display = 'block';
-                resetTTT();
-            } else if (gameId === 'rps') {
-                document.getElementById('currentGameTitle').innerText = "Rock Paper Scissors ✊✋✌️";
-                document.getElementById('rpsGameArea').style.display = 'block';
-            }
-        }
-
-        function backToMenu() {
-            playSound('click');
-            document.getElementById('gamePlaying').style.display = 'none';
-            document.getElementById('gamesMenu').style.display = 'block';
-            clearInterval(gameInterval); // সাপের গেম বন্ধ করা
-            isPlaying = false;
-            document.getElementById('startBtnSnake').innerText = "Start Game";
-            document.getElementById('startBtnSnake').style.display = "inline-block";
-        }
-
-        // ================= SNAKE GAME =================
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
-        const scoreElement = document.getElementById("snakeScore");
-        let box = 15, snake = [], direction = "RIGHT", nextDirection = "RIGHT", food = {}, score = 0, gameInterval, isPlaying = false;
-
-        function startSnakeGame() {
-            if (isPlaying) return;
-            playSound('click');
-            isPlaying = true;
-            document.getElementById("startBtnSnake").style.display = "none";
-            snake = [{ x: 5 * box, y: 5 * box }];
-            direction = "RIGHT"; nextDirection = "RIGHT"; score = 0; scoreElement.innerText = score;
-            generateFood();
-            gameInterval = setInterval(drawGame, 130);
-        }
-
-        function setDir(newDir) {
-            if (!isPlaying) return;
-            if (newDir === "UP" && direction !== "DOWN") nextDirection = "UP";
-            if (newDir === "DOWN" && direction !== "UP") nextDirection = "DOWN";
-            if (newDir === "LEFT" && direction !== "RIGHT") nextDirection = "LEFT";
-            if (newDir === "RIGHT" && direction !== "LEFT") nextDirection = "RIGHT";
-        }
-
-        function generateFood() {
-            food = { x: Math.floor(Math.random() * 18 + 1) * box, y: Math.floor(Math.random() * 18 + 1) * box };
-        }
-
-        function drawGame() {
-            direction = nextDirection;
-            ctx.fillStyle = "#0b1120"; ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#ef4444"; ctx.fillRect(food.x, food.y, box, box);
-
-            for (let i = 0; i < snake.length; i++) {
-                ctx.fillStyle = (i === 0) ? "#00d4ff" : "#0ea5e9";
-                ctx.fillRect(snake[i].x, snake[i].y, box, box);
-            }
-
-            let snakeX = snake[0].x, snakeY = snake[0].y;
-            if (direction === "LEFT") snakeX -= box;
-            if (direction === "UP") snakeY -= box;
-            if (direction === "RIGHT") snakeX += box;
-            if (direction === "DOWN") snakeY += box;
-
-            if (snakeX === food.x && snakeY === food.y) {
-                score++; scoreElement.innerText = score; generateFood();
-            } else { snake.pop(); }
-
-            let newHead = { x: snakeX, y: snakeY };
-
-            if (snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)) {
-                clearInterval(gameInterval); isPlaying = false;
-                document.getElementById("startBtnSnake").style.display = "inline-block";
-                document.getElementById("startBtnSnake").innerText = "Play Again";
-                playSound('win');
-                showVictory("Game Over!", "Your Score: " + score);
-                return;
-            }
-            snake.unshift(newHead);
-        }
-
-        function collision(head, array) {
-            for (let i = 1; i < array.length; i++) {
-                if (head.x === array[i].x && head.y === array[i].y) return true;
-            } return false;
-        }
-
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "ArrowUp") setDir("UP"); if (e.key === "ArrowDown") setDir("DOWN");
-            if (e.key === "ArrowLeft") setDir("LEFT"); if (e.key === "ArrowRight") setDir("RIGHT");
-        });
-
-
-        // ================= TIC TAC TOE (SMART AI) =================
-        let tttBoard = ["", "", "", "", "", "", "", "", ""];
-        let currentPlayer = "X";
-        let isGameActive = true;
-        const winPatterns = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
-
-        function playTTT(index) {
-            if (tttBoard[index] !== "" || !isGameActive || currentPlayer !== "X") return;
-            playSound('click');
-            makeMove(index, "X");
-
-            if (isGameActive) {
-                document.getElementById("tttStatus").innerText = "Computer's Turn...";
-                setTimeout(() => { smartComputerMove(); }, 600);
-            }
-        }
-
-        function makeMove(index, player) {
-            tttBoard[index] = player;
-            const cell = document.getElementById("tttBoard").children[index];
-            cell.innerText = player;
-            cell.style.color = player === "X" ? "#00d4ff" : "#ef4444";
-            checkWinner();
-
-            if (isGameActive) {
-                currentPlayer = player === "X" ? "O" : "X";
-                if (currentPlayer === "X") document.getElementById("tttStatus").innerText = "Your Turn (X)";
-            }
-        }
-
-        // স্মার্ট কম্পিউটার লজিক (Minimax Algorithm)
-        function smartComputerMove() {
-            if (!isGameActive) return;
-            let bestScore = -Infinity;
-            let move = -1;
-
-            for (let i = 0; i < tttBoard.length; i++) {
-                if (tttBoard[i] === "") {
-                    tttBoard[i] = "O";
-                    let score = minimax(tttBoard, 0, false);
-                    tttBoard[i] = "";
-                    if (score > bestScore) {
-                        bestScore = score;
-                        move = i;
-                    }
-                }
-            }
-            if (move !== -1) {
-                makeMove(move, "O");
-            }
-        }
-
-        function minimax(board, depth, isMaximizing) {
-            let result = checkWinnerForMinimax(board);
-            if (result !== null) return result;
-
-            if (isMaximizing) {
-                let bestScore = -Infinity;
-                for (let i = 0; i < board.length; i++) {
-                    if (board[i] === "") {
-                        board[i] = "O";
-                        let score = minimax(board, depth + 1, false);
-                        board[i] = "";
-                        bestScore = Math.max(score, bestScore);
-                    }
-                }
-                return bestScore;
-            } else {
-                let bestScore = Infinity;
-                for (let i = 0; i < board.length; i++) {
-                    if (board[i] === "") {
-                        board[i] = "X";
-                        let score = minimax(board, depth + 1, true);
-                        board[i] = "";
-                        bestScore = Math.min(score, bestScore);
-                    }
-                }
-                return bestScore;
-            }
-        }
-
-        function checkWinnerForMinimax(board) {
-            for (let i = 0; i < winPatterns.length; i++) {
-                const [a, b, c] = winPatterns[i];
-                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-                    return board[a] === "O" ? 10 : -10;
-                }
-            }
-            return board.includes("") ? null : 0;
-        }
-
-        function checkWinner() {
-            let roundWon = false;
-            for (let i = 0; i < winPatterns.length; i++) {
-                const [a, b, c] = winPatterns[i];
-                if (tttBoard[a] && tttBoard[a] === tttBoard[b] && tttBoard[a] === tttBoard[c]) {
-                    roundWon = true; break;
-                }
-            }
-            if (roundWon) {
-                document.getElementById("tttStatus").innerText = currentPlayer === 'X' ? "You Win! 🎉" : "Computer Wins! 🤖";
-                isGameActive = false;
-                if(currentPlayer === 'X') playSound('win');
-                showVictory(currentPlayer === 'X' ? "Congratulations! 🎉" : "You Lost! 🤖", currentPlayer === 'X' ? "You beat the AI!" : "AI Wins!");
-                return;
-            }
-            if (!tttBoard.includes("")) {
-                document.getElementById("tttStatus").innerText = "It's a Draw! 🤝";
-                isGameActive = false;
-            }
-        }
-
-        function resetTTT() {
-            playSound('click');
-            tttBoard = ["", "", "", "", "", "", "", "", ""];
-            currentPlayer = "X"; isGameActive = true;
-            document.getElementById("tttStatus").innerText = "Your Turn (X)";
-            const cells = document.getElementById("tttBoard").children;
-            for (let i = 0; i < cells.length; i++) { cells[i].innerText = ""; }
-        }
-
-        // ================= ROCK PAPER SCISSORS =================
-        let pScore = 0, cScore = 0;
-        function playRPS(playerChoice) {
-            playSound('click');
-            const choices = ['rock', 'paper', 'scissors'];
-            const cChoice = choices[Math.floor(Math.random() * 3)];
-            let result = "";
-
-            if (playerChoice === cChoice) {
-                result = "It's a tie! 🤝";
-            } else if (
-                (playerChoice === 'rock' && cChoice === 'scissors') ||
-                (playerChoice === 'paper' && cChoice === 'rock') ||
-                (playerChoice === 'scissors' && cChoice === 'paper')
-            ) {
-                result = "You win! 🎉"; pScore++;
-            } else {
-                result = "Computer wins! 🤖"; cScore++;
-            }
-
-            document.getElementById("rpsResult").innerText = `You chose ${playerChoice}, PC chose ${cChoice}. ${result}`;
-            document.getElementById("rpsScoreBoard").innerText = `You: ${pScore} | Computer: ${cScore}`;
-
-            if (pScore === 3 || cScore === 3) {
-                if(pScore === 3) { playSound('win'); showVictory("🏆 You Won the Match!", "You beat the computer!"); }
-                else { showVictory("🤖 Computer Won!", "Try again next time!"); }
-                pScore = 0; cScore = 0;
-                document.getElementById("rpsScoreBoard").innerText = `You: 0 | Computer: 0`;
-            }
-        }
-
-        // Victory Modal
-        function showVictory(title, text) {
-            document.getElementById("victoryTitle").innerText = title;
-            document.getElementById("victoryText").innerText = text;
-            document.getElementById("victoryModal").classList.add("active");
-        }
-        function closeModal() {
-            playSound('click');
-            document.getElementById("victoryModal").classList.remove("active");
-        }
-function closeModal() {
-    playSound('click');
-    document.getElementById("victoryModal").classList.remove("active");
-}
-
-// এই নতুন ফাংশনটি যোগ করুন
-function playAgainAction() {
-    closeModal(); // প্রথমে পপআপ বন্ধ হবে
-    
-    // যদি টিক-ট্যাক-টো গেম খোলা থাকে, তবে সেটি রিসেট হবে
-    if (document.getElementById("tttGameArea").style.display === "block") {
-        resetTTT();
-    }
-    // যদি সাপের গেম খোলা থাকে, তবে সেটি রিসেট হবে (স্টার্ট বাটন দেখাবে)
-    if (document.getElementById("snakeGameArea").style.display === "block") {
-        document.getElementById("startBtnSnake").style.display = "inline-block";
-        document.getElementById("startBtnSnake").innerText = "Start Game";
-    }
-}
-    </script>
 </body>
 </html>
