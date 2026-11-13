@@ -117,7 +117,7 @@
         <div class="victory-content">
             <h2 id="victoryTitle">Congratulations! 🎉</h2>
             <p id="victoryText">You Win!</p>
-            <button class="btn" onclick="closeModal()">Play Again</button>
+           <button class="btn" onclick="playAgainAction()">Play Again</button>
         </div>
     </div>
 
@@ -402,6 +402,25 @@
             playSound('click');
             document.getElementById("victoryModal").classList.remove("active");
         }
+function closeModal() {
+    playSound('click');
+    document.getElementById("victoryModal").classList.remove("active");
+}
+
+// এই নতুন ফাংশনটি যোগ করুন
+function playAgainAction() {
+    closeModal(); // প্রথমে পপআপ বন্ধ হবে
+    
+    // যদি টিক-ট্যাক-টো গেম খোলা থাকে, তবে সেটি রিসেট হবে
+    if (document.getElementById("tttGameArea").style.display === "block") {
+        resetTTT();
+    }
+    // যদি সাপের গেম খোলা থাকে, তবে সেটি রিসেট হবে (স্টার্ট বাটন দেখাবে)
+    if (document.getElementById("snakeGameArea").style.display === "block") {
+        document.getElementById("startBtnSnake").style.display = "inline-block";
+        document.getElementById("startBtnSnake").innerText = "Start Game";
+    }
+}
     </script>
 </body>
 </html>
