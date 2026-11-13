@@ -7,17 +7,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* গেম পেজের জন্য আলাদা স্টাইল */
-        .games-container { padding: 40px 8%; text-align: center; }
-        .game-section { margin-bottom: 60px; background: #111827; padding: 30px; border-radius: 20px; border: 1px solid #1e293b; }
-        .game-title { color: #00d4ff; margin-bottom: 20px; font-size: 2rem; }
+        .games-container { padding: 40px 5%; text-align: center; max-width: 600px; margin: 0 auto; }
+        .game-section { margin-bottom: 50px; background: #111827; padding: 20px; border-radius: 20px; border: 1px solid #1e293b; }
+        .game-title { color: #00d4ff; margin-bottom: 15px; font-size: 1.8rem; }
         
         /* Snake Game CSS */
-        canvas { background-color: #0b1120; border: 3px solid #00d4ff; border-radius: 10px; touch-action: none; }
-        .score-board { font-size: 1.5rem; margin-bottom: 15px; color: #fff; }
-        .controls { margin-top: 20px; display: grid; grid-template-columns: repeat(3, 60px); gap: 10px; justify-content: center; }
-        .controls button { width: 60px; height: 60px; font-size: 1.5rem; background: #1e293b; color: #00d4ff; border: 2px solid #00d4ff; border-radius: 10px; cursor: pointer; }
-        .controls button:active { background: #00d4ff; color: #0b1120; }
+        .canvas-wrapper { width: 100%; display: flex; justify-content: center; overflow: hidden; }
+        canvas { background-color: #0b1120; border: 3px solid #00d4ff; border-radius: 10px; touch-action: none; max-width: 100%; }
+        .score-board { font-size: 1.2rem; margin-bottom: 10px; color: #fff; }
+        
+        .mobile-controls { margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .d-pad-row { display: flex; gap: 10px; }
+        .mobile-controls button { width: 70px; height: 70px; font-size: 2rem; background: #1e293b; color: #00d4ff; border: 2px solid #00d4ff; border-radius: 15px; cursor: pointer; user-select: none; }
+        .mobile-controls button:active { background: #00d4ff; color: #0b1120; }
         .empty { visibility: hidden; }
 
         /* Tic Tac Toe CSS */
@@ -31,11 +33,12 @@
 <body>
 
     <nav class="navbar">
-        <div class="logo">Foysal<span>.Raja</span></div>
+        <div class="logo"><div class="logo-icon">FR</div>Foysal<span>.Raja</span></div>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="game.html" class="active">Games</a></li>
+            <li><a href="contact.html">Contact</a></li>
         </ul>
     </nav>
 
@@ -45,17 +48,22 @@
         <div class="game-section">
             <h2 class="game-title">Snake Game 🐍</h2>
             <div class="score-board">Score: <span id="snakeScore">0</span></div>
-            <canvas id="gameCanvas" width="300" height="300"></canvas>
-            
-            <!-- মোবাইলের জন্য কন্ট্রোল বাটন -->
-            <div class="controls">
-                <button class="empty"></button>
-                <button onclick="setDir('UP')">⬆️</button>
-                <button class="empty"></button>
-                <button onclick="setDir('LEFT')">⬅️</button>
-                <button onclick="setDir('DOWN')">⬇️</button>
-                <button onclick="setDir('RIGHT')">➡️</button>
+            <div class="canvas-wrapper">
+                <!-- মোবাইলে ফিট হওয়ার জন্য width ও height ছোট করা হয়েছে -->
+                <canvas id="gameCanvas" width="280" height="280"></canvas>
             </div>
+            
+            <!-- মোবাইলের জন্য বড় কন্ট্রোল বাটন -->
+            <div class="mobile-controls">
+                <button onclick="setDir('UP')">⬆️</button>
+                <div class="d-pad-row">
+                    <button onclick="setDir('LEFT')">⬅️</button>
+                    <button onclick="setDir('DOWN')">⬇️</button>
+                    <button onclick="setDir('RIGHT')">➡️</button>
+                </div>
+            </div>
+            <br>
+            <button class="btn" onclick="startSnakeGame()" id="startBtn">Start Game</button>
         </div>
 
         <!-- Tic Tac Toe Game -->
@@ -82,51 +90,63 @@
         <p>&copy; 2026 Foysal Raja. All rights reserved.</p>
     </footer>
 
-    <!-- ================= JAVA SCRIPT ================= -->
     <script>
-        // ---- SNAKE GAME LOGIC ----
+        // ---- SNAKE GAME LOGIC (আপডেট করা হয়েছে) ----
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
         const scoreElement = document.getElementById("snakeScore");
-        let box = 15;
-        let snake = [{ x: 10 * box, y: 10 * box }];
+        
+        let box = 14; // ছোট বক্স সাইজ
+        let snake = [];
         let direction = "RIGHT";
         let nextDirection = "RIGHT";
-        let food = { x: Math.floor(Math.random() * 19 + 1) * box, y: Math.floor(Math.random() * 19 + 1) * box };
+        let food = { x: 0, y: 0 };
         let score = 0;
-        let game;
+        let gameInterval;
+        let isPlaying = false;
 
-        // কন্ট্রোল ফাংশন (মোবাইল ও পিসি উভয়ের জন্য)
+        function startSnakeGame() {
+            if (isPlaying) return; // যদি আগে থেকেই চলতে থাকে
+            isPlaying = true;
+            document.getElementById("startBtn").style.display = "none"; // বাটন লুকানো
+            
+            // গেম রিসেট
+            snake = [{ x: 5 * box, y: 5 * box }];
+            direction = "RIGHT";
+            nextDirection = "RIGHT";
+            score = 0;
+            scoreElement.innerText = score;
+            generateFood();
+            
+            gameInterval = setInterval(drawGame, 130);
+        }
+
         function setDir(newDir) {
+            if (!isPlaying) return;
             if (newDir === "UP" && direction !== "DOWN") nextDirection = "UP";
             if (newDir === "DOWN" && direction !== "UP") nextDirection = "DOWN";
             if (newDir === "LEFT" && direction !== "RIGHT") nextDirection = "LEFT";
             if (newDir === "RIGHT" && direction !== "LEFT") nextDirection = "RIGHT";
         }
 
-        // পিসিতে কিবোর্ড কন্ট্রোল
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "ArrowUp") setDir("UP");
-            if (e.key === "ArrowDown") setDir("DOWN");
-            if (e.key === "ArrowLeft") setDir("LEFT");
-            if (e.key === "ArrowRight") setDir("RIGHT");
-        });
-
-        function startSnake() {
-            game = setInterval(drawGame, 120);
+        function generateFood() {
+            food = {
+                x: Math.floor(Math.random() * 18 + 1) * box,
+                y: Math.floor(Math.random() * 18 + 1) * box
+            };
         }
 
         function drawGame() {
-            direction = nextDirection; // আপডেট ডিরেকশন
+            direction = nextDirection; // ডিরেকশন আপডেট
 
             ctx.fillStyle = "#0b1120";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // খাবার আঁকা
+            // খাবার
             ctx.fillStyle = "#ef4444";
             ctx.fillRect(food.x, food.y, box, box);
 
-            // সাপ আঁকা
+            // সাপ
             for (let i = 0; i < snake.length; i++) {
                 ctx.fillStyle = (i === 0) ? "#00d4ff" : "#0ea5e9";
                 ctx.fillRect(snake[i].x, snake[i].y, box, box);
@@ -144,17 +164,20 @@
             if (snakeX === food.x && snakeY === food.y) {
                 score++;
                 scoreElement.innerText = score;
-                food = { x: Math.floor(Math.random() * 19 + 1) * box, y: Math.floor(Math.random() * 19 + 1) * box };
+                generateFood();
             } else {
                 snake.pop();
             }
 
             let newHead = { x: snakeX, y: snakeY };
 
-            // গেম ওভার চেক
+            // গেম ওভার
             if (snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)) {
-                clearInterval(game);
-                setTimeout(() => { alert("Game Over! Score: " + score); location.reload(); }, 100);
+                clearInterval(gameInterval);
+                isPlaying = false;
+                document.getElementById("startBtn").style.display = "inline-block"; // আবার বাটন দেখানো
+                document.getElementById("startBtn").innerText = "Play Again";
+                setTimeout(() => { alert("Game Over! Score: " + score); }, 100);
                 return;
             }
 
@@ -167,7 +190,14 @@
             }
             return false;
         }
-        startSnake(); // সাপের গেম শুরু
+
+        // পিসিতে কিবোর্ড কন্ট্রোল
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowUp") setDir("UP");
+            if (e.key === "ArrowDown") setDir("DOWN");
+            if (e.key === "ArrowLeft") setDir("LEFT");
+            if (e.key === "ArrowRight") setDir("RIGHT");
+        });
 
 
         // ---- TIC TAC TOE LOGIC ----
@@ -176,9 +206,9 @@
         let isGameActive = true;
 
         const winPatterns = [
-            [0,1,2], [3,4,5], [6,7,8], // Rows
-            [0,3,6], [1,4,7], [2,5,8], // Columns
-            [0,4,8], [2,4,6]           // Diagonals
+            [0,1,2], [3,4,5], [6,7,8],
+            [0,3,6], [1,4,7], [2,5,8],
+            [0,4,8], [2,4,6]
         ];
 
         function playTTT(index) {
