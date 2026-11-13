@@ -8,6 +8,8 @@ body {
     line-height: 1.5; /* লাইন স্পেসিং একটু কমানো হলো */
     font-size: 15px; /* পুরো ওয়েবসাইটের ডিফল্ট ফন্ট সাইজ একটু ছোট করা হলো */
     -webkit-text-size-adjust: 100%; 
+overflow-x: hidden;
+width: 100%;
 }
 .highlight { color: #00d4ff; }
 
@@ -166,7 +168,10 @@ footer {
    Mobile Responsive
    ========================================= */
 @media (max-width: 768px) {
-
+    body {
+        overflow-x: hidden !important;
+    }
+}
     .hero-content h1 { font-size: 2rem !important; } /* Hi I'm Foysal Raja লেখাটা একটু ছোট হবে */
     .hero-content h2 { font-size: 1.1rem !important; }
     .hero-content p { font-size: 0.9rem !important; }
