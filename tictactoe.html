@@ -27,20 +27,35 @@
         <a href="game.html" style="color: #00d4ff; text-decoration: none; display: block; margin-bottom: 20px; text-align: left;">← Back to Games</a>
         
         <h2 style="color: #fff; margin-bottom: 10px;">Tic-Tac-Toe ❌⭕</h2>
-        <div id="status" style="color: #fff; font-size: 1.2rem; margin-bottom: 15px; font-weight: bold;">Your Turn (X)</div>
-
-        <div class="ttt-board" id="board">
-            <div class="ttt-cell" onclick="play(0)"></div>
-            <div class="ttt-cell" onclick="play(1)"></div>
-            <div class="ttt-cell" onclick="play(2)"></div>
-            <div class="ttt-cell" onclick="play(3)"></div>
-            <div class="ttt-cell" onclick="play(4)"></div>
-            <div class="ttt-cell" onclick="play(5)"></div>
-            <div class="ttt-cell" onclick="play(6)"></div>
-            <div class="ttt-cell" onclick="play(7)"></div>
-            <div class="ttt-cell" onclick="play(8)"></div>
+        
+        <!-- মোড সিলেকশন (শুরুতে দেখাবে) -->
+        <div id="modeSelection" style="margin-bottom: 20px;">
+            <p style="color: #94a3b8; margin-bottom: 15px;">Choose Game Mode:</p>
+            <button class="btn" onclick="startGame('computer')" style="margin: 5px; background: #8b5cf6; border-color: #8b5cf6;">Play with Computer 🤖</button>
+            <button class="btn" onclick="startGame('player')" style="margin: 5px;">Play with Friend 👥</button>
         </div>
-        <button class="btn" onclick="resetGame()" style="margin-top: 15px;">Restart Game</button>
+
+        <!-- গেম এরিয়া (মোড সিলেক্ট করার পর দেখাবে) -->
+        <div id="gameArea" style="display: none;">
+            <div id="status" style="color: #fff; font-size: 1.2rem; margin-bottom: 15px; font-weight: bold;">Your Turn (X)</div>
+            
+            <div class="ttt-board" id="board">
+                <div class="ttt-cell" onclick="play(0)"></div>
+                <div class="ttt-cell" onclick="play(1)"></div>
+                <div class="ttt-cell" onclick="play(2)"></div>
+                <div class="ttt-cell" onclick="play(3)"></div>
+                <div class="ttt-cell" onclick="play(4)"></div>
+                <div class="ttt-cell" onclick="play(5)"></div>
+                <div class="ttt-cell" onclick="play(6)"></div>
+                <div class="ttt-cell" onclick="play(7)"></div>
+                <div class="ttt-cell" onclick="play(8)"></div>
+            </div>
+            
+            <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+                <button class="btn btn-outline" onclick="resetGame()">Restart</button>
+                <button class="btn btn-outline" onclick="backToMenu()">Change Mode</button>
+            </div>
+        </div>
     </div>
 
     <!-- Victory Modal -->
@@ -58,6 +73,7 @@
     <script>
         let board = ["", "", "", "", "", "", "", "", ""];
         let currentPlayer = "X", isGameActive = true;
+        let gameMode = "computer"; // ডিফল্ট মোড
         const winPatterns = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
 
         function playSound(type) {
@@ -65,11 +81,30 @@
             if(type === 'win') document.getElementById('winSound').play().catch(e=>{});
         }
 
-        function play(index) {
-            if (board[index] !== "" || !isGameActive || currentPlayer !== "X") return;
+        function startGame(mode) {
             playSound('click');
-            makeMove(index, "X");
-            if (isGameActive) {
+            gameMode = mode;
+            document.getElementById("modeSelection").style.display = "none";
+            document.getElementById("gameArea").style.display = "block";
+            resetGame();
+        }
+
+        function backToMenu() {
+            playSound('click');
+            document.getElementById("modeSelection").style.display = "block";
+            document.getElementById("gameArea").style.display = "none";
+        }
+
+        function play(index) {
+            if (board[index] !== "" || !isGameActive) return;
+            
+            // কম্পিউটার মোডে ইউজার শুধু X দিতে পারবে
+            if (gameMode === 'computer' && currentPlayer !== "X") return;
+
+            playSound('click');
+            makeMove(index, currentPlayer);
+
+            if (isGameActive && gameMode === 'computer' && currentPlayer === "O") {
                 document.getElementById("status").innerText = "Computer's Turn...";
                 setTimeout(() => { smartComputerMove(); }, 600);
             }
@@ -81,9 +116,14 @@
             cell.innerText = player;
             cell.style.color = player === "X" ? "#00d4ff" : "#ef4444";
             checkWinner();
+            
             if (isGameActive) {
                 currentPlayer = player === "X" ? "O" : "X";
-                if (currentPlayer === "X") document.getElementById("status").innerText = "Your Turn (X)";
+                if (gameMode === 'computer') {
+                    document.getElementById("status").innerText = currentPlayer === "X" ? "Your Turn (X)" : "Computer's Turn...";
+                } else {
+                    document.getElementById("status").innerText = `Player ${currentPlayer}'s Turn`;
+                }
             }
         }
 
@@ -118,10 +158,10 @@
             let roundWon = false;
             for (let i = 0; i < winPatterns.length; i++) { const [a, b, c] = winPatterns[i]; if (board[a] && board[a] === board[b] && board[a] === board[c]) { roundWon = true; break; } }
             if (roundWon) {
-                document.getElementById("status").innerText = currentPlayer === 'X' ? "You Win! 🎉" : "Computer Wins! 🤖";
+                document.getElementById("status").innerText = `Player ${currentPlayer} Wins! 🎉`;
                 isGameActive = false; 
-                if(currentPlayer === 'X') playSound('win');
-                showVictory(currentPlayer === 'X' ? "Congratulations! 🎉" : "You Lost! 🤖", currentPlayer === 'X' ? "You beat the AI!" : "AI Wins!");
+                playSound('win');
+                showVictory("Congratulations! 🎉", `Player ${currentPlayer} Wins!`);
                 return;
             }
             if (!board.includes("")) { document.getElementById("status").innerText = "It's a Draw! 🤝"; isGameActive = false; }
@@ -130,7 +170,7 @@
         function resetGame() {
             playSound('click');
             board = ["", "", "", "", "", "", "", "", ""]; currentPlayer = "X"; isGameActive = true;
-            document.getElementById("status").innerText = "Your Turn (X)";
+            document.getElementById("status").innerText = gameMode === 'computer' ? "Your Turn (X)" : "Player X's Turn";
             const cells = document.getElementById("board").children;
             for (let i = 0; i < cells.length; i++) { cells[i].innerText = ""; }
         }
