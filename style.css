@@ -43,9 +43,11 @@ body {
 .logo-img {
     width: 40px;
     height: 40px;
-    border-radius: 8px;
+    border-radius: 50%; /* লোগোটি গোল করে দেবে */
     object-fit: cover;
+    border: 2px solid #00d4ff; /* চারপাশে সুন্দর নীল বর্ডার */
     box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+    background-color: #0b1120;
 }
 
 .logo span { color: #00d4ff; margin-left: 0; }
