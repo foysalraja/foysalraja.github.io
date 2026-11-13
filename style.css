@@ -28,17 +28,25 @@ body {
     flex-wrap: wrap; 
     gap: 15px;
 }
-
+}
 .logo { 
     display: flex; 
     align-items: center; 
-    gap: 8px; /* আইকন এবং নামের মাঝের গ্যাপ */
+    /* gap দেওয়ার দরকার নেই, আমরা মার্জিন দিয়ে সেট করব */
     font-size: 1.5rem; 
     font-weight: 800; 
     color: #fff; 
-    letter-spacing: 0.5px;
+    letter-spacing: 0px; 
 }
 
+.logo-icon {
+    margin-right: 8px; /* শুধু আইকন এবং নামের মাঝে গ্যাপ থাকবে */
+}
+
+.logo span { 
+    color: #00d4ff; 
+    margin-left: 0px; /* ডটের আগে কোনো মার্জিন বা স্পেস থাকবে না */
+}
 /* ডট এর রঙ এবং স্পেস ঠিক করা হয়েছে */
 .logo span { 
     color: #00d4ff; 
