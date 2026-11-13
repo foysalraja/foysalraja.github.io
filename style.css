@@ -52,7 +52,8 @@ body {
 
 .logo span { 
     color: #00d4ff; 
-    margin-left: 5px; /* "Foysal" এবং "Raja" এর মাঝে সুন্দর একটি স্পেস তৈরি হবে */
+    margin-left: 0px; /* কোনো অতিরিক্ত স্পেস থাকবে না */
+    letter-spacing: 0.5px;
 }
 
 .nav-links { list-style: none; display: flex; gap: 15px; flex-wrap: wrap; }
