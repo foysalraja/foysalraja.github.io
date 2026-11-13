@@ -1,3 +1,6 @@
+/* =========================================
+   Global Styles
+   ========================================= */
 * {
     margin: 0;
     padding: 0;
@@ -13,7 +16,9 @@ body {
 
 .highlight { color: #00d4ff; }
 
-/* নেভিগেশন বার (লোগো ইমেজ সহ) */
+/* =========================================
+   Navigation Bar
+   ========================================= */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -25,42 +30,42 @@ body {
     z-index: 100;
     border-bottom: 1px solid #1e293b;
     backdrop-filter: blur(10px);
-    flex-wrap: wrap;
+    flex-wrap: wrap; 
     gap: 15px;
 }
 
 .logo { 
     display: flex; 
     align-items: center; 
-    gap: 10px; 
+    gap: 8px; 
     font-size: 1.5rem; 
     font-weight: 800; 
     color: #fff; 
     letter-spacing: 0.5px;
 }
 
-/* আপনার আপলোড করা লোগোটি এখানে বসবে */
-.logo-img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%; /* লোগোটি গোল করে দেবে */
-    object-fit: cover;
-    border: 2px solid #00d4ff; /* চারপাশে সুন্দর নীল বর্ডার */
-    box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
-    background-color: #0b1120;
+.logo-img { 
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 2px solid #00d4ff; 
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.5); 
+    background-color: #0b1120; 
 }
 
 .logo span { 
     color: #00d4ff; 
-    margin-left: 0px; /* কোনো অতিরিক্ত স্পেস থাকবে না */
-    letter-spacing: 0.5px;
+    margin-left: 0; 
 }
 
 .nav-links { list-style: none; display: flex; gap: 15px; flex-wrap: wrap; }
 .nav-links a { color: #94a3b8; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
 .nav-links a:hover, .nav-links a.active { color: #00d4ff; }
 
-/* হোম পেজ */
+/* =========================================
+   Home Page (Hero)
+   ========================================= */
 .hero {
     display: flex;
     align-items: center;
@@ -85,6 +90,9 @@ body {
 
 .hero-btns { display: flex; gap: 15px; flex-wrap: wrap; }
 
+/* =========================================
+   Buttons
+   ========================================= */
 .btn {
     display: inline-block;
     padding: 12px 25px;
@@ -97,13 +105,16 @@ body {
     border: 2px solid #00d4ff;
     cursor: pointer;
     font-size: 1rem;
+    text-align: center;
 }
 
 .btn:hover { background: transparent; color: #00d4ff; }
 .btn-outline { background: transparent; color: #00d4ff; }
 .btn-outline:hover { background: #00d4ff; color: #0b1120; }
 
-/* About Page Styles */
+/* =========================================
+   About Page
+   ========================================= */
 .about-section { padding: 40px 5%; min-height: 85vh; display: flex; justify-content: center; align-items: center; }
 .about-container { display: flex; align-items: center; justify-content: space-between; gap: 30px; max-width: 1000px; width: 100%; background: #111827; padding: 30px; border-radius: 20px; border: 1px solid #1e293b; flex-wrap: wrap;}
 .about-image img { width: 100%; max-width: 280px; height: auto; aspect-ratio: 3/4; object-fit: cover; border-radius: 15px; border: 3px solid #00d4ff; }
@@ -118,7 +129,9 @@ body {
 .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
 .skill-tags span { background: #0f172a; color: #00d4ff; padding: 5px 12px; border-radius: 5px; font-size: 0.8rem; border: 1px solid #334155; }
 
-/* Services Page Styles */
+/* =========================================
+   Services Page
+   ========================================= */
 .services-section { padding: 60px 5%; text-align: center; }
 .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1000px; margin: 40px auto 0; }
 .service-card { background: #111827; padding: 30px 20px; border-radius: 15px; border: 1px solid #1e293b; transition: 0.3s; }
@@ -127,7 +140,9 @@ body {
 .service-card h3 { color: #fff; margin-bottom: 10px; font-size: 1.2rem; }
 .service-card p { color: #94a3b8; font-size: 0.9rem; }
 
-/* Contact Page Styles */
+/* =========================================
+   Contact Page
+   ========================================= */
 .contact-section { padding: 60px 5%; display: flex; justify-content: center; align-items: center; min-height: 85vh; }
 .contact-container { background: #111827; padding: 40px 30px; border-radius: 20px; max-width: 600px; width: 100%; border: 1px solid #1e293b; text-align: center;}
 .contact-container h2 { font-size: 2.2rem; color: #fff; margin-bottom: 10px; }
@@ -139,143 +154,68 @@ body {
 .form-group textarea { resize: vertical; height: 100px; }
 
 /* =========================================
-   গেমস পেজের নতুন প্রফেশনাল ডিজাইন
-   ========================================= */
-.games-wrapper { padding: 30px 5%; max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;}
-.game-card-box { background: #111827; padding: 25px 20px; border-radius: 20px; border: 1px solid #1e293b; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-.game-card-box h2 { color: #00d4ff; margin-bottom: 20px; font-size: 1.8rem; }
-
-/* সাপের গেম */
-.canvas-wrapper { width: 100%; display: flex; justify-content: center; overflow: hidden; margin-bottom: 20px;}
-canvas { background-color: #0b1120; border: 3px solid #00d4ff; border-radius: 10px; touch-action: none; max-width: 100%; height: auto; }
-.mobile-controls { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.d-pad-row { display: flex; gap: 10px; }
-.mobile-controls button { width: 70px; height: 70px; font-size: 1.8rem; background: #1e293b; color: #00d4ff; border: 2px solid #00d4ff; border-radius: 15px; cursor: pointer; user-select: none; transition: 0.1s; }
-.mobile-controls button:active { background: #00d4ff; color: #0b1120; transform: scale(0.95); }
-
-/* টিক-ট্যাক-টো */
-.ttt-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 300px; margin: 0 auto 20px auto; }
-.ttt-cell { width: 100%; aspect-ratio: 1/1; background: #0b1120; border: 2px solid #334155; font-size: 3rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px; transition: 0.2s;}
-.ttt-cell:hover { border-color: #00d4ff; background: #1e293b; }
-.ttt-mode-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;}
-
-/* নতুন গেম: Rock Paper Scissors */
-.rps-icons { display: flex; justify-content: center; gap: 20px; font-size: 3rem; margin-bottom: 20px;}
-.rps-btn { background: #1e293b; border: 2px solid #334155; padding: 15px; border-radius: 15px; cursor: pointer; transition: 0.3s; font-size: 2rem;}
-.rps-btn:hover { border-color: #00d4ff; transform: scale(1.1); }
-.rps-result { font-size: 1.2rem; color: #fff; margin-top: 15px; min-height: 30px; font-weight: bold;}
-
-/* Victory Modal (অভিনন্দন বার্তা) */
-.victory-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 17, 32, 0.95); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
-.victory-modal.active { opacity: 1; pointer-events: auto; }
-.victory-content { background: #111827; padding: 40px 30px; border-radius: 20px; border: 2px solid #00d4ff; text-align: center; box-shadow: 0 0 40px rgba(0, 212, 255, 0.4); transform: scale(0.8); transition: transform 0.4s ease; }
-.victory-modal.active .victory-content { transform: scale(1); }
-.victory-content h2 { color: #00d4ff; font-size: 2rem; margin-bottom: 10px; }
-.victory-content p { color: #fff; font-size: 1.2rem; margin-bottom: 20px; }
-
-footer { text-align: center; padding: 20px; background: #0b1120; border-top: 1px solid #1e293b; color: #64748b; margin-top: 40px; font-size: 0.9rem;}
-
-/* মোবাইল রেস্পন্সিভ */
-@media (max-width: 768px) {
-    .navbar { flex-direction: column; justify-content: center; padding: 15px 5%; }
-    .logo { margin-right: auto; margin-left: 0; } 
-    .nav-links { width: 100%; justify-content: flex-start; padding-bottom: 5px; overflow-x: auto; white-space: nowrap; }
-    .nav-links li { margin-right: 15px; }
-    .hero { flex-direction: column-reverse; text-align: center; padding: 30px 5%; gap: 20px; }
-    .hero-content p { margin: 0 auto 20px auto; }
-    .hero-btns { justify-content: center; }
-    .hero-image img { width: 220px; height: 220px; }
-    .hero-content h1 { font-size: 2.2rem; }
-    .about-container { flex-direction: column; padding: 20px; text-align: center;}
-    .about-image img { max-width: 200px;}
-    .info-item { text-align: left; }
-    .contact-container { padding: 25px 15px; }
-}
-
-/* =========================================
-   Games List View & New Game UI
-   ========================================= */
-.games-menu-view { padding: 30px 5%; max-width: 800px; margin: 0 auto; text-align: center; }
-.games-menu-view h2 { color: #fff; margin-bottom: 30px; font-size: 2rem; }
-.games-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-
-/* গেম কার্ড ডিজাইন (আপনার ছবির মতো) */
-.game-list-card { 
-    background: linear-gradient(145deg, #111827, #1f2937); 
-    border-radius: 20px; 
-    padding: 25px; 
-    border: 1px solid #334155; 
-    text-align: center; 
-    transition: 0.3s; 
-    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-}
-.game-list-card:hover { transform: translateY(-5px); border-color: #00d4ff; box-shadow: 0 0 25px rgba(0, 212, 255, 0.2); }
-.game-list-card img, .game-list-card .emoji-icon { width: 100%; height: 120px; object-fit: contain; margin-bottom: 15px; font-size: 4rem; display: flex; justify-content: center; align-items: center; }
-.game-list-card h3 { color: #fff; font-size: 1.4rem; margin-bottom: 10px; }
-.game-list-card p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 20px; }
-.play-btn { background: #6d28d9; color: #fff; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: none; transition: 0.3s; font-size: 1rem; }
-.play-btn:hover { background: #00d4ff; color: #0b1120; }
-
-/* গেম প্লেয়িং ভিউ */
-.game-playing-view { display: none; padding: 30px 5%; max-width: 600px; margin: 0 auto; }
-.game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.back-btn { background: #1e293b; color: #fff; padding: 10px 20px; border-radius: 10px; border: 1px solid #334155; cursor: pointer; font-weight: bold; }
-.back-btn:hover { border-color: #00d4ff; color: #00d4ff; }
-.game-area { background: #111827; padding: 20px; border-radius: 20px; border: 1px solid #1e293b; text-align: center; }
-
-/* Tic Tac Toe Board Update */
-.ttt-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 300px; margin: 20px auto; }
-.ttt-cell { width: 100%; aspect-ratio: 1/1; background: #0b1120; border: 2px solid #334155; font-size: 3rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px; transition: 0.2s; font-family: 'Poppins', sans-serif;}
-.ttt-cell:hover { border-color: #00d4ff; background: #1e293b; }
-
-/* =========================================
-   Advanced Games Dashboard Styles
+   Games Dashboard (Menu Page)
    ========================================= */
 .games-dashboard { padding: 30px 5%; max-width: 1000px; margin: 0 auto; }
 .dash-header { text-align: center; margin-bottom: 30px; }
 .dash-header h2 { color: #fff; font-size: 2.2rem; margin-bottom: 10px; }
 
-/* ক্যাটাগরি ফিল্টার বাটন */
-.filter-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; }
-.filter-btn { background: #1e293b; color: #94a3b8; border: 1px solid #334155; padding: 8px 20px; border-radius: 50px; cursor: pointer; font-weight: 600; transition: 0.3s; font-family: 'Poppins', sans-serif;}
-.filter-btn:hover, .filter-btn.active { background: #00d4ff; color: #0b1120; border-color: #00d4ff; box-shadow: 0 0 15px rgba(0, 212, 255, 0.4); }
-
-/* গেম গ্রিড লেআউট */
 .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
 
-/* গেম কার্ড ডিজাইন */
-.game-card-modern { background: linear-gradient(145deg, #111827, #1f2937); border-radius: 20px; padding: 20px; border: 1px solid #334155; position: relative; transition: all 0.4s ease; display: flex; flex-direction: column; justify-content: space-between;}
+.game-card-modern { 
+    background: linear-gradient(145deg, #111827, #1f2937); 
+    border-radius: 20px; 
+    padding: 20px; 
+    border: 1px solid #334155; 
+    position: relative; 
+    transition: all 0.4s ease; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between;
+}
 .game-card-modern:hover { transform: translateY(-8px); border-color: #00d4ff; box-shadow: 0 15px 30px rgba(0, 212, 255, 0.15); }
-.game-card-modern.hidden { display: none; }
 
-/* কার্ডের ভেতরের অংশ */
 .game-thumb { width: 100%; height: 120px; border-radius: 12px; background: #0b1120; display: flex; justify-content: center; align-items: center; font-size: 4rem; margin-bottom: 15px; border: 1px solid #1e293b;}
 .game-info h3 { color: #fff; font-size: 1.3rem; margin-bottom: 5px; }
 .game-info p { color: #94a3b8; font-size: 0.85rem; margin-bottom: 15px; }
-.game-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 0.8rem; color: #cbd5e1; }
+
 .badge { position: absolute; top: -10px; right: 15px; padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: bold; color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.3);}
 .badge.new { background: #10b981; }
 .badge.popular { background: #ef4444; }
 .badge.player { background: #8b5cf6; }
 
-/* প্লে বাটন */
-.play-card-btn { width: 100%; background: #6d28d9; color: #fff; padding: 10px; border-radius: 10px; text-decoration: none; font-weight: bold; border: none; cursor: pointer; transition: 0.3s; font-size: 1rem;}
+.play-card-btn { width: 100%; background: #6d28d9; color: #fff; padding: 10px; border-radius: 10px; text-decoration: none; font-weight: bold; border: none; cursor: pointer; transition: 0.3s; font-size: 1rem; text-align: center; display: block;}
 .play-card-btn:hover { background: #00d4ff; color: #0b1120; }
 
-/* হাই স্কোর সেকশন */
-.high-score-board { background: #111827; border: 1px solid #00d4ff; border-radius: 15px; padding: 15px 25px; text-align: center; margin-bottom: 30px; color: #fff; box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);}
-.high-score-board span { color: #00d4ff; font-weight: bold; font-size: 1.2rem; }
-
-/* গেম প্লেয়িং ভিউ (যখন গেম খোলা হবে) */
-.game-playing-view { display: none; padding: 20px 5%; max-width: 700px; margin: 0 auto; }
-.game-top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; background: #111827; padding: 10px 20px; border-radius: 10px; border: 1px solid #1e293b;}
-.top-controls { display: flex; gap: 10px; }
-.icon-btn { background: #1e293b; color: #00d4ff; border: 1px solid #334155; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem;}
-.icon-btn:hover { background: #00d4ff; color: #0b1120; }
-
-.game-area { background: #111827; padding: 20px; border-radius: 20px; border: 1px solid #1e293b; text-align: center; position: relative;}
-
-/* Tic Tac Toe */
+/* Tic Tac Toe Specific (For tictactoe.html) */
 .ttt-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 300px; margin: 20px auto; }
 .ttt-cell { width: 100%; aspect-ratio: 1/1; background: #0b1120; border: 2px solid #334155; font-size: 3rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px; transition: 0.2s; font-family: 'Poppins', sans-serif;}
 .ttt-cell:hover { border-color: #00d4ff; background: #1e293b; }
+
+/* =========================================
+   Footer
+   ========================================= */
+footer { text-align: center; padding: 20px; background: #0b1120; border-top: 1px solid #1e293b; color: #64748b; margin-top: 40px; font-size: 0.9rem;}
+
+/* =========================================
+   Mobile Responsive
+   ========================================= */
+@media (max-width: 768px) {
+    .navbar { flex-direction: column; justify-content: center; padding: 15px 5%; }
+    .logo { margin-right: auto; margin-left: 0; } 
+    .nav-links { width: 100%; justify-content: flex-start; padding-bottom: 5px; overflow-x: auto; white-space: nowrap; }
+    .nav-links li { margin-right: 15px; }
+    
+    .hero { flex-direction: column-reverse; text-align: center; padding: 30px 5%; gap: 20px; }
+    .hero-content p { margin: 0 auto 20px auto; }
+    .hero-btns { justify-content: center; }
+    .hero-image img { width: 220px; height: 220px; }
+    .hero-content h1 { font-size: 2.2rem; }
+    
+    .about-container { flex-direction: column; padding: 20px; text-align: center;}
+    .about-image img { max-width: 200px;}
+    .info-item { text-align: left; }
+    
+    .contact-container { padding: 25px 15px; }
+}
+
