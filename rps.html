@@ -26,38 +26,84 @@
     <div style="padding: 20px 5%; max-width: 600px; margin: 0 auto; text-align: center;">
         <a href="game.html" style="color: #00d4ff; text-decoration: none; display: block; margin-bottom: 20px; text-align: left;">← Back to Games</a>
         
-        <h2 style="color: #fff; margin-bottom: 20px;">Rock Paper Scissors ✊✋✌️</h2>
+        <h2 style="color: #fff; margin-bottom: 10px;">Rock Paper Scissors ✊✋✌️</h2>
+        <p style="color: #94a3b8; margin-bottom: 20px;">First to win 3 rounds wins the match!</p>
         
-        <div style="font-size: 3rem; margin-bottom: 20px;">
-            <button style="background:none; border:none; font-size:3rem; cursor:pointer;" onclick="playRPS('rock')">✊</button>
-            <button style="background:none; border:none; font-size:3rem; cursor:pointer;" onclick="playRPS('paper')">✋</button>
-            <button style="background:none; border:none; font-size:3rem; cursor:pointer;" onclick="playRPS('scissors')">✌️</button>
+        <div style="font-size: 3rem; margin-bottom: 20px; display: flex; justify-content: center; gap: 20px;">
+            <button onclick="playRPS('rock')" style="background:none; border:none; font-size:3rem; cursor:pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">✊</button>
+            <button onclick="playRPS('paper')" style="background:none; border:none; font-size:3rem; cursor:pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">✋</button>
+            <button onclick="playRPS('scissors')" style="background:none; border:none; font-size:3rem; cursor:pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">✌️</button>
         </div>
 
-        <div id="result" style="color: #fff; font-size: 1.2rem; margin-bottom: 10px;">Choose your move!</div>
-        <div id="scoreBoard" style="color: #00d4ff; font-weight: bold;">You: 0 | Computer: 0</div>
+        <div id="result" style="color: #fff; font-size: 1.2rem; margin-bottom: 10px; min-height: 30px;">Choose your move!</div>
+        <div id="scoreBoard" style="color: #00d4ff; font-weight: bold; font-size: 1.3rem; background: #111827; padding: 10px; border-radius: 10px; border: 1px solid #1e293b;">You: 0 | Computer: 0</div>
     </div>
+
+    <!-- Victory Modal -->
+    <div class="victory-modal" id="victoryModal">
+        <div class="victory-content">
+            <h2 id="victoryTitle">Congratulations! 🎉</h2>
+            <p id="victoryText">You Won!</p>
+            <button class="btn" onclick="playAgainAction()">Play Again</button>
+        </div>
+    </div>
+
+    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"></audio>
+    <audio id="winSound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3"></audio>
 
     <script>
         let pScore = 0, cScore = 0;
+
+        function playSound(type) {
+            if(type === 'click') document.getElementById('clickSound').play().catch(e=>{});
+            if(type === 'win') document.getElementById('winSound').play().catch(e=>{});
+        }
+
         function playRPS(playerChoice) {
+            playSound('click');
             const choices = ['rock', 'paper', 'scissors'];
             const cChoice = choices[Math.floor(Math.random() * 3)];
             let result = "";
-            if (playerChoice === cChoice) { result = "It's a tie! 🤝"; } 
-            else if ((playerChoice === 'rock' && cChoice === 'scissors') || (playerChoice === 'paper' && cChoice === 'rock') || (playerChoice === 'scissors' && cChoice === 'paper')) { result = "You win! 🎉"; pScore++; } 
-            else { result = "Computer wins! 🤖"; cScore++; }
 
-            document.getElementById("result").innerText = `You: ${playerChoice}, PC: ${cChoice}. ${result}`;
+            if (playerChoice === cChoice) {
+                result = "It's a tie! 🤝";
+            } else if (
+                (playerChoice === 'rock' && cChoice === 'scissors') ||
+                (playerChoice === 'paper' && cChoice === 'rock') ||
+                (playerChoice === 'scissors' && cChoice === 'paper')
+            ) {
+                result = "You win this round! 🎉"; 
+                pScore++;
+            } else {
+                result = "Computer wins this round! 🤖"; 
+                cScore++;
+            }
+
+            document.getElementById("result").innerText = `You chose ${playerChoice}, PC chose ${cChoice}. ${result}`;
             document.getElementById("scoreBoard").innerText = `You: ${pScore} | Computer: ${cScore}`;
 
+            // ম্যাচ জেতার চেক (3 পয়েন্ট)
             if (pScore === 3) {
-                setTimeout(() => alert("🏆 You Won the Match!"), 100); pScore = 0; cScore = 0;
-                document.getElementById("scoreBoard").innerText = `You: 0 | Computer: 0`;
+                playSound('win');
+                showVictory("🏆 You Won the Match!", "You beat the computer 3 times!");
             } else if (cScore === 3) {
-                setTimeout(() => alert("🤖 Computer Won the Match!"), 100); pScore = 0; cScore = 0;
-                document.getElementById("scoreBoard").innerText = `You: 0 | Computer: 0`;
+                showVictory("🤖 Computer Won!", "Try again next time!");
             }
+        }
+
+        function showVictory(title, text) {
+            document.getElementById("victoryTitle").innerText = title;
+            document.getElementById("victoryText").innerText = text;
+            document.getElementById("victoryModal").classList.add("active");
+        }
+
+        function playAgainAction() {
+            playSound('click');
+            document.getElementById("victoryModal").classList.remove("active");
+            // স্কোর রিসেট
+            pScore = 0; cScore = 0;
+            document.getElementById("scoreBoard").innerText = `You: 0 | Computer: 0`;
+            document.getElementById("result").innerText = "Choose your move!";
         }
     </script>
 </body>

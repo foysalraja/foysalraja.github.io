@@ -34,16 +34,28 @@
         </div>
 
         <div style="margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px;">
-            <button onclick="setDir('UP')" style="width: 70px; height: 70px; font-size: 2rem; background: #1e293b; color: #00d4ff; border: 2px solid #00d4ff; border-radius: 15px; cursor: pointer;">⬆️</button>
+            <button onclick="setDir('UP')" class="ctrl-btn">⬆️</button>
             <div style="display: flex; gap: 10px;">
-                <button onclick="setDir('LEFT')" style="width: 70px; height: 70px; font-size: 2rem; background: #1e293b; color: #00d4ff; border: 2px solid #00d4ff; border-radius: 15px; cursor: pointer;">⬅️</button>
-                <button onclick="setDir('DOWN')" style="width: 70px; height: 70px; font-size: 2rem; background: #1e293b; color: #00d4ff; border: 2px solid #00d4ff; border-radius: 15px; cursor: pointer;">⬇️</button>
-                <button onclick="setDir('RIGHT')" style="width: 70px; height: 70px; font-size: 2rem; background: #1e293b; color: #00d4ff; border: 2px solid #00d4ff; border-radius: 15px; cursor: pointer;">➡️</button>
+                <button onclick="setDir('LEFT')" class="ctrl-btn">⬅️</button>
+                <button onclick="setDir('DOWN')" class="ctrl-btn">⬇️</button>
+                <button onclick="setDir('RIGHT')" class="ctrl-btn">➡️</button>
             </div>
         </div>
         <br>
         <button class="btn" onclick="startGame()" id="startBtn" style="margin-top: 15px;">Start Game</button>
     </div>
+
+    <!-- Victory Modal -->
+    <div class="victory-modal" id="victoryModal">
+        <div class="victory-content">
+            <h2 id="victoryTitle">Game Over!</h2>
+            <p id="victoryText">Your Score: 0</p>
+            <button class="btn" onclick="playAgainAction()">Play Again</button>
+        </div>
+    </div>
+
+    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"></audio>
+    <audio id="winSound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3"></audio>
 
     <script>
         const canvas = document.getElementById("gameCanvas");
@@ -51,8 +63,14 @@
         const scoreElement = document.getElementById("score");
         let box = 15, snake = [], direction = "RIGHT", nextDirection = "RIGHT", food = {}, score = 0, gameInterval, isPlaying = false;
 
+        function playSound(type) {
+            if(type === 'click') document.getElementById('clickSound').play().catch(e=>{});
+            if(type === 'win') document.getElementById('winSound').play().catch(e=>{});
+        }
+
         function startGame() {
             if (isPlaying) return;
+            playSound('click');
             isPlaying = true;
             document.getElementById("startBtn").style.display = "none";
             snake = [{ x: 5 * box, y: 5 * box }];
@@ -97,9 +115,9 @@
 
             if (snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)) {
                 clearInterval(gameInterval); isPlaying = false;
-                document.getElementById("startBtn").style.display = "inline-block";
-                document.getElementById("startBtn").innerText = "Play Again";
-                setTimeout(() => alert("Game Over! Score: " + score), 100); return;
+                playSound('win'); 
+                showVictory("Game Over!", "Your Score: " + score);
+                return;
             }
             snake.unshift(newHead);
         }
@@ -112,6 +130,18 @@
             if (e.key === "ArrowUp") setDir("UP"); if (e.key === "ArrowDown") setDir("DOWN");
             if (e.key === "ArrowLeft") setDir("LEFT"); if (e.key === "ArrowRight") setDir("RIGHT");
         });
+
+        function showVictory(title, text) {
+            document.getElementById("victoryTitle").innerText = title;
+            document.getElementById("victoryText").innerText = text;
+            document.getElementById("victoryModal").classList.add("active");
+        }
+        function playAgainAction() {
+            playSound('click');
+            document.getElementById("victoryModal").classList.remove("active");
+            document.getElementById("startBtn").style.display = "inline-block";
+            document.getElementById("startBtn").innerText = "Start Game";
+        }
     </script>
 </body>
 </html>

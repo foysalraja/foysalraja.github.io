@@ -219,3 +219,26 @@ footer { text-align: center; padding: 20px; background: #0b1120; border-top: 1px
     .contact-container { padding: 25px 15px; }
 }
 
+/* কন্ট্রোল বাটন স্টাইল */
+.ctrl-btn {
+    width: 70px; height: 70px; font-size: 2rem; background: #1e293b; color: #00d4ff; 
+    border: 2px solid #00d4ff; border-radius: 15px; cursor: pointer; user-select: none;
+}
+
+/* Victory Popup (অভিনন্দন বার্তা) স্টাইল */
+.victory-modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(11, 17, 32, 0.95); backdrop-filter: blur(5px);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+}
+.victory-modal.active { opacity: 1; pointer-events: auto; }
+.victory-content {
+    background: #111827; padding: 40px 30px; border-radius: 20px;
+    border: 2px solid #00d4ff; text-align: center;
+    box-shadow: 0 0 40px rgba(0, 212, 255, 0.4);
+    transform: scale(0.8); transition: transform 0.4s ease;
+}
+.victory-modal.active .victory-content { transform: scale(1); }
+.victory-content h2 { color: #00d4ff; font-size: 2rem; margin-bottom: 10px; }
+.victory-content p { color: #fff; font-size: 1.2rem; margin-bottom: 20px; }
