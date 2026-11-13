@@ -37,7 +37,13 @@ width: 100%;
 .nav-links a:hover, .nav-links a.active { color: #00d4ff; text-shadow: 0 0 8px rgba(0, 212, 255, 0.5); }
 
 /* হ্যামবার্গার আইকন */
-.hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001;}
+.hamburger { 
+    display: none; /* কম্পিউটারে লুকানো থাকবে */
+    cursor: pointer; 
+    flex-direction: column; 
+    gap: 5px; 
+    z-index: 1001;
+}
 .hamburger span { display: block; width: 25px; height: 3px; background-color: #00d4ff; border-radius: 3px; transition: all 0.3s ease; }
 /* =========================================
    Buttons
@@ -163,48 +169,50 @@ footer {
 /* =========================================
    Mobile Responsive
    ========================================= */
-@media (max-width: 768px) 
-html, body { overflow-x: hidden !important; width: 100%; }
-    .hero-content h1 { font-size: 2rem !important; } /* Hi I'm Foysal Raja লেখাটা একটু ছোট হবে */
-    .hero-content h2 { font-size: 1.1rem !important; }
-    .hero-content p { font-size: 0.9rem !important; }
+@media (max-width: 768px) {
+    /* পাশাপাশি স্ক্রল বন্ধ করতে */
+    html, body {
+        overflow-x: hidden !important;
+        width: 100%;
+    }
+
+    /* মোবাইলে হ্যামবার্গার আইকন দেখা যাবে */
+    .hamburger { 
+        display: flex !important; 
+    }
     
-    .about-content h2 { font-size: 1.8rem !important; }
-    .about-content h3 { font-size: 1rem !important; }
-    .about-content p { font-size: 0.9rem !important; }
-    
-    .dash-header h2 { font-size: 1.8rem !important; }
-    .game-info h3 { font-size: 1.1rem !important; }
-    .game-info p { font-size: 0.8rem !important; }
-    
-    .navbar { padding: 10px 5% !important; } /* মেনু একটু চিকন হবে */
-    .logo { font-size: 1.3rem !important; }
-}    /* হ্যামবার্গার মেনু শো করা */
-    .hamburger { display: flex; }
-    
-    /* মোবাইলে মেনু লুকানো থাকবে */
+    /* মেনুটি শুরুতে স্ক্রিনের বাইরে ডানদিকে লুকিয়ে থাকবে */
     .nav-links {
         position: fixed;
-        top: 0; right: -100%;
-        width: 70%; height: 100vh;
+        top: 0; 
+        right: -100%; /* এখানে -100% থাকা বাধ্যতামূলক */
+        width: 70%; 
+        height: 100vh;
         background: rgba(11, 17, 32, 0.98);
         backdrop-filter: blur(10px);
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 30px;
-        transition: right 0.4s ease;
+        transition: right 0.4s ease-in-out;
         box-shadow: -5px 0 15px rgba(0,0,0,0.5);
-   overflow-x:hidden; }
-
-    .nav-links.active { right: 0; }
+        z-index: 999;
+        pointer-events: none; /* এটি নিশ্চিত করবে যেন মেনু বন্ধ থাকলে স্ক্রিনে টাচ না লাগে */
+    }
+    
+    /* মেনু ওপেন হলে তা ডানদিকে চলে আসবে */
+    .nav-links.active { 
+        right: 0; 
+        pointer-events: auto; /* মেনু ওপেন হলে টাচ কাজ করবে */
+    }
+    
     .nav-links a { font-size: 1.2rem; }
 
-    /* হ্যামবার্গার আইকন অ্যানিমেশন (X হয়ে যাবে) */
+    /* হ্যামবার্গার আইকন ক্লিক করলে X হয়ে যাওয়ার অ্যানিমেশন */
     .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .hamburger.active span:nth-child(2) { opacity: 0; }
     .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
+}
     .hero { flex-direction: column-reverse; text-align: center; padding: 30px 5%; gap: 20px; }
     .hero-content p { margin: 0 auto 20px auto; }
     .hero-btns { justify-content: center; }
