@@ -166,11 +166,8 @@ footer {
 /* =========================================
    Mobile Responsive
    ========================================= */
-@media (max-width: 768px) {
-    body {
-        overflow-x: hidden !important;
-    }
-}
+@media (max-width: 768px) 
+
     .hero-content h1 { font-size: 2rem !important; } /* Hi I'm Foysal Raja লেখাটা একটু ছোট হবে */
     .hero-content h2 { font-size: 1.1rem !important; }
     .hero-content p { font-size: 0.9rem !important; }
