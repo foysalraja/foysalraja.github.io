@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Car Racing | Foysal Raja</title>
+    <title>3D Car Racing | Foysal Raja</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        canvas { display: block; }
+        #score-board {
+            position: absolute; top: 80px; left: 50%; transform: translateX(-50%);
+            color: #fff; font-size: 1.5rem; font-weight: bold; background: rgba(11,17,32,0.7);
+            padding: 10px 20px; border-radius: 10px; border: 1px solid #00d4ff; z-index: 10;
+        }
+        #game-container { position: relative; width: 100%; height: 500px; overflow: hidden; border-radius: 10px; border: 3px solid #00d4ff;}
+    </style>
 </head>
 <body>
 
@@ -27,11 +36,11 @@
     <div style="padding: 20px 5%; max-width: 600px; margin: 0 auto; text-align: center;">
         <a href="game.html" style="color: #00d4ff; text-decoration: none; display: block; margin-bottom: 20px; text-align: left;">← Back to Games</a>
         
-        <h2 style="color: #fff; margin-bottom: 10px;">Car Racing 🚗</h2>
-        <div style="font-size: 1.2rem; margin-bottom: 10px; color: #fff;">Score: <span id="score">0</span> | Best: <span id="best">0</span></div>
+        <h2 style="color: #fff; margin-bottom: 10px;">3D Car Racing 🚗</h2>
         
-        <div style="display: flex; justify-content: center;">
-            <canvas id="gameCanvas" width="300" height="400" style="background: #0b1120; border: 3px solid #00d4ff; border-radius: 10px; touch-action: none;"></canvas>
+        <div id="game-container">
+            <div id="score-board">Score: <span id="score">0</span></div>
+            <canvas id="gameCanvas"></canvas>
         </div>
 
         <div style="margin-top: 20px; display: flex; justify-content: center; gap: 20px;">
@@ -50,9 +59,8 @@
         </div>
     </div>
 
-    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"></audio>
-    <audio id="winSound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3"></audio>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
     <script>
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
@@ -61,106 +69,138 @@
             document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListener('click', () => { hamburger.classList.remove('active'); navLinks.classList.remove('active'); }); });
         }
 
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
-        const scoreElement = document.getElementById("score");
-        const bestElement = document.getElementById("best");
+        let scene, camera, renderer, car, obstacles = [], score = 0, isPlaying = false, gameInterval;
+        const canvasContainer = document.getElementById('game-container');
+        const canvas = document.getElementById('gameCanvas');
 
-        let car = { x: 130, y: 300, width: 40, height: 70 };
-        let obstacles = [];
-        let score = 0;
-        let gameInterval;
-        let isPlaying = false;
-        let bestScore = localStorage.getItem('carBest') || 0;
-        bestElement.innerText = bestScore;
+        function init3D() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x0b1120);
 
-        function playSound(type) {
-            if(type === 'click') document.getElementById('clickSound').play().catch(e=>{});
-            if(type === 'win') document.getElementById('winSound').play().catch(e=>{});
+            camera = new THREE.PerspectiveCamera(75, canvasContainer.clientWidth / canvasContainer.clientHeight, 0.1, 1000);
+            camera.position.set(0, 6, 12);
+            camera.lookAt(0, 0, 0);
+
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+            renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
+
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+            const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            dirLight.position.set(5, 10, 7);
+            scene.add(dirLight);
+
+            // রাস্তা
+            const roadGeo = new THREE.PlaneGeometry(12, 100);
+            const roadMat = new THREE.MeshLambertMaterial({ color: 0x1e293b });
+            const road = new THREE.Mesh(roadGeo, roadMat);
+            road.rotation.x = -Math.PI / 2;
+            road.position.z = -40;
+            scene.add(road);
+
+            // লেন divider
+            for (let i = 0; i < 20; i++) {
+                const lineGeo = new THREE.PlaneGeometry(0.3, 3);
+                const lineMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff });
+                const line = new THREE.Mesh(lineGeo, lineMat);
+                line.rotation.x = -Math.PI / 2;
+                line.position.set(0, 0.01, -i * 5);
+                scene.add(line);
+            }
+
+            // গাড়ি (সিম্পল ৩ডি শেপ)
+            const carGroup = new THREE.Group();
+            const bodyGeo = new THREE.BoxGeometry(1.8, 0.8, 3.5);
+            const bodyMat = new THREE.MeshLambertMaterial({ color: 0x00d4ff });
+            const body = new THREE.Mesh(bodyGeo, bodyMat);
+            body.position.y = 0.6;
+            carGroup.add(body);
+
+            const roofGeo = new THREE.BoxGeometry(1.4, 0.5, 1.5);
+            const roofMat = new THREE.MeshLambertMaterial({ color: 0xffffff });
+            const roof = new THREE.Mesh(roofGeo, roofMat);
+            roof.position.set(0, 1.2, -0.2);
+            carGroup.add(roof);
+
+            car = carGroup;
+            car.position.set(0, 0, 0);
+            scene.add(car);
+
+            window.addEventListener('resize', () => {
+                camera.aspect = canvasContainer.clientWidth / canvasContainer.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
+            });
         }
 
-        function moveLeft() { if (car.x > 0) car.x -= 30; }
-        function moveRight() { if (car.x < canvas.width - car.width) car.x += 30; }
+        function animate() {
+            requestAnimationFrame(animate);
+            if (isPlaying) {
+                for (let i = obstacles.length - 1; i >= 0; i--) {
+                    let obs = obstacles[i];
+                    obs.position.z += 0.2;
+                    if (obs.position.z > 8) {
+                        scene.remove(obs);
+                        obstacles.splice(i, 1);
+                        score++;
+                        document.getElementById('score').innerText = score;
+                    }
+                    if (Math.abs(obs.position.x - car.position.x) < 2 && Math.abs(obs.position.z - car.position.z) < 3) {
+                        endGame();
+                    }
+                }
+            }
+            renderer.render(scene, camera);
+        }
+
+        function moveLeft() { if (isPlaying && car.position.x > -4) car.position.x -= 2; }
+        function moveRight() { if (isPlaying && car.position.x < 4) car.position.x += 2; }
 
         document.addEventListener("keydown", (e) => {
             if (e.key === "ArrowLeft" || e.key === "a") moveLeft();
             if (e.key === "ArrowRight" || e.key === "d") moveRight();
         });
 
-        function startGame() {
-            if (isPlaying) return;
-            playSound('click');
-            isPlaying = true;
-            document.getElementById("startBtn").style.display = "none";
-            car.x = 130; obstacles = []; score = 0; scoreElement.innerText = score;
-            gameInterval = setInterval(updateGame, 20);
-            setInterval(createObstacle, 800); // প্রতি ০.৮ সেকেন্ডে বাধা আসবে
-        }
-
         function createObstacle() {
             if (!isPlaying) return;
-            let obsWidth = 40 + Math.random() * 30;
-            let obsX = Math.random() * (canvas.width - obsWidth);
-            obstacles.push({ x: obsX, y: -100, width: obsWidth, height: 80 });
+            const geo = new THREE.BoxGeometry(1.8, 1.5, 3.5);
+            const mat = new THREE.MeshLambertMaterial({ color: 0xef4444 });
+            const obs = new THREE.Mesh(geo, mat);
+            obs.position.set((Math.random() - 0.5) * 8, 0.75, -60);
+            scene.add(obs);
+            obstacles.push(obs);
         }
 
-        function updateGame() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        function startGame() {
+            if (isPlaying) return;
+            isPlaying = true;
+            document.getElementById("startBtn").style.display = "none";
             
-            // রাস্তা
-            ctx.fillStyle = "#1e293b";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.strokeStyle = "#00d4ff";
-            ctx.lineWidth = 4;
-            ctx.beginPath(); ctx.moveTo(100, 0); ctx.lineTo(100, 400); ctx.stroke();
-            ctx.beginPath(); ctx.moveTo(200, 0); ctx.lineTo(200, 400); ctx.stroke();
-
-            // গাড়ি আঁকা
-            ctx.fillStyle = "#00d4ff";
-            ctx.fillRect(car.x, car.y, car.width, car.height);
-            ctx.fillStyle = "#fff";
-            ctx.fillRect(car.x + 5, car.y + 10, 30, 20); // গাড়ির কাচ
-
-            // বাধা
-            for (let i = 0; i < obstacles.length; i++) {
-                let o = obstacles[i];
-                ctx.fillStyle = "#ef4444";
-                ctx.fillRect(o.x, o.y, o.width, o.height);
-                o.y += 6;
-
-                // কলিশন ডিটেকশন
-                if (car.x < o.x + o.width && car.x + car.width > o.x && car.y < o.y + o.height && car.y + car.height > o.y) {
-                    endGame();
-                    return;
-                }
-                if (o.y > canvas.height) {
-                    obstacles.splice(i, 1);
-                    score++;
-                    scoreElement.innerText = score;
-                }
+            if (scene) {
+                obstacles.forEach(o => scene.remove(o));
+                obstacles = [];
+                car.position.x = 0;
             }
+            score = 0; document.getElementById('score').innerText = score;
+            
+            if (!scene) init3D();
+            animate();
+            
+            clearInterval(gameInterval);
+            gameInterval = setInterval(createObstacle, 800);
         }
 
         function endGame() {
-            clearInterval(gameInterval);
             isPlaying = false;
-            playSound('win');
-            if (score > bestScore) { bestScore = score; localStorage.setItem('carBest', bestScore); }
-            showVictory("Game Over!", "Your Score: " + score);
-        }
-
-        function showVictory(title, text) {
-            document.getElementById("victoryTitle").innerText = title;
-            document.getElementById("victoryText").innerText = text;
+            clearInterval(gameInterval);
+            document.getElementById("victoryText").innerText = "Your Score: " + score;
             document.getElementById("victoryModal").classList.add("active");
         }
 
         function playAgainAction() {
-            playSound('click');
             document.getElementById("victoryModal").classList.remove("active");
             document.getElementById("startBtn").style.display = "inline-block";
             document.getElementById("startBtn").innerText = "Play Again";
-            bestElement.innerText = bestScore;
         }
     </script>
 </body>

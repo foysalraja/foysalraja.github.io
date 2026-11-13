@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Moto Rider | Foysal Raja</title>
+    <title>3D Moto Rider | Foysal Raja</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        canvas { display: block; }
+        #score-board {
+            position: absolute; top: 80px; left: 50%; transform: translateX(-50%);
+            color: #fff; font-size: 1.5rem; font-weight: bold; background: rgba(11,17,32,0.7);
+            padding: 10px 20px; border-radius: 10px; border: 1px solid #00d4ff; z-index: 10;
+        }
+        #game-container { position: relative; width: 100%; height: 500px; overflow: hidden; border-radius: 10px; border: 3px solid #00d4ff;}
+    </style>
 </head>
 <body>
 
@@ -27,11 +36,11 @@
     <div style="padding: 20px 5%; max-width: 600px; margin: 0 auto; text-align: center;">
         <a href="game.html" style="color: #00d4ff; text-decoration: none; display: block; margin-bottom: 20px; text-align: left;">← Back to Games</a>
         
-        <h2 style="color: #fff; margin-bottom: 10px;">Moto Rider 🏍️</h2>
-        <div style="font-size: 1.2rem; margin-bottom: 10px; color: #fff;">Score: <span id="score">0</span> | Best: <span id="best">0</span></div>
+        <h2 style="color: #fff; margin-bottom: 10px;">3D Moto Rider 🏍️</h2>
         
-        <div style="display: flex; justify-content: center;">
-            <canvas id="gameCanvas" width="300" height="400" style="background: #0b1120; border: 3px solid #00d4ff; border-radius: 10px; touch-action: none;"></canvas>
+        <div id="game-container">
+            <div id="score-board">Score: <span id="score">0</span></div>
+            <canvas id="gameCanvas"></canvas>
         </div>
 
         <div style="margin-top: 20px; display: flex; justify-content: center; gap: 20px;">
@@ -50,9 +59,9 @@
         </div>
     </div>
 
-    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"></audio>
-    <audio id="winSound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3"></audio>
-
+    <!-- Three.js লাইব্রেরি -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
     <script>
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
@@ -61,104 +70,148 @@
             document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListener('click', () => { hamburger.classList.remove('active'); navLinks.classList.remove('active'); }); });
         }
 
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
-        const scoreElement = document.getElementById("score");
-        const bestElement = document.getElementById("best");
+        let scene, camera, renderer, bike, obstacles = [], score = 0, isPlaying = false, gameInterval;
+        const canvasContainer = document.getElementById('game-container');
+        const canvas = document.getElementById('gameCanvas');
 
-        let bike = { x: 130, y: 300, width: 40, height: 60 };
-        let obstacles = [];
-        let score = 0;
-        let gameInterval;
-        let isPlaying = false;
-        let bestScore = localStorage.getItem('motoBest') || 0;
-        bestElement.innerText = bestScore;
+        function init3D() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x0b1120); // ডার্ক থিম
 
-        function playSound(type) {
-            if(type === 'click') document.getElementById('clickSound').play().catch(e=>{});
-            if(type === 'win') document.getElementById('winSound').play().catch(e=>{});
+            camera = new THREE.PerspectiveCamera(75, canvasContainer.clientWidth / canvasContainer.clientHeight, 0.1, 1000);
+            camera.position.set(0, 5, 10);
+            camera.lookAt(0, 0, 0);
+
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+            renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
+
+            // লাইট
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+            const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            dirLight.position.set(5, 10, 7);
+            scene.add(dirLight);
+
+            // রাস্তা
+            const roadGeo = new THREE.PlaneGeometry(10, 100);
+            const roadMat = new THREE.MeshLambertMaterial({ color: 0x1e293b });
+            const road = new THREE.Mesh(roadGeo, roadMat);
+            road.rotation.x = -Math.PI / 2;
+            road.position.z = -40;
+            scene.add(road);
+
+            // রাস্তার দাগ
+            for (let i = 0; i < 20; i++) {
+                const lineGeo = new THREE.PlaneGeometry(0.2, 3);
+                const lineMat = new THREE.MeshBasicMaterial({ color: 0x00d4ff });
+                const line = new THREE.Mesh(lineGeo, lineMat);
+                line.rotation.x = -Math.PI / 2;
+                line.position.set(0, 0.01, -i * 5);
+                scene.add(line);
+            }
+
+            // মোটরসাইকেল (সিম্পল ৩ডি শেপ)
+            const bikeGroup = new THREE.Group();
+            const bodyGeo = new THREE.BoxGeometry(1, 0.5, 2);
+            const bodyMat = new THREE.MeshLambertMaterial({ color: 0x00d4ff });
+            const body = new THREE.Mesh(bodyGeo, bodyMat);
+            body.position.y = 0.5;
+            bikeGroup.add(body);
+
+            const wheelGeo = new THREE.CylinderGeometry(0.3, 0.3, 0.2, 16);
+            const wheelMat = new THREE.MeshLambertMaterial({ color: 0x000000 });
+            const wheel1 = new THREE.Mesh(wheelGeo, wheelMat);
+            wheel1.rotation.z = Math.PI / 2;
+            wheel1.position.set(0, 0.3, -0.8);
+            bikeGroup.add(wheel1);
+            const wheel2 = new THREE.Mesh(wheelGeo, wheelMat);
+            wheel2.rotation.z = Math.PI / 2;
+            wheel2.position.set(0, 0.3, 0.8);
+            bikeGroup.add(wheel2);
+
+            bike = bikeGroup;
+            bike.position.set(0, 0, 0);
+            scene.add(bike);
+
+            // রিসাইজ ইভেন্ট
+            window.addEventListener('resize', () => {
+                camera.aspect = canvasContainer.clientWidth / canvasContainer.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
+            });
         }
 
-        function moveLeft() { if (bike.x > 0) bike.x -= 30; }
-        function moveRight() { if (bike.x < canvas.width - bike.width) bike.x += 30; }
+        function animate() {
+            requestAnimationFrame(animate);
+            if (isPlaying) {
+                // বাধা মুভমেন্ট
+                for (let i = obstacles.length - 1; i >= 0; i--) {
+                    let obs = obstacles[i];
+                    obs.position.z += 0.15;
+                    if (obs.position.z > 5) {
+                        scene.remove(obs);
+                        obstacles.splice(i, 1);
+                        score++;
+                        document.getElementById('score').innerText = score;
+                    }
+                    // কলিশন ডিটেকশন
+                    if (Math.abs(obs.position.x - bike.position.x) < 1.2 && Math.abs(obs.position.z - bike.position.z) < 1.5) {
+                        endGame();
+                    }
+                }
+            }
+            renderer.render(scene, camera);
+        }
+
+        function moveLeft() { if (isPlaying && bike.position.x > -3.5) bike.position.x -= 1.5; }
+        function moveRight() { if (isPlaying && bike.position.x < 3.5) bike.position.x += 1.5; }
 
         document.addEventListener("keydown", (e) => {
             if (e.key === "ArrowLeft" || e.key === "a") moveLeft();
             if (e.key === "ArrowRight" || e.key === "d") moveRight();
         });
 
-        function startGame() {
-            if (isPlaying) return;
-            playSound('click');
-            isPlaying = true;
-            document.getElementById("startBtn").style.display = "none";
-            bike.x = 130; obstacles = []; score = 0; scoreElement.innerText = score;
-            gameInterval = setInterval(updateGame, 20);
-            setInterval(createObstacle, 1000); // প্রতি সেকেন্ডে বাধা আসবে
-        }
-
         function createObstacle() {
             if (!isPlaying) return;
-            let obsWidth = 40 + Math.random() * 30;
-            let obsX = Math.random() * (canvas.width - obsWidth);
-            obstacles.push({ x: obsX, y: -60, width: obsWidth, height: 80 });
+            const geo = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+            const mat = new THREE.MeshLambertMaterial({ color: 0xef4444 });
+            const obs = new THREE.Mesh(geo, mat);
+            obs.position.set((Math.random() - 0.5) * 8, 0.75, -50);
+            scene.add(obs);
+            obstacles.push(obs);
         }
 
-        function updateGame() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        function startGame() {
+            if (isPlaying) return;
+            isPlaying = true;
+            document.getElementById("startBtn").style.display = "none";
             
-            // রাস্তার দাগ
-            ctx.strokeStyle = "#334155";
-            ctx.lineWidth = 5;
-            ctx.setLineDash([20, 20]);
-            ctx.beginPath(); ctx.moveTo(150, 0); ctx.lineTo(150, 400); ctx.stroke();
-
-            // বাইক আঁকা
-            ctx.fillStyle = "#00d4ff";
-            ctx.fillRect(bike.x, bike.y, bike.width, bike.height);
-            ctx.fillStyle = "#fff";
-            ctx.fillRect(bike.x + 10, bike.y + 10, 20, 15); // রাইডার
-
-            // বাধা
-            for (let i = 0; i < obstacles.length; i++) {
-                let o = obstacles[i];
-                ctx.fillStyle = "#ef4444";
-                ctx.fillRect(o.x, o.y, o.width, o.height);
-                o.y += 5;
-
-                // কলিশন ডিটেকশন
-                if (bike.x < o.x + o.width && bike.x + bike.width > o.x && bike.y < o.y + o.height && bike.y + bike.height > o.y) {
-                    endGame();
-                    return;
-                }
-                if (o.y > canvas.height) {
-                    obstacles.splice(i, 1);
-                    score++;
-                    scoreElement.innerText = score;
-                }
+            // ক্যানভাস রিসেট
+            if (scene) {
+                obstacles.forEach(o => scene.remove(o));
+                obstacles = [];
+                bike.position.x = 0;
             }
+            score = 0; document.getElementById('score').innerText = score;
+            
+            if (!scene) init3D();
+            animate();
+            
+            clearInterval(gameInterval);
+            gameInterval = setInterval(createObstacle, 1000);
         }
 
         function endGame() {
-            clearInterval(gameInterval);
             isPlaying = false;
-            playSound('win');
-            if (score > bestScore) { bestScore = score; localStorage.setItem('motoBest', bestScore); }
-            showVictory("Game Over!", "Your Score: " + score);
-        }
-
-        function showVictory(title, text) {
-            document.getElementById("victoryTitle").innerText = title;
-            document.getElementById("victoryText").innerText = text;
+            clearInterval(gameInterval);
+            document.getElementById("victoryText").innerText = "Your Score: " + score;
             document.getElementById("victoryModal").classList.add("active");
         }
 
         function playAgainAction() {
-            playSound('click');
             document.getElementById("victoryModal").classList.remove("active");
             document.getElementById("startBtn").style.display = "inline-block";
             document.getElementById("startBtn").innerText = "Play Again";
-            bestElement.innerText = bestScore;
         }
     </script>
 </body>
