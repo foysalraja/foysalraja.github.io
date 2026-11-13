@@ -66,7 +66,20 @@ body {
     font-size: 1.1rem;
     box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
 }
+/* লোগো এবং নাম পাশাপাশি রাখার জন্য */
+.logo-container {
+    display: flex;
+    align-items: center; /* উপরে-নিচে সমান রাখার জন্য */
+    gap: 10px; /* লোগো এবং নামের মাঝখানে একটু ফাঁকা জায়গা */
+}
 
+/* নামটি বড় করার জন্য */
+.site-title {
+    font-size: 26px; /* লেখাটি বড় করতে চাইলে এই সংখ্যাটি বাড়াতে পারেন (যেমন 30px) */
+    font-weight: bold;
+    color: white; /* আপনার ওয়েবসাইটের লেখার রঙ */
+    margin: 0;
+}
 .nav-links { list-style: none; display: flex; gap: 15px; flex-wrap: wrap; }
 .nav-links a { color: #94a3b8; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
 .nav-links a:hover, .nav-links a.active { color: #00d4ff; }
