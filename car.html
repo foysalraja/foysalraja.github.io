@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Car Racing | Foysal Raja</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.jpg" alt="FR Logo" class="logo-img">
+            <span>Foysal Raja</span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="game.html" class="active">Games</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </nav>
+
+    <div style="padding: 20px 5%; max-width: 600px; margin: 0 auto; text-align: center;">
+        <a href="game.html" style="color: #00d4ff; text-decoration: none; display: block; margin-bottom: 20px; text-align: left;">← Back to Games</a>
+        
+        <h2 style="color: #fff; margin-bottom: 10px;">Car Racing 🚗</h2>
+        <div style="font-size: 1.2rem; margin-bottom: 10px; color: #fff;">Score: <span id="score">0</span> | Best: <span id="best">0</span></div>
+        
+        <div style="display: flex; justify-content: center;">
+            <canvas id="gameCanvas" width="300" height="400" style="background: #0b1120; border: 3px solid #00d4ff; border-radius: 10px; touch-action: none;"></canvas>
+        </div>
+
+        <div style="margin-top: 20px; display: flex; justify-content: center; gap: 20px;">
+            <button class="ctrl-btn" onclick="moveLeft()">⬅️</button>
+            <button class="ctrl-btn" onclick="moveRight()">➡️</button>
+        </div>
+        <br>
+        <button class="btn" onclick="startGame()" id="startBtn" style="margin-top: 15px;">Start Game</button>
+    </div>
+
+    <div class="victory-modal" id="victoryModal">
+        <div class="victory-content">
+            <h2 id="victoryTitle">Game Over!</h2>
+            <p id="victoryText">Your Score: 0</p>
+            <button class="btn" onclick="playAgainAction()">Play Again</button>
+        </div>
+    </div>
+
+    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"></audio>
+    <audio id="winSound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3"></audio>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); navLinks.classList.toggle('active'); });
+            document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListener('click', () => { hamburger.classList.remove('active'); navLinks.classList.remove('active'); }); });
+        }
+
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const scoreElement = document.getElementById("score");
+        const bestElement = document.getElementById("best");
+
+        let car = { x: 130, y: 300, width: 40, height: 70 };
+        let obstacles = [];
+        let score = 0;
+        let gameInterval;
+        let isPlaying = false;
+        let bestScore = localStorage.getItem('carBest') || 0;
+        bestElement.innerText = bestScore;
+
+        function playSound(type) {
+            if(type === 'click') document.getElementById('clickSound').play().catch(e=>{});
+            if(type === 'win') document.getElementById('winSound').play().catch(e=>{});
+        }
+
+        function moveLeft() { if (car.x > 0) car.x -= 30; }
+        function moveRight() { if (car.x < canvas.width - car.width) car.x += 30; }
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowLeft" || e.key === "a") moveLeft();
+            if (e.key === "ArrowRight" || e.key === "d") moveRight();
+        });
+
+        function startGame() {
+            if (isPlaying) return;
+            playSound('click');
+            isPlaying = true;
+            document.getElementById("startBtn").style.display = "none";
+            car.x = 130; obstacles = []; score = 0; scoreElement.innerText = score;
+            gameInterval = setInterval(updateGame, 20);
+            setInterval(createObstacle, 800); // প্রতি ০.৮ সেকেন্ডে বাধা আসবে
+        }
+
+        function createObstacle() {
+            if (!isPlaying) return;
+            let obsWidth = 40 + Math.random() * 30;
+            let obsX = Math.random() * (canvas.width - obsWidth);
+            obstacles.push({ x: obsX, y: -100, width: obsWidth, height: 80 });
+        }
+
+        function updateGame() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // রাস্তা
+            ctx.fillStyle = "#1e293b";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = "#00d4ff";
+            ctx.lineWidth = 4;
+            ctx.beginPath(); ctx.moveTo(100, 0); ctx.lineTo(100, 400); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(200, 0); ctx.lineTo(200, 400); ctx.stroke();
+
+            // গাড়ি আঁকা
+            ctx.fillStyle = "#00d4ff";
+            ctx.fillRect(car.x, car.y, car.width, car.height);
+            ctx.fillStyle = "#fff";
+            ctx.fillRect(car.x + 5, car.y + 10, 30, 20); // গাড়ির কাচ
+
+            // বাধা
+            for (let i = 0; i < obstacles.length; i++) {
+                let o = obstacles[i];
+                ctx.fillStyle = "#ef4444";
+                ctx.fillRect(o.x, o.y, o.width, o.height);
+                o.y += 6;
+
+                // কলিশন ডিটেকশন
+                if (car.x < o.x + o.width && car.x + car.width > o.x && car.y < o.y + o.height && car.y + car.height > o.y) {
+                    endGame();
+                    return;
+                }
+                if (o.y > canvas.height) {
+                    obstacles.splice(i, 1);
+                    score++;
+                    scoreElement.innerText = score;
+                }
+            }
+        }
+
+        function endGame() {
+            clearInterval(gameInterval);
+            isPlaying = false;
+            playSound('win');
+            if (score > bestScore) { bestScore = score; localStorage.setItem('carBest', bestScore); }
+            showVictory("Game Over!", "Your Score: " + score);
+        }
+
+        function showVictory(title, text) {
+            document.getElementById("victoryTitle").innerText = title;
+            document.getElementById("victoryText").innerText = text;
+            document.getElementById("victoryModal").classList.add("active");
+        }
+
+        function playAgainAction() {
+            playSound('click');
+            document.getElementById("victoryModal").classList.remove("active");
+            document.getElementById("startBtn").style.display = "inline-block";
+            document.getElementById("startBtn").innerText = "Play Again";
+            bestElement.innerText = bestScore;
+        }
+    </script>
+</body>
+</html>

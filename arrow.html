@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Arrow Puzzle | Foysal Raja</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .arrow-grid { display: grid; grid-template-columns: repeat(4, 70px); gap: 10px; justify-content: center; margin: 20px auto; }
+        .arrow-cell { width: 70px; height: 70px; background: #1e293b; border: 2px solid #334155; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer; transition: 0.2s; user-select: none; }
+        .arrow-cell:hover { border-color: #00d4ff; background: #0b1120; }
+        .arrow-cell.empty { background: #0b1120; cursor: default; border-color: #1e293b; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.jpg" alt="FR Logo" class="logo-img">
+            <span>Foysal Raja</span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="game.html" class="active">Games</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </nav>
+
+    <div style="padding: 20px 5%; max-width: 600px; margin: 0 auto; text-align: center;">
+        <a href="game.html" style="color: #00d4ff; text-decoration: none; display: block; margin-bottom: 20px; text-align: left;">← Back to Games</a>
+        
+        <h2 style="color: #fff; margin-bottom: 10px;">Arrow Puzzle ➡️</h2>
+        <p style="color: #94a3b8; margin-bottom: 20px;">Remove all arrows by clicking them. (Click on an arrow to change its direction)</p>
+        
+        <div class="arrow-grid" id="grid"></div>
+
+        <button class="btn" onclick="initGame()" style="margin-top: 15px;">Restart Game</button>
+    </div>
+
+    <div class="victory-modal" id="victoryModal">
+        <div class="victory-content">
+            <h2 id="victoryTitle">Congratulations! 🎉</h2>
+            <p id="victoryText">You Cleared the Board!</p>
+            <button class="btn" onclick="playAgainAction()">Play Again</button>
+        </div>
+    </div>
+
+    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"></audio>
+    <audio id="winSound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3"></audio>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); navLinks.classList.toggle('active'); });
+            document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListener('click', () => { hamburger.classList.remove('active'); navLinks.classList.remove('active'); }); });
+        }
+
+        const gridElement = document.getElementById('grid');
+        let arrows = [];
+        const arrowIcons = ['⬆️', '⬇️', '⬅️', '➡️'];
+
+        function playSound(type) {
+            if(type === 'click') document.getElementById('clickSound').play().catch(e=>{});
+            if(type === 'win') document.getElementById('winSound').play().catch(e=>{});
+        }
+
+        function initGame() {
+            playSound('click');
+            arrows = [];
+            gridElement.innerHTML = '';
+            // ১৬টি ঘরের জন্য ১২টি তীর এবং ৪টি খালি ঘর র‍্যান্ডমলি তৈরি করা
+            let positions = Array.from({length: 16}, (_, i) => i).sort(() => Math.random() - 0.5);
+            let arrowCount = 12;
+
+            for (let i = 0; i < 16; i++) {
+                let cell = document.createElement('div');
+                cell.className = 'arrow-cell';
+                if (arrowCount > 0) {
+                    let randomArrow = arrowIcons[Math.floor(Math.random() * 4)];
+                    arrows.push(randomArrow);
+                    cell.innerText = randomArrow;
+                    cell.onclick = () => handleClick(i, cell);
+                    arrowCount--;
+                } else {
+                    cell.classList.add('empty');
+                }
+                gridElement.appendChild(cell);
+            }
+        }
+
+        function handleClick(index, cell) {
+            if (!cell.innerText) return; // খালি ঘরে ক্লিক করলে কিছু হবে না
+            
+            playSound('click');
+            // তীরের দিক পরিবর্তন করা
+            let current = arrows[index];
+            let nextIndex = (arrowIcons.indexOf(current) + 1) % 4;
+            let nextArrow = arrowIcons[nextIndex];
+            arrows[index] = nextArrow;
+            cell.innerText = nextArrow;
+
+            // আপনার পছন্দমতো লজিক: যেমন আমরা চাইলে ৪ বার ক্লিক করলে তীরটি মুছে যাবে
+            if (nextIndex === 0 && cell.dataset.clicks === '3') {
+                cell.innerText = '';
+                cell.classList.add('empty');
+                cell.onclick = null;
+                checkWin();
+            } else {
+                cell.dataset.clicks = (parseInt(cell.dataset.clicks) || 0) + 1;
+            }
+        }
+
+        function checkWin() {
+            let remaining = arrows.filter(a => a !== '').length;
+            // গেমটি সহজ রাখার জন্য, এখানে আমরা শুধু পরীক্ষার জন্য একটি উইন কন্ডিশন দিচ্ছি
+            if (document.querySelectorAll('.arrow-cell:not(.empty)').length === 0) {
+                playSound('win');
+                showVictory("You Win! 🎉", "You cleared all the arrows!");
+            }
+        }
+
+        function showVictory(title, text) {
+            document.getElementById("victoryTitle").innerText = title;
+            document.getElementById("victoryText").innerText = text;
+            document.getElementById("victoryModal").classList.add("active");
+        }
+
+        function playAgainAction() {
+            playSound('click');
+            document.getElementById("victoryModal").classList.remove("active");
+            initGame();
+        }
+
+        initGame();
+    </script>
+</body>
+</html>
