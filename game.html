@@ -3,364 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foysal Raja - Web Developer & Gamer</title>
-    <style>
-        /* =========================================
-           গ্লোবাল স্টাইল (Global Styles)
-           ========================================= */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #0b1120; /* গাঢ় নীল/কালো ব্যাকগ্রাউন্ড */
-            color: #ffffff;
-            line-height: 1.6;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* =========================================
-           হেডার এবং নেভিগেশন (Header & Nav)
-           ========================================= */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background-color: #0b1120;
-            border-bottom: 1px solid #1f2937;
-            flex-wrap: wrap; /* মোবাইলের জন্য */
-            gap: 15px;
-        }
-
-        /* লোগো এবং নাম একসাথে */
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo {
-            background-color: #00d2ff;
-            color: #0b1120;
-            font-weight: bold;
-            font-size: 20px;
-            padding: 8px 12px;
-            border-radius: 8px;
-            letter-spacing: 1px;
-        }
-
-        .site-title {
-            font-size: 24px; /* নাম একটু বড় করা হয়েছে */
-            font-weight: 600;
-            color: #ffffff;
-            margin: 0;
-        }
-
-        /* মেনু বার */
-        nav {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        nav a {
-            font-size: 16px;
-            font-weight: 500;
-            color: #a0aec0;
-            transition: color 0.3s;
-        }
-
-        nav a:hover, nav a.active {
-            color: #00d2ff;
-        }
-
-        /* =========================================
-           মেইন কন্টেন্ট এরিয়া (Main Content)
-           ========================================= */
-        main {
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: calc(100vh - 150px);
-        }
-
-        /* =========================================
-           গেম সেকশন (Game Section)
-           ========================================= */
-        .game-container {
-            background-color: #111827;
-            border: 1px solid #1f2937;
-            border-radius: 20px;
-            padding: 30px 20px;
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
-
-        .game-title {
-            font-size: 28px;
-            margin-bottom: 10px;
-            color: #00d2ff;
-        }
-        
-        .game-title span {
-            color: #ff4757; /* O এর রঙ */
-        }
-
-        #status {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            height: 27px; /* লেআউট যাতে নড়াচড়া না করে */
-            color: #e2e8f0;
-        }
-
-        /* ৩x৩ গ্রিড বোর্ড */
-        .board {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-
-        .cell {
-            background-color: #0b1120;
-            border: 2px solid #1f2937;
-            border-radius: 12px;
-            height: 90px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 45px;
-            font-weight: bold;
-            cursor: pointer;
-            color: #00d2ff; /* X এর রঙ */
-            transition: all 0.2s ease;
-        }
-
-        .cell:hover {
-            border-color: #00d2ff;
-            background-color: #0f172a;
-        }
-
-        .cell.o {
-            color: #ff4757; /* O এর রঙ */
-        }
-
-        /* বাটন স্টাইল */
-        .btn {
-            background-color: transparent;
-            color: #00d2ff;
-            border: 2px solid #00d2ff;
-            padding: 12px 20px;
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .btn:hover {
-            background-color: #00d2ff;
-            color: #0b1120;
-        }
-
-        .btn-outline {
-            color: #a0aec0;
-            border-color: #4a5568;
-        }
-
-        .btn-outline:hover {
-            background-color: #4a5568;
-            color: #ffffff;
-        }
-    </style>
+    <title>Games | Foysal Raja</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- হেডার সেকশন -->
-    <header>
-        <div class="logo-container">
-            <div class="logo">FR</div>
-            <h1 class="site-title">Foysal Raja</h1> <!-- ডট সরানো হয়েছে এবং নাম বড় করা হয়েছে -->
+    <nav class="navbar">
+        <!-- আপনার আপলোড করা লোগো এখানে বসানো হয়েছে -->
+        <div class="logo">
+            <img src="logo.jpg" alt="FR Logo" class="logo-img">
+            Foysal<span>.Raja</span>
         </div>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Services</a>
-            <a href="#" class="active">Games</a>
-            <a href="#">Contact</a>
-        </nav>
-    </header>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="game.html" class="active">Games</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
 
-    <!-- মেইন কন্টেন্ট (গেম) -->
-    <main>
-        <div class="game-container">
-            <h2 class="game-title">Tic-Tac-Toe <span>X O</span></h2>
-            <div id="status">Your Turn (X)</div>
+    <div class="games-wrapper">
+        
+        <!-- ================= GAME 1: SNAKE ================= -->
+        <div class="game-card-box">
+            <h2>Snake Game 🐍</h2>
+            <div style="font-size: 1.2rem; margin-bottom: 10px; color: #fff;">Score: <span id="snakeScore">0</span></div>
             
-            <!-- গেম বোর্ড -->
-            <div class="board" id="board">
-                <div class="cell" data-index="0"></div>
-                <div class="cell" data-index="1"></div>
-                <div class="cell" data-index="2"></div>
-                <div class="cell" data-index="3"></div>
-                <div class="cell" data-index="4"></div>
-                <div class="cell" data-index="5"></div>
-                <div class="cell" data-index="6"></div>
-                <div class="cell" data-index="7"></div>
-                <div class="cell" data-index="8"></div>
+            <div class="canvas-wrapper">
+                <canvas id="gameCanvas" width="300" height="300"></canvas>
+            </div>
+            
+            <div class="mobile-controls">
+                <button onclick="setDir('UP')">⬆️</button>
+                <div class="d-pad-row">
+                    <button onclick="setDir('LEFT')">⬅️</button>
+                    <button onclick="setDir('DOWN')">⬇️</button>
+                    <button onclick="setDir('RIGHT')">➡️</button>
+                </div>
+            </div>
+            <p style="color: #94a3b8; font-size: 0.8rem; margin-top: 10px;">(পিসিতে তীর চিহ্ন দিয়ে খেলুন)</p>
+            <br>
+            <button class="btn" onclick="startSnakeGame()" id="startBtnSnake">Start Game</button>
+        </div>
+
+        <!-- ================= GAME 2: TIC TAC TOE ================= -->
+        <div class="game-card-box">
+            <h2>Tic-Tac-Toe ❌⭕</h2>
+            
+            <div id="tttModeSelection" class="ttt-mode-btns">
+                <button class="btn" onclick="startTTT('computer')">Play with Computer 🤖</button>
+                <button class="btn btn-outline" onclick="startTTT('player')">2 Players 👥</button>
             </div>
 
-            <!-- বাটনসমূহ -->
-            <button class="btn" id="restartBtn">Play Again</button>
-            <button class="btn btn-outline" onclick="window.location.href='index.html'">Back to Menu</button>
+            <div id="tttGameArea" style="display: none;">
+                <div id="tttStatus" style="color: #fff; font-size: 1.2rem; margin-bottom: 15px; font-weight: bold;">Player X's Turn</div>
+                <div class="ttt-board" id="tttBoard">
+                    <div class="ttt-cell" onclick="playTTT(0)"></div>
+                    <div class="ttt-cell" onclick="playTTT(1)"></div>
+                    <div class="ttt-cell" onclick="playTTT(2)"></div>
+                    <div class="ttt-cell" onclick="playTTT(3)"></div>
+                    <div class="ttt-cell" onclick="playTTT(4)"></div>
+                    <div class="ttt-cell" onclick="playTTT(5)"></div>
+                    <div class="ttt-cell" onclick="playTTT(6)"></div>
+                    <div class="ttt-cell" onclick="playTTT(7)"></div>
+                    <div class="ttt-cell" onclick="playTTT(8)"></div>
+                </div>
+                <button class="btn btn-outline" onclick="backToMenuTTT()" style="font-size: 0.9rem; margin-top: 10px;">Back to Menu</button>
+            </div>
         </div>
-    </main>
 
-    <!-- =========================================
-         জাভাস্ক্রিপ্ট (গেমের লজিক ও AI)
-         ========================================= -->
-    <script>
-        const cells = document.querySelectorAll('.cell');
-        const statusText = document.getElementById('status');
-        const restartBtn = document.getElementById('restartBtn');
-
-        let boardState = ["", "", "", "", "", "", "", "", ""];
-        let gameActive = true;
-        const HUMAN = "X";
-        const COMPUTER = "O";
-
-        // জেতার সম্ভাব্য সব দিক
-        const winningConditions = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8], // সারি (Rows)
-            [0, 3, 6], [1, 4, 7], [2, 5, 8], // কলাম (Columns)
-            [0, 4, 8], [2, 4, 6]             // কর্ণ (Diagonals)
-        ];
-
-        // ক্লিক ইভেন্ট
-        cells.forEach(cell => cell.addEventListener('click', handleCellClick));
-        restartBtn.addEventListener('click', restartGame);
-
-        function handleCellClick(clickedCellEvent) {
-            const clickedCell = clickedCellEvent.target;
-            const clickedCellIndex = parseInt(clickedCell.getAttribute('data-index'));
-
-            // যদি ঘর খালি না থাকে বা গেম শেষ হয়ে যায়, তাহলে কিছুই করবে না
-            if (boardState[clickedCellIndex] !== "" || !gameActive) return;
-
-            // ১. মানুষের চাল (X)
-            makeMove(clickedCellIndex, HUMAN);
-
-            // ২. যদি গেম এখনো শেষ না হয়, কম্পিউটারের চাল (O)
-            if (gameActive) {
-                statusText.innerText = "Computer is thinking...";
-                setTimeout(() => {
-                    const bestMove = getBestMove(boardState, COMPUTER);
-                    makeMove(bestMove, COMPUTER);
-                }, 400); // ০.৪ সেকেন্ড দেরি করে চালবে
-            }
-        }
-
-        function makeMove(index, player) {
-            boardState[index] = player;
-            cells[index].innerText = player;
-            if (player === COMPUTER) cells[index].classList.add('o');
+        <!-- ================= GAME 3: ROCK PAPER SCISSORS (নতুন গেম) ================= -->
+        <div class="game-card-box">
+            <h2>Rock Paper Scissors ✊✋✌️</h2>
+            <p style="color: #94a3b8; margin-bottom: 20px;">Play against the computer!</p>
             
-            checkResult();
+            <div class="rps-icons">
+                <button class="rps-btn" onclick="playRPS('rock')">✊</button>
+                <button class="rps-btn" onclick="playRPS('paper')">✋</button>
+                <button class="rps-btn" onclick="playRPS('scissors')">✌️</button>
+            </div>
+
+            <div class="rps-result" id="rpsResult">Choose your move!</div>
+            <div id="rpsScoreBoard" style="color: #00d4ff; margin-top: 10px; font-weight: bold;">
+                You: 0 | Computer: 0
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Foysal Raja. All rights reserved.</p>
+    </footer>
+
+    <!-- Victory Modal -->
+    <div class="victory-modal" id="victoryModal">
+        <div class="victory-content">
+            <h2 id="victoryTitle">Congratulations! 🎉</h2>
+            <p id="victoryText">You Win!</p>
+            <button class="btn" onclick="closeModal()">Great!</button>
+        </div>
+    </div>
+
+    <script>
+        // ================= SNAKE GAME =================
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const scoreElement = document.getElementById("snakeScore");
+        let box = 15; 
+        let snake = [];
+        let direction = "RIGHT";
+        let nextDirection = "RIGHT";
+        let food = { x: 0, y: 0 };
+        let score = 0;
+        let gameInterval;
+        let isPlaying = false;
+
+        function startSnakeGame() {
+            if (isPlaying) return;
+            isPlaying = true;
+            document.getElementById("startBtnSnake").style.display = "none";
+            
+            snake = [{ x: 5 * box, y: 5 * box }];
+            direction = "RIGHT";
+            nextDirection = "RIGHT";
+            score = 0;
+            scoreElement.innerText = score;
+            generateFood();
+            
+            gameInterval = setInterval(drawGame, 130);
         }
 
-        function checkResult() {
-            let roundWon = false;
-            let winner = null;
+        function setDir(newDir) {
+            if (!isPlaying) return;
+            if (newDir === "UP" && direction !== "DOWN") nextDirection = "UP";
+            if (newDir === "DOWN" && direction !== "UP") nextDirection = "DOWN";
+            if (newDir === "LEFT" && direction !== "RIGHT") nextDirection = "LEFT";
+            if (newDir === "RIGHT" && direction !== "LEFT") nextDirection = "RIGHT";
+        }
 
-            for (let i = 0; i < winningConditions.length; i++) {
-                const [a, b, c] = winningConditions[i];
-                if (boardState[a] && boardState[a] === boardState[b] && boardState[a] === boardState[c]) {
-                    roundWon = true;
-                    winner = boardState[a];
-                    break;
-                }
+        function generateFood() {
+            food = { x: Math.floor(Math.random() * 18 + 1) * box, y: Math.floor(Math.random() * 18 + 1) * box };
+        }
+
+        function drawGame() {
+            direction = nextDirection;
+            ctx.fillStyle = "#0b1120";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = "#ef4444";
+            ctx.fillRect(food.x, food.y, box, box);
+
+            for (let i = 0; i < snake.length; i++) {
+                ctx.fillStyle = (i === 0) ? "#00d4ff" : "#0ea5e9";
+                ctx.fillRect(snake[i].x, snake[i].y, box, box);
             }
 
-            if (roundWon) {
-                statusText.innerText = winner === HUMAN ? "You Win! 🎉" : "Computer Wins! 🤖";
-                gameActive = false;
+            let snakeX = snake[0].x;
+            let snakeY = snake[0].y;
+
+            if (direction === "LEFT") snakeX -= box;
+            if (direction === "UP") snakeY -= box;
+            if (direction === "RIGHT") snakeX += box;
+            if (direction === "DOWN") snakeY += box;
+
+            if (snakeX === food.x && snakeY === food.y) {
+                score++;
+                scoreElement.innerText = score;
+                generateFood();
+            } else { snake.pop(); }
+
+            let newHead = { x: snakeX, y: snakeY };
+
+            if (snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)) {
+                clearInterval(gameInterval);
+                isPlaying = false;
+                document.getElementById("startBtnSnake").style.display = "inline-block";
+                document.getElementById("startBtnSnake").innerText = "Play Again";
+                showVictory("Game Over!", "Your Score: " + score);
                 return;
             }
-
-            // ড্র চেক
-            if (!boardState.includes("")) {
-                statusText.innerText = "It's a Draw! 🤝";
-                gameActive = false;
-                return;
-            }
-
-            // পরের টার্ন কার
-            if (gameActive) {
-                statusText.innerText = "Your Turn (X)";
-            }
+            snake.unshift(newHead);
         }
 
-        // রিস্টার্ট ফাংশন
-        function restartGame() {
-            boardState = ["", "", "", "", "", "", "", "", ""];
-            gameActive = true;
-            statusText.innerText = "Your Turn (X)";
-            cells.forEach(cell => {
-                cell.innerText = "";
-                cell.classList.remove('o');
-            });
-        }
-
-        // ==========================================
-        // বুদ্ধিমান কম্পিউটার (Minimax Algorithm)
-        // ==========================================
-        function checkWin(board, player) {
-            for (let i = 0; i < winningConditions.length; i++) {
-                const [a, b, c] = winningConditions[i];
-                if (board[a] === player && board[b] === player && board[c] === player) return true;
+        function collision(head, array) {
+            for (let i = 1; i < array.length; i++) {
+                if (head.x === array[i].x && head.y === array[i].y) return true;
             }
             return false;
         }
 
-        function getBestMove(newBoard, player) {
-            // ১. কম্পিউটার কি জিততে পারবে? যদি পারে, জিতে যাবে।
-            for (let i = 0; i < newBoard.length; i++) {
-                if (newBoard[i] === "") {
-                    newBoard[i] = COMPUTER;
-                    if (checkWin(newBoard, COMPUTER)) { newBoard[i] = ""; return i; }
-                    newBoard[i] = "";
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowUp") setDir("UP");
+            if (e.key === "ArrowDown") setDir("DOWN");
+            if (e.key === "ArrowLeft") setDir("LEFT");
+            if (e.key === "ArrowRight") setDir("RIGHT");
+        });
+
+
+        // ================= TIC TAC TOE =================
+        let tttBoard = ["", "", "", "", "", "", "", "", ""];
+        let currentPlayer = "X";
+        let isGameActive = true;
+        let playMode = "player"; 
+        const winPatterns = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
+
+        function startTTT(mode) {
+            playMode = mode;
+            resetTTT();
+            document.getElementById("tttModeSelection").style.display = "none";
+            document.getElementById("tttGameArea").style.display = "block";
+            
+            if(playMode === 'computer') {
+                document.getElementById("tttStatus").innerText = "Your Turn (X)";
+            } else {
+                document.getElementById("tttStatus").innerText = "Player X's Turn";
+            }
+        }
+
+        function backToMenuTTT() {
+            document.getElementById("tttModeSelection").style.display = "flex";
+            document.getElementById("tttGameArea").style.display = "none";
+        }
+
+        function playTTT(index) {
+            if (tttBoard[index] !== "" || !isGameActive) return;
+            makeMove(index, currentPlayer);
+            if (isGameActive && playMode === 'computer') {
+                setTimeout(computerMove, 500); 
+            }
+        }
+
+        function makeMove(index, player) {
+            tttBoard[index] = player;
+            const cell = document.getElementById("tttBoard").children[index];
+            cell.innerText = player;
+            cell.style.color = player === "X" ? "#00d4ff" : "#ef4444";
+            checkWinner();
+            if (isGameActive) {
+                currentPlayer = currentPlayer === "X" ? "O" : "X";
+                if(playMode === 'computer') {
+                    document.getElementById("tttStatus").innerText = currentPlayer === 'X' ? "Your Turn (X)" : "Computer's Turn (O)";
+                } else {
+                    document.getElementById("tttStatus").innerText = `Player ${currentPlayer}'s Turn`;
                 }
             }
+        }
 
-            // ২. মানুষ কি জিততে যাচ্ছে? যদি যায়, ব্লক করবে।
-            for (let i = 0; i < newBoard.length; i++) {
-                if (newBoard[i] === "") {
-                    newBoard[i] = HUMAN;
-                    if (checkWin(newBoard, HUMAN)) { newBoard[i] = ""; return i; }
-                    newBoard[i] = "";
+        function computerMove() {
+            if (!isGameActive) return;
+            let emptyCells = [];
+            for (let i = 0; i < tttBoard.length; i++) {
+                if (tttBoard[i] === "") emptyCells.push(i);
+            }
+            if (emptyCells.length > 0) {
+                let randomIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                makeMove(randomIndex, "O");
+            }
+        }
+
+        function checkWinner() {
+            let roundWon = false;
+            for (let i = 0; i < winPatterns.length; i++) {
+                const [a, b, c] = winPatterns[i];
+                if (tttBoard[a] && tttBoard[a] === tttBoard[b] && tttBoard[a] === tttBoard[c]) {
+                    roundWon = true; break;
                 }
             }
+            if (roundWon) {
+                document.getElementById("tttStatus").innerText = `Player ${currentPlayer} Wins! 🎉`;
+                isGameActive = false;
+                let winMsg = playMode === 'computer' && currentPlayer === 'X' ? "You beat the Computer!" : `Player ${currentPlayer} Wins!`;
+                showVictory("Congratulations! 🎉", winMsg);
+                return;
+            }
+            if (!tttBoard.includes("")) {
+                document.getElementById("tttStatus").innerText = "It's a Draw! 🤝";
+                isGameActive = false;
+                return;
+            }
+        }
 
-            // ৩. মাঝখানে খালি থাকলে মাঝখানে মারবে।
-            if (newBoard[4] === "") return 4;
+        function resetTTT() {
+            tttBoard = ["", "", "", "", "", "", "", "", ""];
+            currentPlayer = "X";
+            isGameActive = true;
+            const cells = document.getElementById("tttBoard").children;
+            for (let i = 0; i < cells.length; i++) { cells[i].innerText = ""; }
+        }
 
-            // ৪. অন্যথায় যেকোনো একটি খালি ঘর বেছে নেবে।
-            const availableSpots = newBoard.map((val, index) => val === "" ? index : null).filter(val => val !== null);
-            return availableSpots[Math.floor(Math.random() * availableSpots.length)];
+        // ================= ROCK PAPER SCISSORS =================
+        let playerScoreRPS = 0;
+        let computerScoreRPS = 0;
+
+        function playRPS(playerChoice) {
+            const choices = ['rock', 'paper', 'scissors'];
+            const computerChoice = choices[Math.floor(Math.random() * 3)];
+            const resultText = document.getElementById("rpsResult");
+            const scoreText = document.getElementById("rpsScoreBoard");
+
+            let result = "";
+            if (playerChoice === computerChoice) {
+                result = "It's a tie! 🤝";
+            } else if (
+                (playerChoice === 'rock' && computerChoice === 'scissors') ||
+                (playerChoice === 'paper' && computerChoice === 'rock') ||
+                (playerChoice === 'scissors' && computerChoice === 'paper')
+            ) {
+                result = "You win! 🎉";
+                playerScoreRPS++;
+            } else {
+                result = "Computer wins! 🤖";
+                computerScoreRPS++;
+            }
+
+            resultText.innerText = `You chose ${playerChoice}, Computer chose ${computerChoice}. ${result}`;
+            scoreText.innerText = `You: ${playerScoreRPS} | Computer: ${computerScoreRPS}`;
+
+            if (playerScoreRPS === 3) {
+                showVictory("🏆 You Won the Match!", "You beat the computer 3 times!");
+                playerScoreRPS = 0; computerScoreRPS = 0;
+                scoreText.innerText = `You: 0 | Computer: 0`;
+            } else if (computerScoreRPS === 3) {
+                showVictory("🤖 Computer Won!", "Try again next time!");
+                playerScoreRPS = 0; computerScoreRPS = 0;
+                scoreText.innerText = `You: 0 | Computer: 0`;
+            }
+        }
+
+        // Victory Modal
+        function showVictory(title, text) {
+            document.getElementById("victoryTitle").innerText = title;
+            document.getElementById("victoryText").innerText = text;
+            document.getElementById("victoryModal").classList.add("active");
+        }
+        function closeModal() {
+            document.getElementById("victoryModal").classList.remove("active");
         }
     </script>
 </body>
