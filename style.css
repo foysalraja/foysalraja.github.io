@@ -220,7 +220,28 @@ footer {
     
     .contact-container { padding: 25px 15px; }
     
-    .footer-container { flex-direction: column; text-align: center; gap: 40px; }
-    .footer-brand p { margin: 0 auto; }
-    .social-icons { justify-content: center; }
+/* নতুন কমপ্যাক্ট মোবাইল ফুটার */
+.footer-container { 
+    flex-direction: row; /* পাশাপাশি সাজানোর জন্য */
+    flex-wrap: wrap; 
+    justify-content: space-between; 
+    text-align: left; 
+    gap: 15px; 
 }
+.footer-brand { flex: 100%; text-align: center; margin-bottom: 10px; } /* লোগো ও নাম উপরে মাঝখানে */
+.footer-brand img { width: 35px; height: 35px; }
+.footer-brand h3 { font-size: 1.1rem; margin-bottom: 5px; }
+.footer-brand p { font-size: 0.8rem; max-width: 100%; }
+
+.footer-links { flex: 1; min-width: 140px; } /* কুইক লিংক বাম দিকে */
+.footer-links h4 { font-size: 0.95rem; margin-bottom: 10px; }
+.footer-links ul li { margin-bottom: 5px; }
+.footer-links ul a { font-size: 0.8rem; }
+
+.footer-social { flex: 1; min-width: 120px; text-align: right; } /* সোশ্যাল মিডিয়া ডান দিকে */
+.footer-social h4 { font-size: 0.95rem; margin-bottom: 10px; }
+.social-icons { display: flex; gap: 8px; justify-content: flex-end; }
+.social-icons a { width: 32px; height: 32px; font-size: 0.9rem; }
+
+footer { padding: 25px 5% 15px; }
+.footer-bottom { margin-top: 20px; padding-top: 10px; font-size: 0.75rem; }
