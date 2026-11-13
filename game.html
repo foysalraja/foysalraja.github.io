@@ -10,7 +10,11 @@
 <body>
 
     <nav class="navbar">
-        <div class="logo"><div class="logo-icon">FR</div>Foysal<span>.Raja</span></div>
+        <!-- নামের স্পেস ও ডট ফিক্স করা হয়েছে -->
+        <div class="logo">
+            <div class="logo-icon">FR</div>
+            Foysal<span>.Raja</span>
+        </div>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
@@ -20,15 +24,15 @@
         </ul>
     </nav>
 
-    <div class="games-container" style="padding: 40px 5%; text-align: center; max-width: 600px; margin: 0 auto;">
+    <div style="padding: 30px 5%; max-width: 650px; margin: 0 auto;">
         
-        <!-- Snake Game -->
-        <div class="game-section" style="margin-bottom: 50px; background: #111827; padding: 20px; border-radius: 20px; border: 1px solid #1e293b;">
-            <h2 class="game-title" style="color: #00d4ff; margin-bottom: 15px; font-size: 1.8rem;">Snake Game 🐍</h2>
-            <div class="score-board" style="font-size: 1.2rem; margin-bottom: 10px; color: #fff;">Score: <span id="snakeScore">0</span></div>
+        <!-- ================= SNAKE GAME ================= -->
+        <div class="game-section">
+            <h2 style="color: #00d4ff; margin-bottom: 15px; font-size: 1.8rem;">Snake Game 🐍</h2>
+            <div style="font-size: 1.2rem; margin-bottom: 10px; color: #fff;">Score: <span id="snakeScore">0</span></div>
             
             <div class="canvas-wrapper">
-                <canvas id="gameCanvas" width="280" height="280"></canvas>
+                <canvas id="gameCanvas" width="300" height="300"></canvas>
             </div>
             
             <!-- মোবাইল কন্ট্রোল -->
@@ -42,25 +46,36 @@
             </div>
             <p style="color: #94a3b8; font-size: 0.8rem; margin-top: 10px;">(পিসিতে তীর চিহ্ন দিয়ে খেলুন)</p>
             <br>
-            <button class="btn" onclick="startSnakeGame()" id="startBtn">Start Game</button>
+            <button class="btn" onclick="startSnakeGame()" id="startBtnSnake">Start Game</button>
         </div>
 
-        <!-- Tic Tac Toe Game -->
-        <div class="game-section" style="margin-bottom: 50px; background: #111827; padding: 20px; border-radius: 20px; border: 1px solid #1e293b;">
-            <h2 class="game-title" style="color: #00d4ff; margin-bottom: 15px; font-size: 1.8rem;">Tic-Tac-Toe ❌⭕</h2>
-            <div class="ttt-status" id="tttStatus" style="color: #fff; font-size: 1.2rem; margin-bottom: 15px; font-weight: bold;">Player X's Turn</div>
-            <div class="ttt-board" id="tttBoard" style="display: grid; grid-template-columns: repeat(3, 80px); gap: 10px; justify-content: center; margin-bottom: 20px;">
-                <div class="ttt-cell" onclick="playTTT(0)" style="width: 80px; height: 80px; background: #0b1120; border: 2px solid #334155; font-size: 2.5rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px;"></div>
-                <div class="ttt-cell" onclick="playTTT(1)" style="width: 80px; height: 80px; background: #0b1120; border: 2px solid #334155; font-size: 2.5rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px;"></div>
-                <div class="ttt-cell" onclick="playTTT(2)" style="width: 80px; height: 80px; background: #0b1120; border: 2px solid #334155; font-size: 2.5rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px;"></div>
-                <div class="ttt-cell" onclick="playTTT(3)" style="width: 80px; height: 80px; background: #0b1120; border: 2px solid #334155; font-size: 2.5rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px;"></div>
-                <div class="ttt-cell" onclick="playTTT(4)" style="width: 80px; height: 80px; background: #0b1120; border: 2px solid #334155; font-size: 2.5rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px;"></div>
-                <div class="ttt-cell" onclick="playTTT(5)" style="width: 80px; height: 80px; background: #0b1120; border: 2px solid #334155; font-size: 2.5rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px;"></div>
-                <div class="ttt-cell" onclick="playTTT(6)" style="width: 80px; height: 80px; background: #0b1120; border: 2px solid #334155; font-size: 2.5rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px;"></div>
-                <div class="ttt-cell" onclick="playTTT(7)" style="width: 80px; height: 80px; background: #0b1120; border: 2px solid #334155; font-size: 2.5rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px;"></div>
-                <div class="ttt-cell" onclick="playTTT(8)" style="width: 80px; height: 80px; background: #0b1120; border: 2px solid #334155; font-size: 2.5rem; color: #00d4ff; display: flex; justify-content: center; align-items: center; cursor: pointer; border-radius: 10px;"></div>
+        <!-- ================= TIC TAC TOE GAME ================= -->
+        <div class="game-section">
+            <h2 style="color: #00d4ff; margin-bottom: 15px; font-size: 1.8rem;">Tic-Tac-Toe ❌⭕</h2>
+            
+            <!-- মোড সিলেক্ট বাটন -->
+            <div id="tttModeSelection" style="margin-bottom: 20px;">
+                <button class="btn" style="margin: 5px; font-size: 0.9rem;" onclick="startTTT('computer')">Play with Computer 🤖</button>
+                <button class="btn btn-outline" style="margin: 5px; font-size: 0.9rem;" onclick="startTTT('player')">2 Players 👥</button>
             </div>
-            <button class="reset-btn" onclick="resetTTT()" style="padding: 10px 20px; background: #00d4ff; color: #0b1120; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 1rem;">Restart Game</button>
+
+            <!-- গেম বোর্ড (শুরুতে লুকানো) -->
+            <div id="tttGameArea" style="display: none;">
+                <div id="tttStatus" style="color: #fff; font-size: 1.2rem; margin-bottom: 15px; font-weight: bold;">Player X's Turn</div>
+                <div class="ttt-board" id="tttBoard">
+                    <!-- ৯টি সেল -->
+                    <div class="ttt-cell" onclick="playTTT(0)"></div>
+                    <div class="ttt-cell" onclick="playTTT(1)"></div>
+                    <div class="ttt-cell" onclick="playTTT(2)"></div>
+                    <div class="ttt-cell" onclick="playTTT(3)"></div>
+                    <div class="ttt-cell" onclick="playTTT(4)"></div>
+                    <div class="ttt-cell" onclick="playTTT(5)"></div>
+                    <div class="ttt-cell" onclick="playTTT(6)"></div>
+                    <div class="ttt-cell" onclick="playTTT(7)"></div>
+                    <div class="ttt-cell" onclick="playTTT(8)"></div>
+                </div>
+                <button class="btn btn-outline" onclick="backToMenu()" style="font-size: 0.9rem;">Back to Menu</button>
+            </div>
         </div>
 
     </div>
@@ -79,12 +94,11 @@
     </div>
 
     <script>
-        // ---- SNAKE GAME LOGIC ----
+        // ================= SNAKE GAME =================
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
         const scoreElement = document.getElementById("snakeScore");
-        
-        let box = 14;
+        let box = 15; 
         let snake = [];
         let direction = "RIGHT";
         let nextDirection = "RIGHT";
@@ -96,7 +110,7 @@
         function startSnakeGame() {
             if (isPlaying) return;
             isPlaying = true;
-            document.getElementById("startBtn").style.display = "none";
+            document.getElementById("startBtnSnake").style.display = "none";
             
             snake = [{ x: 5 * box, y: 5 * box }];
             direction = "RIGHT";
@@ -124,9 +138,12 @@
             direction = nextDirection;
             ctx.fillStyle = "#0b1120";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // খাবার
             ctx.fillStyle = "#ef4444";
             ctx.fillRect(food.x, food.y, box, box);
 
+            // সাপ
             for (let i = 0; i < snake.length; i++) {
                 ctx.fillStyle = (i === 0) ? "#00d4ff" : "#0ea5e9";
                 ctx.fillRect(snake[i].x, snake[i].y, box, box);
@@ -151,9 +168,9 @@
             if (snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)) {
                 clearInterval(gameInterval);
                 isPlaying = false;
-                document.getElementById("startBtn").style.display = "inline-block";
-                document.getElementById("startBtn").innerText = "Play Again";
-                showVictory("Game Over!", "Your Score: " + score); // মডাল দেখানো
+                document.getElementById("startBtnSnake").style.display = "inline-block";
+                document.getElementById("startBtnSnake").innerText = "Play Again";
+                showVictory("Game Over!", "Your Score: " + score);
                 return;
             }
             snake.unshift(newHead);
@@ -166,6 +183,7 @@
             return false;
         }
 
+        // পিসিতে তীর চিহ্ন
         document.addEventListener("keydown", (e) => {
             if (e.key === "ArrowUp") setDir("UP");
             if (e.key === "ArrowDown") setDir("DOWN");
@@ -174,19 +192,71 @@
         });
 
 
-        // ---- TIC TAC TOE LOGIC ----
+        // ================= TIC TAC TOE (কম্পিউটার মোড) =================
         let tttBoard = ["", "", "", "", "", "", "", "", ""];
         let currentPlayer = "X";
         let isGameActive = true;
+        let playMode = "player"; 
         const winPatterns = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
+
+        function startTTT(mode) {
+            playMode = mode;
+            resetTTT();
+            document.getElementById("tttModeSelection").style.display = "none";
+            document.getElementById("tttGameArea").style.display = "block";
+            
+            if(playMode === 'computer') {
+                document.getElementById("tttStatus").innerText = "Your Turn (X)";
+            } else {
+                document.getElementById("tttStatus").innerText = "Player X's Turn";
+            }
+        }
+
+        function backToMenu() {
+            document.getElementById("tttModeSelection").style.display = "block";
+            document.getElementById("tttGameArea").style.display = "none";
+        }
 
         function playTTT(index) {
             if (tttBoard[index] !== "" || !isGameActive) return;
-            tttBoard[index] = currentPlayer;
+
+            makeMove(index, currentPlayer);
+
+            if (isGameActive && playMode === 'computer') {
+                setTimeout(computerMove, 500); // কম্পিউটারের চাল ০.৫ সেকেন্ড পর
+            }
+        }
+
+        function makeMove(index, player) {
+            tttBoard[index] = player;
             const cell = document.getElementById("tttBoard").children[index];
-            cell.innerText = currentPlayer;
-            cell.style.color = currentPlayer === "X" ? "#00d4ff" : "#ef4444";
+            cell.innerText = player;
+            cell.style.color = player === "X" ? "#00d4ff" : "#ef4444";
+            
             checkWinner();
+            
+            if (isGameActive) {
+                currentPlayer = currentPlayer === "X" ? "O" : "X";
+                if(playMode === 'computer') {
+                    document.getElementById("tttStatus").innerText = currentPlayer === 'X' ? "Your Turn (X)" : "Computer's Turn (O)";
+                } else {
+                    document.getElementById("tttStatus").innerText = `Player ${currentPlayer}'s Turn`;
+                }
+            }
+        }
+
+        function computerMove() {
+            if (!isGameActive) return;
+            
+            let emptyCells = [];
+            for (let i = 0; i < tttBoard.length; i++) {
+                if (tttBoard[i] === "") emptyCells.push(i);
+            }
+            
+            if (emptyCells.length > 0) {
+                let randomIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                makeMove(randomIndex, "O");
+            }
         }
 
         function checkWinner() {
@@ -201,7 +271,9 @@
             if (roundWon) {
                 document.getElementById("tttStatus").innerText = `Player ${currentPlayer} Wins! 🎉`;
                 isGameActive = false;
-                showVictory("Congratulations! 🎉", `Player ${currentPlayer} Wins!`); // মডাল দেখানো
+                
+                let winMsg = playMode === 'computer' && currentPlayer === 'X' ? "You beat the Computer!" : `Player ${currentPlayer} Wins!`;
+                showVictory("Congratulations! 🎉", winMsg);
                 return;
             }
 
@@ -210,21 +282,17 @@
                 isGameActive = false;
                 return;
             }
-
-            currentPlayer = currentPlayer === "X" ? "O" : "X";
-            document.getElementById("tttStatus").innerText = `Player ${currentPlayer}'s Turn`;
         }
 
         function resetTTT() {
             tttBoard = ["", "", "", "", "", "", "", "", ""];
             currentPlayer = "X";
             isGameActive = true;
-            document.getElementById("tttStatus").innerText = "Player X's Turn";
             const cells = document.getElementById("tttBoard").children;
             for (let i = 0; i < cells.length; i++) { cells[i].innerText = ""; }
         }
 
-        // মডাল (Victory Popup) লজিক
+        // Victory Modal
         function showVictory(title, text) {
             document.getElementById("victoryTitle").innerText = title;
             document.getElementById("victoryText").innerText = text;

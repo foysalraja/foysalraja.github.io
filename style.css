@@ -13,7 +13,7 @@ body {
 
 .highlight { color: #00d4ff; }
 
-/* নেভিগেশন বার ও লোগো (নাম বাম দিকে ফিক্স করা হয়েছে) */
+/* নেভিগেশন বার ও লোগো (নামের স্পেস/ডট ফিক্স) */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -32,12 +32,18 @@ body {
 .logo { 
     display: flex; 
     align-items: center; 
-    gap: 10px; 
-    font-size: 1.4rem; 
+    gap: 8px; /* আইকন এবং নামের মাঝের গ্যাপ */
+    font-size: 1.5rem; 
     font-weight: 800; 
     color: #fff; 
+    letter-spacing: 0.5px;
 }
-.logo span { color: #00d4ff; }
+
+/* ডট এর রঙ এবং স্পেস ঠিক করা হয়েছে */
+.logo span { 
+    color: #00d4ff; 
+    margin-left: 0; 
+}
 
 .logo-icon {
     background: #00d4ff;
@@ -49,7 +55,7 @@ body {
     justify-content: center;
     border-radius: 8px;
     font-weight: 900;
-    font-size: 1rem;
+    font-size: 1.1rem;
     box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
 }
 
@@ -114,7 +120,7 @@ body {
 .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
 .skill-tags span { background: #0f172a; color: #00d4ff; padding: 5px 12px; border-radius: 5px; font-size: 0.8rem; border: 1px solid #334155; }
 
-/* নতুন Services Page Styles */
+/* Services Page Styles */
 .services-section { padding: 60px 5%; text-align: center; }
 .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1000px; margin: 40px auto 0; }
 .service-card { background: #111827; padding: 30px 20px; border-radius: 15px; border: 1px solid #1e293b; transition: 0.3s; }
@@ -123,7 +129,7 @@ body {
 .service-card h3 { color: #fff; margin-bottom: 10px; font-size: 1.2rem; }
 .service-card p { color: #94a3b8; font-size: 0.9rem; }
 
-/* Contact Page Styles (মেসেজ ফর্মসহ) */
+/* Contact Page Styles */
 .contact-section { padding: 60px 5%; display: flex; justify-content: center; align-items: center; min-height: 85vh; }
 .contact-container { background: #111827; padding: 40px 30px; border-radius: 20px; max-width: 600px; width: 100%; border: 1px solid #1e293b; text-align: center;}
 .contact-container h2 { font-size: 2.2rem; color: #fff; margin-bottom: 10px; }
@@ -135,37 +141,88 @@ body {
 .form-group input:focus, .form-group textarea:focus { border-color: #00d4ff; }
 .form-group textarea { resize: vertical; height: 100px; }
 
-/* ফুটার */
 footer { text-align: center; padding: 20px; background: #0b1120; border-top: 1px solid #1e293b; color: #64748b; margin-top: 40px; font-size: 0.9rem;}
 
-/* মোবাইল রেস্পন্সিভ (নাম বাম দিকে রাখার জন্য ফিক্স) */
-@media (max-width: 768px) {
-    .navbar { flex-direction: column; justify-content: center; padding: 15px 5%; }
-    .logo { margin-right: auto; margin-left: 0; } /* নাম বাম দিকে থাকবে */
-    .nav-links { width: 100%; justify-content: flex-start; padding-bottom: 5px; overflow-x: auto; white-space: nowrap; }
-    .nav-links li { margin-right: 15px; }
-    
-    .hero { flex-direction: column-reverse; text-align: center; padding: 30px 5%; gap: 20px; }
-    .hero-content p { margin: 0 auto 20px auto; }
-    .hero-btns { justify-content: center; }
-    .hero-image img { width: 200px; height: 200px; }
-    .hero-content h1 { font-size: 2.2rem; }
-    
-    .about-container { flex-direction: column; padding: 20px; text-align: center;}
-    .about-image img { width: 200px; height: 250px; margin: 0 auto;}
-    .info-item { text-align: left; }
-    
-    .contact-container { padding: 25px 15px; }
+/* =========================================
+   গেম পেজের স্টাইল (একসাথে করা হয়েছে)
+   ========================================= */
+.game-section { 
+    margin-bottom: 40px; 
+    background: #111827; 
+    padding: 20px; 
+    border-radius: 20px; 
+    border: 1px solid #1e293b; 
+    text-align: center; 
 }
 
-/* গেমের জন্য স্পেশাল অ্যানিমেশন (মোবাইলে ফিট হওয়ার জন্য) */
-.canvas-wrapper { width: 100%; display: flex; justify-content: center; overflow: hidden; }
-canvas { background-color: #0b1120; border: 3px solid #00d4ff; border-radius: 10px; touch-action: none; max-width: 100%; height: auto; }
-.mobile-controls { margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.d-pad-row { display: flex; gap: 10px; }
-.mobile-controls button { width: 65px; height: 65px; font-size: 1.8rem; background: #1e293b; color: #00d4ff; border: 2px solid #00d4ff; border-radius: 15px; cursor: pointer; user-select: none; }
-.mobile-controls button:active { background: #00d4ff; color: #0b1120; }
-.empty { visibility: hidden; }
+/* সাপের গেমের বোর্ড */
+.canvas-wrapper { 
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+    overflow: hidden; 
+}
+canvas { 
+    background-color: #0b1120; 
+    border: 3px solid #00d4ff; 
+    border-radius: 10px; 
+    touch-action: none; 
+    max-width: 100%; 
+    height: auto; 
+}
+
+/* মোবাইল কন্ট্রোল বাটন (বড় করা হয়েছে) */
+.mobile-controls { 
+    margin-top: 20px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 10px; 
+}
+.d-pad-row { 
+    display: flex; 
+    gap: 10px; 
+}
+.mobile-controls button { 
+    width: 75px; /* বাটন বড় করা হয়েছে */
+    height: 75px; 
+    font-size: 2rem; 
+    background: #1e293b; 
+    color: #00d4ff; 
+    border: 2px solid #00d4ff; 
+    border-radius: 15px; 
+    cursor: pointer; 
+    user-select: none; 
+}
+.mobile-controls button:active { 
+    background: #00d4ff; 
+    color: #0b1120; 
+}
+
+/* টিক-ট্যাক-টো বোর্ড */
+.ttt-board { 
+    display: grid; 
+    grid-template-columns: repeat(3, 80px); 
+    gap: 10px; 
+    justify-content: center; 
+    margin-bottom: 20px; 
+}
+.ttt-cell { 
+    width: 80px; 
+    height: 80px; 
+    background: #0b1120; 
+    border: 2px solid #334155; 
+    font-size: 2.5rem; 
+    color: #00d4ff; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    cursor: pointer; 
+    border-radius: 10px; 
+}
+.ttt-cell:hover { 
+    border-color: #00d4ff; 
+}
 
 /* Victory Modal (অভিনন্দন বার্তা) */
 .victory-modal {
@@ -184,3 +241,26 @@ canvas { background-color: #0b1120; border: 3px solid #00d4ff; border-radius: 10
 .victory-modal.active .victory-content { transform: scale(1); }
 .victory-content h2 { color: #00d4ff; font-size: 2rem; margin-bottom: 10px; }
 .victory-content p { color: #fff; font-size: 1.2rem; margin-bottom: 20px; }
+
+/* মোবাইল রেস্পন্সিভ */
+@media (max-width: 768px) {
+    .navbar { flex-direction: column; justify-content: center; padding: 15px 5%; }
+    .logo { margin-right: auto; margin-left: 0; } 
+    .nav-links { width: 100%; justify-content: flex-start; padding-bottom: 5px; overflow-x: auto; white-space: nowrap; }
+    .nav-links li { margin-right: 15px; }
+    
+    .hero { flex-direction: column-reverse; text-align: center; padding: 30px 5%; gap: 20px; }
+    .hero-content p { margin: 0 auto 20px auto; }
+    .hero-btns { justify-content: center; }
+    .hero-image img { width: 200px; height: 200px; }
+    .hero-content h1 { font-size: 2.2rem; }
+    
+    .about-container { flex-direction: column; padding: 20px; text-align: center;}
+    .about-image img { width: 200px; height: 250px; margin: 0 auto;}
+    .info-item { text-align: left; }
+    
+    .contact-container { padding: 25px 15px; }
+    
+    /* মোবাইলে গেমের বোর্ড আরও ফিট করার জন্য */
+    canvas { width: 100% !important; height: auto !important; }
+}
