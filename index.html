@@ -3,91 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Foysal Raja | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Foysal Raja | Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* হোম পেজের জন্য বিশেষ কিছু স্টাইল */
+        .hero-new {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 85vh;
+            padding: 40px 8%;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+
+        .hero-text h1 span {
+            color: #00d4ff;
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+        }
+
+        .hero-text h2 {
+            font-size: 1.5rem;
+            color: #94a3b8;
+            margin-bottom: 20px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .hero-text p {
+            color: #cbd5e1;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            max-width: 500px;
+            line-height: 1.8;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            min-width: 300px;
+        }
+
+        .hero-image img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; /* অর্গানিক শেপ */
+            border: 4px solid #00d4ff;
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.4);
+            animation: morph 8s ease-in-out infinite;
+            transition: 0.5s;
+        }
+
+        @keyframes morph {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        }
+
+        /* পরিসংখ্যান (Stats) */
+        .stats-section {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 40px 5%;
+            background: #111827;
+            border-top: 1px solid #1e293b;
+            border-bottom: 1px solid #1e293b;
+            flex-wrap: wrap;
+        }
+
+        .stat-box { text-align: center; }
+        .stat-box h3 { color: #00d4ff; font-size: 2.5rem; margin-bottom: 5px; }
+        .stat-box p { color: #94a3b8; font-size: 1rem; font-weight: 500; }
+
+        /* ফিচার্ড গেমস */
+        .featured-games {
+            padding: 60px 8%;
+            text-align: center;
+        }
+
+        .featured-games h2 {
+            color: #fff;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .featured-card {
+            background: #111827;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #1e293b;
+            transition: 0.3s;
+            text-decoration: none;
+            display: block;
+        }
+
+        .featured-card:hover {
+            border-color: #00d4ff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.1);
+        }
+
+        .featured-card .icon { font-size: 3rem; margin-bottom: 10px; }
+        .featured-card h3 { color: #fff; margin-bottom: 5px; }
+        .featured-card p { color: #94a3b8; font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .hero-new { flex-direction: column-reverse; text-align: center; padding: 20px 5%; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .hero-text p { margin: 0 auto 20px auto; }
+            .hero-btns { justify-content: center; }
+            .hero-image img { width: 220px; height: 220px; }
+            .stats-section { gap: 20px; }
+            .stat-box h3 { font-size: 2rem; }
+        }
+    </style>
 </head>
 <body>
-<nav class="navbar">
-    <div class="logo">
-        <img src="logo.jpg" alt="FR Logo" class="logo-img">
-        <span>Foysal Raja</span>
-    </div>
-    
-    <ul class="nav-links" id="navLinks">
-        <li><a href="index.html"class="active">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="game.html">Games</a></li>
-        <li><a href="contact.html">Contact</a></li>
-    </ul>
 
-    <!-- হ্যামবার্গার মেনু আইকন -->
-    <div class="hamburger" id="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-</nav>
-    <section class="hero">
-        <div class="hero-image">
-            <!-- প্রোফাইল ছবি -->
-            <img src="profile.jpg" alt="Foysal Raja Profile">
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.jpg" alt="FR Logo" class="logo-img">
+            <span>Foysal Raja</span>
         </div>
-        <div class="hero-content">
-            <h1>Hi, I'm <span class="highlight">Foysal Raja</span></h1>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="game.html">Games</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </nav>
+
+    <!-- নতুন হিরো সেকশন -->
+    <section class="hero-new">
+        <div class="hero-text">
+            <h1>Hi, I'm <span>Foysal Raja</span></h1>
             <h2>Web Developer & Gamer</h2>
-            <p>Welcome to my digital space. I build responsive websites and love to play games in my free time. Explore my portfolio and check out my games section!</p>
+            <p>Welcome to my digital space. I build responsive, modern websites and create fun browser games. Explore my portfolio and check out my game zone!</p>
             <div class="hero-btns">
                 <a href="about.html" class="btn">About Me</a>
                 <a href="game.html" class="btn btn-outline">Play Games</a>
             </div>
         </div>
+        <div class="hero-image">
+            <img src="profile.jpg" alt="Foysal Raja">
+        </div>
     </section>
 
-<!-- নতুন প্রফেশনাল ফুটার -->
-<footer>
-    <div class="footer-container">
-        <div class="footer-brand">
-            <img src="logo.jpg" alt="FR Logo">
-            <h3>Foysal Raja</h3>
-            <p>Web Developer & Gamer. Building creative digital experiences.</p>
+    <!-- পরিসংখ্যান (Stats) -->
+    <section class="stats-section">
+        <div class="stat-box">
+            <h3>10+</h3>
+            <p>Projects</p>
+        </div>
+        <div class="stat-box">
+            <h3>8</h3>
+            <p>Games Built</p>
+        </div>
+        <div class="stat-box">
+            <h3>100%</h3>
+            <p>Passion</p>
+        </div>
+    </section>
+
+    <!-- ফিচার্ড গেমস -->
+    <section class="featured-games">
+        <h2>Featured <span class="highlight">Games</span></h2>
+        <div class="featured-grid">
+            <a href="game.html" class="featured-card">
+                <div class="icon">🏎️</div>
+                <h3>3D Racing</h3>
+                <p>Full 3D car racing experience.</p>
+            </a>
+            <a href="game.html" class="featured-card">
+                <div class="icon">🐍</div>
+                <h3>Snake Game</h3>
+                <p>Classic snake with high scores.</p>
+            </a>
+            <a href="game.html" class="featured-card">
+                <div class="icon">🧱</div>
+                <h3>Brick Breaker</h3>
+                <p>Break all the blocks!</p>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="logo.jpg" alt="FR Logo">
+                <h3>Foysal Raja</h3>
+                <p>Web Developer & Gamer. Building creative digital experiences.</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Me</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="game.html">Games Zone</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-social">
+                <h4>Follow Me</h4>
+                <div class="social-icons">
+                    <a href="https://github.com/foysalraja" target="_blank" title="GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+                    <a href="https://www.facebook.com/share/1ELcprAygf/" target="_blank" title="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg></a>
+                    <a href="https://www.instagram.com/foysal_raja" target="_blank" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                </div>
+            </div>
         </div>
         
-        <div class="footer-links">
-            <h4>Quick Links</h4>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Me</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="game.html">Games Zone</a></li>
-            </ul>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Foysal Raja. All rights reserved.</p>
         </div>
-        
-        <div class="footer-social">
-            <h4>Follow Me</h4>
-<div class="social-icons">
-    <!-- GitHub Logo -->
-    <a href="https://github.com/foysalraja" target="_blank" title="GitHub">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-    </a>
-    <!-- Facebook Logo -->
-    <a href="https://www.facebook.com/share/1ELcprAygf/" target="_blank" title="Facebook">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
-    </a>
-    <!-- Instagram Logo -->
-    <a href="https://www.instagram.com/foysal_raja" target="_blank" title="Instagram">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-    </a>
-</div>
-        </div>
-    </div>
-    
-    <div class="footer-bottom">
-        <p>&copy; 2026 Foysal Raja. All rights reserved.</p>
-    </div>
-</footer>    <!-- হ্যামবার্গার মেনুর স্ক্রিপ্ট -->
-       <!-- হ্যামবার্গার মেনুর স্ক্রিপ্ট -->
+    </footer>
+
+    <!-- হ্যামবার্গার মেনুর স্ক্রিপ্ট -->
     <script>
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
