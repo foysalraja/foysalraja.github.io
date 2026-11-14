@@ -165,9 +165,9 @@ footer {
 
 /* সোশ্যাল আইকনগুলো একসাথে */
 .social-icons { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
-.social-icons a { display: flex; justify-content: center; align-items: center; width: 32px; height: 32px; background: #1e293b; color: #00d4ff; border-radius: 50%; text-decoration: none; transition: 0.3s; }
+.social-icons a { display: flex; justify-content: center; align-items: center; width: 42px; height: 42px; background: #1e293b; color: #00d4ff; border-radius: 50%; text-decoration: none; transition: 0.3s; }
 .social-icons a:hover { background: #00d4ff; color: #0b1120; transform: translateY(-3px); }
-.social-icons a svg { width: 16px; height: 16px; }
+.social-icons a svg { width: 22px; height: 22px; }
 
 /* কল বাটন */
 .call-btn {
@@ -276,7 +276,7 @@ footer {
 .footer-social { flex: 1; min-width: 120px; text-align: right; } /* সোশ্যাল মিডিয়া ডান দিকে */
 .footer-social h4 { font-size: 0.95rem; margin-bottom: 10px; }
 .social-icons { display: flex; gap: 8px; justify-content: flex-end; }
-.social-icons a { width: 32px; height: 32px; font-size: 0.9rem; }
+.social-icons a { width: 42px; height: 42px; font-size: 0.9rem; }
 
 footer { padding: 25px 5% 15px; }
 .footer-bottom { margin-top: 20px; padding-top: 10px; font-size: 0.75rem; }
