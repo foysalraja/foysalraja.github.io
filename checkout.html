@@ -3,142 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Secure Checkout | Sable</title>
+    <title>Secure Checkout | Foysal Raja</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <style>
-        /* সাদা এবং পরিষ্কার প্রফেশনাল থিম */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { 
-            background: #f1f5f9; 
-            font-family: 'Poppins', sans-serif; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-            padding: 20px;
+        /* ডার্ক থিম পেমেন্ট পেজ */
+        body { background: #0b1120; font-family: 'Poppins', sans-serif; color: #e2e8f0; }
+        
+        .checkout-container {
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; padding: 40px 20px;
+            background: radial-gradient(circle at top right, #1e293b, #0b1120);
         }
 
-        .checkout-wrapper {
-            background: #ffffff;
-            width: 100%;
-            max-width: 900px;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
-            overflow: hidden;
-            display: flex;
+        .checkout-box {
+            display: flex; width: 100%; max-width: 900px;
+            background: #111827; border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            overflow: hidden; border: 1px solid #1e293b;
             flex-wrap: wrap;
-            border: 1px solid #e2e8f0;
         }
 
-        /* টপ হেডার */
-        .checkout-header {
-            width: 100%;
-            padding: 20px 30px;
-            border-bottom: 1px solid #e2e8f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #fff;
+        /* বাম দিকের অর্ডার সামারি */
+        .order-summary {
+            flex: 1; background: #0f172a; padding: 40px;
+            border-right: 1px solid #1e293b; min-width: 300px;
         }
-        .checkout-header h2 { font-size: 1.2rem; color: #1e293b; display: flex; align-items: center; gap: 10px;}
-        .steps { display: flex; gap: 15px; font-size: 0.8rem; font-weight: 500; color: #94a3b8; }
-        .steps .active { color: #3b82f6; }
-        .steps .done { color: #10b981; }
+        .order-summary h2 { font-size: 1.3rem; color: #fff; margin-bottom: 25px; }
+        .summary-item { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.9rem; color: #94a3b8; }
+        .summary-total { display: flex; justify-content: space-between; margin-top: 25px; padding-top: 20px; border-top: 1px solid #334155; font-weight: 700; font-size: 1.2rem; color: #00d4ff; }
 
-        /* বাম দিকের ৩ডি কার্ড */
-        .card-section {
-            flex: 1;
-            min-width: 320px;
-            padding: 40px;
-            background: #f8fafc;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        /* ডান দিকের পেমেন্ট মেথড সেকশন */
+        .payment-section { flex: 1.2; padding: 40px; min-width: 300px; }
+        .payment-section h2 { font-size: 1.5rem; color: #fff; margin-bottom: 5px; }
+        .payment-section p { font-size: 0.9rem; color: #94a3b8; margin-bottom: 25px; }
+
+        /* পেমেন্ট মেথড অপশন */
+        .payment-methods {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 25px;
         }
-
-        .credit-card {
-            width: 320px;
-            height: 200px;
-            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
-            border-radius: 15px;
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            position: relative;
-            color: #334155;
-            border: 1px solid #fff;
+        .method-btn {
+            background: #0b1120; border: 2px solid #334155; border-radius: 10px;
+            padding: 15px; display: flex; align-items: center; gap: 10px;
+            cursor: pointer; transition: 0.3s; color: #cbd5e1; font-weight: 500;
         }
-        
-        .card-chip { width: 45px; height: 35px; background: #f59e0b; border-radius: 5px; margin-bottom: 15px; }
-        .card-number { font-size: 1.3rem; letter-spacing: 2px; font-family: monospace; font-weight: 600; color: #1e293b; }
-        .card-bottom { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; margin-top: 15px;}
-        .card-bottom span { color: #64748b; font-size: 0.65rem; display: block; font-weight: 400;}
+        .method-btn:hover { border-color: #00d4ff; }
+        .method-btn.active { border-color: #00d4ff; background: rgba(0, 212, 255, 0.1); color: #00d4ff; box-shadow: 0 0 15px rgba(0, 212, 255, 0.2); }
+        .method-btn img { width: 30px; height: 30px; object-fit: contain; border-radius: 5px; }
 
-        /* ডান দিকের ফর্ম */
-        .form-section { flex: 1.2; padding: 40px; }
-        .form-section h2 { font-size: 1.5rem; color: #1e293b; margin-bottom: 5px; }
-        .form-section p { font-size: 0.9rem; color: #64748b; margin-bottom: 25px; }
-
+        /* ফর্ম ফিল্ড */
         .form-group { margin-bottom: 18px; }
-        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: #475569; margin-bottom: 8px; }
-        
-        .input-field {
-            width: 100%;
-            padding: 12px 15px;
-            background: #fff;
-            border: 1px solid #cbd5e1;
-            border-radius: 10px;
-            font-size: 0.95rem;
-            color: #1e293b;
-            outline: none;
-            transition: 0.3s;
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 500; color: #94a3b8; margin-bottom: 6px; }
+        .form-group input {
+            width: 100%; padding: 14px 15px; background: #0b1120;
+            border: 1px solid #334155; border-radius: 10px;
+            font-size: 0.95rem; color: #fff; outline: none; transition: 0.2s;
             font-family: 'Poppins', sans-serif;
         }
-        .input-field:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+        .form-group input:focus { border-color: #00d4ff; box-shadow: 0 0 10px rgba(0, 212, 255, 0.2); }
 
         .row { display: flex; gap: 15px; }
         .row .form-group { flex: 1; }
 
         .pay-btn {
-            width: 100%;
-            padding: 15px;
-            background: #3b82f6;
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: 0.3s;
+            width: 100%; padding: 16px; background: linear-gradient(90deg, #00d4ff, #8b5cf6);
+            color: #fff; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: 700;
+            cursor: pointer; margin-top: 15px; transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
         }
-        .pay-btn:hover { background: #2563eb; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2); }
+        .pay-btn:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(0, 212, 255, 0.4); }
 
-        .secure-badge { display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 0.75rem; color: #94a3b8; margin-top: 15px; }
+        .secure-badge { display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 0.8rem; color: #64748b; margin-top: 15px; }
 
         /* সাকসেস পপআপ */
         .success-popup {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px);
+            background: rgba(11, 17, 32, 0.9); backdrop-filter: blur(8px);
             display: flex; justify-content: center; align-items: center;
             z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s;
         }
         .success-popup.active { opacity: 1; pointer-events: auto; }
         
         .popup-content {
-            background: #fff; padding: 40px; border-radius: 20px;
+            background: #111827; padding: 40px; border-radius: 20px;
             text-align: center; max-width: 350px; width: 90%;
             transform: translateY(20px); transition: transform 0.4s;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid #00d4ff;
         }
         .success-popup.active .popup-content { transform: translateY(0); }
 
         .checkmark-circle {
             width: 80px; height: 80px; border-radius: 50%;
-            background: #dcfce7; display: flex; justify-content: center; align-items: center;
+            background: rgba(16, 185, 129, 0.2); display: flex; justify-content: center; align-items: center;
             margin: 0 auto 20px auto;
         }
         .checkmark {
@@ -147,85 +103,86 @@
             border-bottom: 5px solid #10b981;
             transform: rotate(45deg) translate(-2px, -5px);
         }
-        .popup-content h2 { color: #1e293b; font-size: 1.4rem; margin-bottom: 10px; }
-        .popup-content p { color: #64748b; font-size: 0.9rem; margin-bottom: 20px; }
+        .popup-content h2 { color: #fff; font-size: 1.4rem; margin-bottom: 10px; }
+        .popup-content p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 20px; }
         
         .close-popup-btn {
-            background: #f1f5f9; color: #475569; border: none;
+            background: #00d4ff; color: #0b1120; border: none;
             padding: 12px 30px; border-radius: 10px; font-weight: 600;
             cursor: pointer; transition: 0.2s; width: 100%;
         }
-        .close-popup-btn:hover { background: #e2e8f0; }
+        .close-popup-btn:hover { background: #0ea5e9; }
 
         @media (max-width: 768px) {
-            .checkout-wrapper { flex-direction: column; }
-            .card-section { padding: 20px; }
-            .credit-card { width: 100%; max-width: 320px; }
-            .form-section { padding: 20px; }
+            .checkout-box { flex-direction: column; }
+            .order-summary { border-right: none; border-bottom: 1px solid #1e293b; }
+            .payment-methods { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <div class="checkout-wrapper">
-        <!-- টপ হেডার -->
-        <div class="checkout-header">
-            <h2><span style="color:#3b82f6; font-weight:800;">SABLE</span> CHECKOUT</h2>
-            <div class="steps">
-                <span class="done">✓ Your bag</span>
-                <span class="done">✓ Delivery</span>
-                <span class="active">3 Payment</span>
-            </div>
-        </div>
-
-        <!-- বাম দিকের কার্ড -->
-        <div class="card-section">
-            <div class="credit-card">
-                <div class="card-chip"></div>
-                <div class="card-number" id="displayCardNumber">•••• •••• •••• ••••</div>
-                <div class="card-bottom">
-                    <div>
-                        <span>CARDHOLDER</span>
-                        <div id="displayName">YOUR NAME</div>
-                    </div>
-                    <div>
-                        <span>EXPIRES</span>
-                        <div id="displayExpiry">MM/YY</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ডান দিকের ফর্ম -->
-        <div class="form-section">
-            <h2>Payment details</h2>
-            <p>Enter your card to complete the transaction.</p>
+    <div class="checkout-container">
+        <div class="checkout-box">
             
-            <form id="paymentForm">
-                <div class="form-group">
-                    <label>Cardholder Name</label>
-                    <input type="text" class="input-field" id="cardName" placeholder="A. HASIB" required>
-                </div>
+            <!-- বাম দিকের অর্ডার সামারি -->
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                <div class="summary-item"><span>Premium Membership</span><span>$99.00</span></div>
+                <div class="summary-item"><span>Priority Delivery</span><span>$10.00</span></div>
+                <div class="summary-item"><span>Estimated Tax</span><span>$4.00</span></div>
+                <div class="summary-total"><span>Total due today</span><span>$113.00</span></div>
+            </div>
+
+            <!-- ডান দিকের পেমেন্ট মেথড -->
+            <div class="payment-section">
+                <h2>Payment Method</h2>
+                <p>Select your preferred payment option.</p>
                 
-                <div class="form-group">
-                    <label>Card Number</label>
-                    <input type="text" class="input-field" id="cardNumber" placeholder="4242 4242 4242 4242" required maxlength="19">
-                </div>
-                
-                <div class="row">
-                    <div class="form-group">
-                        <label>Expiry Date</label>
-                        <input type="text" class="input-field" id="cardExpiry" placeholder="12/28" required maxlength="5">
+                <!-- পেমেন্ট মেথড বাটন -->
+                <div class="payment-methods">
+                    <div class="method-btn active" onclick="selectMethod(this)">
+                        <span style="font-size: 1.5rem;">💳</span> Visa / Mastercard
                     </div>
-                    <div class="form-group">
-                        <label>CVC</label>
-                        <input type="password" class="input-field" placeholder="•••" required maxlength="4">
+                    <div class="method-btn" onclick="selectMethod(this)">
+                        <span style="font-size: 1.5rem;">📱</span> bKash
+                    </div>
+                    <div class="method-btn" onclick="selectMethod(this)">
+                        <span style="font-size: 1.5rem;">📲</span> Nagad
+                    </div>
+                    <div class="method-btn" onclick="selectMethod(this)">
+                        <span style="font-size: 1.5rem;">💵</span> Cash on Delivery
                     </div>
                 </div>
 
-                <button type="submit" class="pay-btn">Pay $1,248.00 →</button>
-                <div class="secure-badge">🔒 Secure Payment </div>
-            </form>
+                <!-- পেমেন্ট ফর্ম -->
+                <form id="paymentForm">
+                    <div class="form-group">
+                        <label>Cardholder Name</label>
+                        <input type="text" placeholder="A. HASIB" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Card Number / Mobile Number</label>
+                        <input type="text" placeholder="4242 4242 4242 4242" required>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="form-group">
+                            <label>Expiry Date</label>
+                            <input type="text" placeholder="12/28" required>
+                        </div>
+                        <div class="form-group">
+                            <label>CVC</label>
+                            <input type="password" placeholder="•••" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="pay-btn">Pay $113.00 →</button>
+                    <div class="secure-badge">🔒 Secure Payment </div>
+                </form>
+            </div>
+
         </div>
     </div>
 
@@ -242,32 +199,13 @@
     </div>
 
     <script>
-        // কার্ডের নাম্বার ও নাম লাইভ আপডেট
-        const cardNumberInput = document.getElementById('cardNumber');
-        const cardNameInput = document.getElementById('cardName');
-        const cardExpiryInput = document.getElementById('cardExpiry');
-
-        const displayCardNumber = document.getElementById('displayCardNumber');
-        const displayName = document.getElementById('displayName');
-        const displayExpiry = document.getElementById('displayExpiry');
-
-        cardNumberInput.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || '';
-            e.target.value = formattedValue;
-            displayCardNumber.innerText = formattedValue || '•••• •••• •••• ••••';
-        });
-
-        cardNameInput.addEventListener('input', (e) => {
-            displayName.innerText = e.target.value.toUpperCase() || 'YOUR NAME';
-        });
-
-        cardExpiryInput.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-            if (value.length > 2) { value = value.substring(0, 2) + '/' + value.substring(2, 4); }
-            e.target.value = value;
-            displayExpiry.innerText = value || 'MM/YY';
-        });
+        // পেমেন্ট মেথড সিলেক্ট করার ফাংশন
+        function selectMethod(element) {
+            // সব বাটন থেকে active ক্লাস সরানো
+            document.querySelectorAll('.method-btn').forEach(btn => btn.classList.remove('active'));
+            // ক্লিক করা বাটনে active ক্লাস যোগ করা
+            element.classList.add('active');
+        }
 
         // সাবমিট করলে পপআপ দেখানো
         document.getElementById('paymentForm').addEventListener('submit', function(e) {
@@ -277,11 +215,7 @@
 
         function closePopup() {
             document.getElementById('successPopup').classList.remove('active');
-            // ফর্ম রিসেট এবং কার্ড আগের অবস্থায় ফেরানো
             document.getElementById('paymentForm').reset();
-            displayCardNumber.innerText = '•••• •••• •••• ••••';
-            displayName.innerText = 'YOUR NAME';
-            displayExpiry.innerText = 'MM/YY';
         }
     </script>
 </body>
