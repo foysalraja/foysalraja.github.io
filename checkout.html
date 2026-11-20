@@ -33,26 +33,32 @@
         .summary-item { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.9rem; color: #94a3b8; }
         .summary-total { display: flex; justify-content: space-between; margin-top: 25px; padding-top: 20px; border-top: 1px solid #334155; font-weight: 700; font-size: 1.2rem; color: #00d4ff; }
 
-        /* ডান দিকের পেমেন্ট মেথড সেকশন */
+        /* ডান দিকের পেমেন্ট সেকশন */
         .payment-section { flex: 1.2; padding: 40px; min-width: 300px; }
         .payment-section h2 { font-size: 1.5rem; color: #fff; margin-bottom: 5px; }
         .payment-section p { font-size: 0.9rem; color: #94a3b8; margin-bottom: 25px; }
 
-        /* পেমেন্ট মেথড অপশন */
+        /* পেমেন্ট মেথড গ্রিড */
         .payment-methods {
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 25px;
         }
         .method-btn {
             background: #0b1120; border: 2px solid #334155; border-radius: 10px;
-            padding: 15px; display: flex; align-items: center; gap: 10px;
-            cursor: pointer; transition: 0.3s; color: #cbd5e1; font-weight: 500;
+            padding: 12px; display: flex; align-items: center; gap: 10px;
+            cursor: pointer; transition: 0.3s; color: #cbd5e1; font-weight: 500; font-size: 0.9rem;
         }
         .method-btn:hover { border-color: #00d4ff; }
         .method-btn.active { border-color: #00d4ff; background: rgba(0, 212, 255, 0.1); color: #00d4ff; box-shadow: 0 0 15px rgba(0, 212, 255, 0.2); }
-        .method-btn img { width: 30px; height: 30px; object-fit: contain; border-radius: 5px; }
+        
+        /* লোগো স্টাইল */
+        .method-logo { width: 35px; height: 25px; object-fit: contain; border-radius: 3px; background: #fff; padding: 2px; }
 
         /* ফর্ম ফিল্ড */
-        .form-group { margin-bottom: 18px; }
+        .form-group { margin-bottom: 18px; display: none; /* ডিফল্টভাবে লুকানো */ }
+        .form-group.active { display: block; animation: fadeIn 0.3s; } /* সিলেক্ট করলে দেখাবে */
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
         .form-group label { display: block; font-size: 0.85rem; font-weight: 500; color: #94a3b8; margin-bottom: 6px; }
         .form-group input {
             width: 100%; padding: 14px 15px; background: #0b1120;
@@ -97,12 +103,7 @@
             background: rgba(16, 185, 129, 0.2); display: flex; justify-content: center; align-items: center;
             margin: 0 auto 20px auto;
         }
-        .checkmark {
-            width: 25px; height: 45px;
-            border-right: 5px solid #10b981;
-            border-bottom: 5px solid #10b981;
-            transform: rotate(45deg) translate(-2px, -5px);
-        }
+        .checkmark { width: 25px; height: 45px; border-right: 5px solid #10b981; border-bottom: 5px solid #10b981; transform: rotate(45deg) translate(-2px, -5px); }
         .popup-content h2 { color: #fff; font-size: 1.4rem; margin-bottom: 10px; }
         .popup-content p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 20px; }
         
@@ -139,43 +140,63 @@
                 <h2>Payment Method</h2>
                 <p>Select your preferred payment option.</p>
                 
-                <!-- পেমেন্ট মেথড বাটন -->
+                <!-- পেমেন্ট মেথড বাটন (লোগোসহ) -->
                 <div class="payment-methods">
-                    <div class="method-btn active" onclick="selectMethod(this)">
-                        <span style="font-size: 1.5rem;">💳</span> Visa / Mastercard
+                    <div class="method-btn active" onclick="showForm('card')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1200px-Mastercard-logo.svg.png" class="method-logo" alt="Mastercard"> Visa/Mastercard
                     </div>
-                    <div class="method-btn" onclick="selectMethod(this)">
-                        <span style="font-size: 1.5rem;">📱</span> bKash
+                    <div class="method-btn" onclick="showForm('bkash')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/BKash_Logo.svg/1200px-BKash_Logo.svg.png" class="method-logo" alt="bKash"> bKash
                     </div>
-                    <div class="method-btn" onclick="selectMethod(this)">
-                        <span style="font-size: 1.5rem;">📲</span> Nagad
+                    <div class="method-btn" onclick="showForm('nagad')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Nagad_Logo.svg/1200px-Nagad_Logo.svg.png" class="method-logo" alt="Nagad"> Nagad
                     </div>
-                    <div class="method-btn" onclick="selectMethod(this)">
-                        <span style="font-size: 1.5rem;">💵</span> Cash on Delivery
+                    <div class="method-btn" onclick="showForm('rocket')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Rocket_Logo.svg/1200px-Rocket_Logo.svg.png" class="method-logo" alt="Rocket"> Rocket
                     </div>
                 </div>
 
                 <!-- পেমেন্ট ফর্ম -->
                 <form id="paymentForm">
-                    <div class="form-group">
+                    
+                    <!-- কার্ড পেমেন্ট ফর্ম (ডিফল্ট) -->
+                    <div class="form-group active" id="form-card">
                         <label>Cardholder Name</label>
                         <input type="text" placeholder="A. HASIB" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Card Number / Mobile Number</label>
-                        <input type="text" placeholder="4242 4242 4242 4242" required>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="form-group">
-                            <label>Expiry Date</label>
-                            <input type="text" placeholder="12/28" required>
+                        <label style="margin-top:10px;">Card Number</label>
+                        <input type="text" placeholder="4242 4242 4242 4242" maxlength="19" required>
+                        <div class="row">
+                            <div class="form-group active" style="display:block; margin-top:10px;">
+                                <label>Expiry Date</label>
+                                <input type="text" placeholder="12/28" maxlength="5" required>
+                            </div>
+                            <div class="form-group active" style="display:block; margin-top:10px;">
+                                <label>CVC</label>
+                                <input type="password" placeholder="•••" maxlength="4" required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>CVC</label>
-                            <input type="password" placeholder="•••" required>
-                        </div>
+                    </div>
+
+                    <!-- বিকাশ পেমেন্ট ফর্ম -->
+                    <div class="form-group" id="form-bkash">
+                        <label>bKash Mobile Number</label>
+                        <input type="tel" placeholder="017XX-XXXXXX" required>
+                        <label style="margin-top:10px;">PIN</label>
+                        <input type="password" placeholder="Enter your bKash PIN" required>
+                    </div>
+
+                    <!-- নগদ পেমেন্ট ফর্ম -->
+                    <div class="form-group" id="form-nagad">
+                        <label>Nagad Mobile Number</label>
+                        <input type="tel" placeholder="017XX-XXXXXX" required>
+                        <label style="margin-top:10px;">PIN</label>
+                        <input type="password" placeholder="Enter your Nagad PIN" required>
+                    </div>
+
+                    <!-- রকেট পেমেন্ট ফর্ম -->
+                    <div class="form-group" id="form-rocket">
+                        <label>Rocket Account Number</label>
+                        <input type="tel" placeholder="017XXXXXXXX" required>
                     </div>
 
                     <button type="submit" class="pay-btn">Pay $113.00 →</button>
@@ -199,12 +220,20 @@
     </div>
 
     <script>
-        // পেমেন্ট মেথড সিলেক্ট করার ফাংশন
-        function selectMethod(element) {
+        // পেমেন্ট মেথড পরিবর্তন করার ফাংশন
+        function showForm(method) {
             // সব বাটন থেকে active ক্লাস সরানো
             document.querySelectorAll('.method-btn').forEach(btn => btn.classList.remove('active'));
-            // ক্লিক করা বাটনে active ক্লাস যোগ করা
-            element.classList.add('active');
+            event.currentTarget.classList.add('active');
+
+            // সব ফর্ম লুকানো
+            document.querySelectorAll('.form-group').forEach(f => f.classList.remove('active'));
+
+            // নির্দিষ্ট ফর্ম দেখানো
+            if (method === 'card') document.getElementById('form-card').classList.add('active');
+            if (method === 'bkash') document.getElementById('form-bkash').classList.add('active');
+            if (method === 'nagad') document.getElementById('form-nagad').classList.add('active');
+            if (method === 'rocket') document.getElementById('form-rocket').classList.add('active');
         }
 
         // সাবমিট করলে পপআপ দেখানো
