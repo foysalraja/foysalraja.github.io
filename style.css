@@ -270,7 +270,7 @@ footer {
         position: fixed;
         top: 0; 
         right: -100%; /* এখানে -100% থাকা বাধ্যতামূলক */
-        width: 70%; 
+        width: 50%; 
         height: 100vh;
         background: rgba(11, 17, 32, 0.98);
         backdrop-filter: blur(10px);
