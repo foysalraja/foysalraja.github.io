@@ -4,285 +4,210 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Secure Checkout | Foysal Raja</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* পেমেন্ট পেজের জন্য প্রিমিয়াম স্টাইল */
-        .checkout-wrapper {
-            min-height: 90vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            background: radial-gradient(circle at top right, #1e293b, #0b1120);
+        /* আসল পেমেন্ট গেটওয়ের মতো ডিজাইন */
+        body { background: #f8fafc; font-family: 'Inter', sans-serif; }
+        
+        .checkout-container {
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; padding: 40px 20px; background: #f8fafc;
         }
 
         .checkout-box {
-            display: flex;
-            width: 100%;
-            max-width: 900px;
-            background: rgba(17, 24, 39, 0.7);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-            flex-wrap: wrap;
+            display: flex; width: 100%; max-width: 900px;
+            background: #ffffff; border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            overflow: hidden; border: 1px solid #e2e8f0;
         }
 
-        /* বাম দিকের কার্ড ভিজ্যুয়াল */
-        .card-visual-section {
-            flex: 1;
-            min-width: 320px;
-            padding: 40px;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
+        /* বাম দিকের সামারি */
+        .order-summary {
+            flex: 1; background: #f8fafc; padding: 40px;
+            border-right: 1px solid #e2e8f0;
         }
-
-        /* ৩ডি কার্ড অ্যানিমেশন */
-        .credit-card {
-            width: 320px;
-            height: 200px;
-            background: linear-gradient(135deg, #00d4ff, #8b5cf6);
-            border-radius: 20px;
-            padding: 25px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            color: #fff;
-            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform-style: preserve-3d;
-        }
-
-        /* কার্ডের চিপ */
-        .card-chip {
-            width: 50px;
-            height: 35px;
-            background: linear-gradient(135deg, #fcd34d, #f59e0b);
-            border-radius: 6px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .card-chip::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 50%; width: 1px; height: 100%; background: rgba(0,0,0,0.2);
-        }
-
-        .card-number-display {
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            font-family: 'Courier New', monospace;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
-            margin-top: 20px;
-        }
-
-        .card-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-        }
-
-        .card-bottom div span {
-            display: block;
-            font-size: 0.6rem;
-            opacity: 0.7;
-            margin-bottom: 2px;
-        }
+        .order-summary h2 { font-size: 1.2rem; color: #1e293b; margin-bottom: 20px; }
+        .summary-item { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.9rem; color: #64748b; }
+        .summary-total { display: flex; justify-content: space-between; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e2e8f0; font-weight: 700; font-size: 1.1rem; color: #1e293b; }
 
         /* ডান দিকের ফর্ম */
-        .form-section {
-            flex: 1.2;
-            min-width: 320px;
-            padding: 40px;
-        }
+        .payment-form { flex: 1.2; padding: 40px; }
+        .payment-form h2 { font-size: 1.4rem; color: #0f172a; margin-bottom: 5px; }
+        .payment-form p { font-size: 0.9rem; color: #64748b; margin-bottom: 25px; }
 
-        .form-section h2 { color: #fff; font-size: 1.8rem; margin-bottom: 5px; }
-        .form-section p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 30px; }
-
-        .input-group { margin-bottom: 20px; }
-        .input-group label { display: block; color: #cbd5e1; font-size: 0.85rem; margin-bottom: 8px; font-weight: 500; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 500; color: #475569; margin-bottom: 6px; }
         
-        .input-group input {
-            width: 100%;
-            padding: 14px 16px;
-            background: rgba(11, 17, 32, 0.8);
-            border: 1px solid #334155;
-            border-radius: 12px;
-            color: #fff;
-            font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
-            outline: none;
-            transition: 0.3s;
+        .input-wrapper { position: relative; display: flex; align-items: center; }
+        .input-wrapper input {
+            width: 100%; padding: 12px 15px; background: #fff;
+            border: 1px solid #cbd5e1; border-radius: 8px;
+            font-size: 0.95rem; color: #1e293b; outline: none; transition: 0.2s;
         }
+        .input-wrapper input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
         
-        .input-group input:focus { border-color: #00d4ff; box-shadow: 0 0 15px rgba(0, 212, 255, 0.2); }
+        .card-icon { position: absolute; right: 15px; color: #94a3b8; font-size: 1.2rem; }
 
         .row { display: flex; gap: 15px; }
-        .row .input-group { flex: 1; }
+        .row .form-group { flex: 1; }
 
-        .submit-btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(90deg, #00d4ff, #8b5cf6);
-            color: #fff;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: 0.3s;
-            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+        .pay-btn {
+            width: 100%; padding: 14px; background: #3b82f6; color: #fff;
+            border: none; border-radius: 8px; font-size: 1rem; font-weight: 600;
+            cursor: pointer; margin-top: 10px; transition: 0.2s;
         }
+        .pay-btn:hover { background: #2563eb; }
+        
+        .secure-badge { display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 0.75rem; color: #94a3b8; margin-top: 15px; }
 
-        .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(0, 212, 255, 0.4); }
+        /* =========================================
+           নতুন প্রিমিয়াম সাকসেস পপআপ (Popup)
+           ========================================= */
+        .success-popup {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(5px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000; opacity: 0; pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .success-popup.active { opacity: 1; pointer-events: auto; }
+        
+        .popup-content {
+            background: #fff; padding: 40px; border-radius: 20px;
+            text-align: center; max-width: 400px; width: 90%;
+            transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+        .success-popup.active .popup-content { transform: scale(1); }
 
-        /* সাকসেস মেসেজ */
-        .success-msg { display: none; background: #10b981; color: #fff; padding: 15px; border-radius: 10px; text-align: center; margin-top: 20px; font-weight: bold; animation: fadeIn 0.5s; }
+        /* এনিমেটেড টিক চিহ্ন */
+        .checkmark-circle {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: #dcfce7; display: flex; justify-content: center; align-items: center;
+            margin: 0 auto 20px auto; position: relative;
+        }
+        .checkmark {
+            width: 25px; height: 45px;
+            border-right: 5px solid #10b981;
+            border-bottom: 5px solid #10b981;
+            transform: rotate(45deg) translate(-2px, -5px);
+            opacity: 0; animation: drawCheck 0.5s ease forwards 0.3s;
+        }
+        @keyframes drawCheck { 0% { opacity: 0; } 100% { opacity: 1; } }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .popup-content h2 { color: #0f172a; font-size: 1.5rem; margin-bottom: 10px; }
+        .popup-content p { color: #64748b; font-size: 0.95rem; margin-bottom: 25px; }
+        .popup-content .amount { font-size: 1.8rem; font-weight: 700; color: #10b981; margin-bottom: 20px; display: block;}
+        
+        .close-popup-btn {
+            background: #f1f5f9; color: #475569; border: none;
+            padding: 12px 30px; border-radius: 8px; font-weight: 600;
+            cursor: pointer; transition: 0.2s;
+        }
+        .close-popup-btn:hover { background: #e2e8f0; }
 
         @media (max-width: 768px) {
             .checkout-box { flex-direction: column; }
-            .card-visual-section { padding: 30px 20px; }
-            .credit-card { width: 280px; height: 175px; }
+            .order-summary { border-right: none; border-bottom: 1px solid #e2e8f0; }
         }
     </style>
 </head>
 <body>
 
-    <!-- নেভিগেশন বার -->
-    <nav class="navbar">
-        <div class="logo"><img src="logo.jpg" alt="FR Logo" class="logo-img"><span>Foysal Raja</span></div>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="game.html">Games</a></li>
-            <li><a href="checkout.html" class="active">Checkout</a></li>
-        </ul>
-        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
-    </nav>
-
-    <!-- পেমেন্ট সেকশন -->
-    <div class="checkout-wrapper">
+    <div class="checkout-container">
         <div class="checkout-box">
             
-            <!-- বাম দিকের ৩ডি কার্ড -->
-            <div class="card-visual-section">
-                <div class="credit-card" id="creditCard">
-                    <div class="card-chip"></div>
-                    <div class="card-number-display" id="displayCardNumber">•••• •••• •••• ••••</div>
-                    <div class="card-bottom">
-                        <div>
-                            <span>Card Holder</span>
-                            <div id="displayName">YOUR NAME</div>
-                        </div>
-                        <div>
-                            <span>Expires</span>
-                            <div id="displayExpiry">MM/YY</div>
-                        </div>
-                    </div>
-                </div>
+            <!-- বাম দিকের অর্ডার সামারি -->
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                <div class="summary-item"><span>Premium Membership</span><span>$99.00</span></div>
+                <div class="summary-item"><span>Priority Delivery</span><span>$10.00</span></div>
+                <div class="summary-item"><span>Estimated Tax</span><span>$4.00</span></div>
+                <div class="summary-total"><span>Total due today</span><span>$113.00</span></div>
             </div>
 
-            <!-- ডান দিকের ফর্ম -->
-            <div class="form-section">
-                <h2>Payment Details</h2>
-                <p>Enter your card details to complete the secure transaction.</p>
+            <!-- ডান দিকের পেমেন্ট ফর্ম -->
+            <div class="payment-form">
+                <h2>Payment details</h2>
+                <p>Complete your purchase securely.</p>
                 
-                <form id="paymentForm">
-                    <div class="input-group">
-                        <label>Cardholder Name</label>
-                        <input type="text" id="cardName" placeholder="e.g. FOYSAL RAJA" required maxlength="22">
+                <form id="proPaymentForm">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="you@example.com" required>
                     </div>
-                    <div class="input-group">
-                        <label>Card Number</label>
-                        <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" required maxlength="19">
+
+                    <div class="form-group">
+                        <label>Card Information</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="cardNumber" placeholder="1234 1234 1234 1234" required maxlength="19">
+                            <span class="card-icon">💳</span>
+                        </div>
                     </div>
+                    
                     <div class="row">
-                        <div class="input-group">
-                            <label>Expiry Date</label>
-                            <input type="text" id="cardExpiry" placeholder="MM/YY" required maxlength="5">
+                        <div class="form-group">
+                            <div class="input-wrapper"><input type="text" id="cardExpiry" placeholder="MM / YY" required maxlength="7"></div>
                         </div>
-                        <div class="input-group">
-                            <label>CVC</label>
-                            <input type="password" placeholder="•••" required maxlength="4">
+                        <div class="form-group">
+                            <div class="input-wrapper"><input type="text" placeholder="CVC" required maxlength="4"></div>
                         </div>
                     </div>
-                    <button type="submit" class="submit-btn">Pay $1,248.00 →</button>
+
+                    <div class="form-group">
+                        <label>Cardholder Name</label>
+                        <input type="text" placeholder="Name on card" required>
+                    </div>
+
+                    <button type="submit" class="pay-btn">Pay $113.00</button>
+                    
+                    <div class="secure-badge">🔒 Secure Payment (Demo)</div>
                 </form>
-                
-                <div class="success-msg" id="successMsg">✅ Payment Successful! (Demo Only)</div>
             </div>
 
         </div>
     </div>
 
+    <!-- প্রিমিয়াম সাকসেস পপআপ -->
+    <div class="success-popup" id="successPopup">
+        <div class="popup-content">
+            <div class="checkmark-circle">
+                <div class="checkmark"></div>
+            </div>
+            <h2>Payment Successful!</h2>
+            <p>Your transaction has been completed.</p>
+            <span class="amount">$113.00</span>
+            <button class="close-popup-btn" onclick="closePopup()">Done</button>
+        </div>
+    </div>
+
     <script>
-        // হ্যামবার্গার মেনু
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-        if (hamburger && navLinks) {
-            hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); navLinks.classList.toggle('active'); });
-            document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListener('click', () => { hamburger.classList.remove('active'); navLinks.classList.remove('active'); }); });
-        }
-
-        // ইনপুট ফিল্ডের সাথে কার্ডের ভিজ্যুয়াল আপডেট
-        const cardNumberInput = document.getElementById('cardNumber');
-        const cardNameInput = document.getElementById('cardName');
-        const cardExpiryInput = document.getElementById('cardExpiry');
-
-        const displayCardNumber = document.getElementById('displayCardNumber');
-        const displayName = document.getElementById('displayName');
-        const displayExpiry = document.getElementById('displayExpiry');
-
         // কার্ড নাম্বার ফরম্যাট (৪ ডিজিট পর পর স্পেস)
-        cardNumberInput.addEventListener('input', (e) => {
+        document.getElementById('cardNumber').addEventListener('input', function (e) {
             let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
             let formattedValue = value.match(/.{1,4}/g)?.join(' ') || '';
             e.target.value = formattedValue;
-            displayCardNumber.innerText = formattedValue || '•••• •••• •••• ••••';
         });
 
-        // কার্ডের নাম আপডেট
-        cardNameInput.addEventListener('input', (e) => {
-            displayName.innerText = e.target.value.toUpperCase() || 'YOUR NAME';
-        });
-
-        // এক্সপায়ারি ডেট ফরম্যাট (MM/YY)
-        cardExpiryInput.addEventListener('input', (e) => {
+        // এক্সপায়ারি ডেট ফরম্যাট (MM / YY)
+        document.getElementById('cardExpiry').addEventListener('input', function (e) {
             let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-            if (value.length > 2) {
-                value = value.substring(0, 2) + '/' + value.substring(2, 4);
-            }
+            if (value.length > 2) { value = value.substring(0, 2) + ' / ' + value.substring(2, 4); }
             e.target.value = value;
-            displayExpiry.innerText = value || 'MM/YY';
         });
 
-        // ফর্ম সাবমিট (ফেক)
-        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+        // ফর্ম সাবমিট (পপআপ দেখানো)
+        document.getElementById('proPaymentForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            document.getElementById('successMsg').style.display = 'block';
-            // ৩ সেকেন্ড পর মেসেজটি লুকিয়ে ফেলা
-            setTimeout(() => {
-                document.getElementById('successMsg').style.display = 'none';
-                this.reset();
-                displayCardNumber.innerText = '•••• •••• •••• ••••';
-                displayName.innerText = 'YOUR NAME';
-                displayExpiry.innerText = 'MM/YY';
-            }, 3000);
+            document.getElementById('successPopup').classList.add('active');
         });
+
+        // পপআপ বন্ধ করা
+        function closePopup() {
+            document.getElementById('successPopup').classList.remove('active');
+            document.getElementById('proPaymentForm').reset(); // ফর্ম খালি করা
+        }
     </script>
 </body>
 </html>
