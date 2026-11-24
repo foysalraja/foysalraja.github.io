@@ -22,7 +22,6 @@
             overflow: hidden;
         }
 
-        /* ব্যাকগ্রাউন্ডে হালকা গ্লো ইফেক্ট */
         .hero-creative::before {
             content: '';
             position: absolute;
@@ -100,7 +99,7 @@
             object-fit: cover;
             border-radius: 20px;
             border: 2px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 20px 20px 0px #00d4ff; /* অফসেট শ্যাডো ইফেক্ট */
+            box-shadow: 20px 20px 0px #00d4ff;
             transition: 0.4s ease;
         }
 
@@ -109,19 +108,87 @@
             box-shadow: 30px 30px 0px #8b5cf6;
         }
 
-        /* মোবাইলের জন্য রেস্পন্সিভ */
+        /* =========================================
+           নতুন ৩ডি নিয়ন ঘড়ি (Clock Section)
+           ========================================= */
+        .clock-section {
+            padding: 40px 8%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #050810;
+            border-top: 1px solid #1e293b;
+        }
+
+        .clock-card {
+            background: #111827;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(0, 212, 255, 0.1);
+            border: 1px solid #1e293b;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ঘড়ির ডায়াল */
+        .clock-face {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: #0b1120;
+            border: 4px solid #1e293b;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 0 20px rgba(0, 212, 255, 0.2);
+            position: relative;
+            margin: 0 auto 30px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ঘড়ির কাঁটা */
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            border-radius: 10px;
+            z-index: 10;
+        }
+
+        .hour-hand { width: 6px; height: 60px; background: #00d4ff; transform: translateX(-50%) rotate(0deg); box-shadow: 0 0 10px #00d4ff; }
+        .minute-hand { width: 4px; height: 80px; background: #8b5cf6; transform: translateX(-50%) rotate(0deg); box-shadow: 0 0 10px #8b5cf6; }
+        .second-hand { width: 2px; height: 90px; background: #ef4444; transform: translateX(-50%) rotate(0deg); box-shadow: 0 0 10px #ef4444; z-index: 11;}
+
+        .center-dot {
+           width: 12px; height: 12px;
+            background: #00d4ff; border-radius: 50%;
+            position: absolute; z-index: 12;
+            box-shadow: 0 0 10px #00d4ff;
+        }
+
+        /* ডিজিটাল টেক্সট */
+        .digital-time {
+            font-size: 2.5rem; font-weight: 800; color: #fff;
+            letter-spacing: 2px; margin-bottom: 5px;
+            font-family: monospace;
+        }
+        .digital-date { font-size: 0.9rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;}
+        .digital-date span { color: #00d4ff; }
+
         @media (max-width: 768px) {
             .hero-creative { flex-direction: column-reverse; text-align: center; padding: 20px 5%; gap: 30px; min-height: 80vh;}
             .hero-text-creative h1 { font-size: 2.8rem; }
             .hero-text-creative p { margin: 0 auto 30px auto; }
             .hero-btns-creative { justify-content: center; }
             .hero-image-creative img { width: 250px; height: 320px; box-shadow: 10px 10px 0px #00d4ff; }
+            .clock-face { width: 200px; height: 200px; }
+            .hour-hand { height: 45px; } .minute-hand { height: 65px; } .second-hand { height: 75px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- নেভিগেশন বার (আপনার আগের ফুটারের সাথে মিল রেখে) -->
     <nav class="navbar">
         <div class="logo"><img src="logo.jpg" alt="FR Logo" class="logo-img"><span>Foysal Raja</span></div>
         <ul class="nav-links" id="navLinks">
@@ -129,19 +196,19 @@
             <li><a href="about.html">About</a></li>
             <li><a href="services.html">Services</a></li>
             <li><a href="game.html">Games</a></li>
+            <li><a href="checkout.html">Checkout</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
         <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
     </nav>
 
-    <!-- নতুন ক্রিয়েটিভ হিরো সেকশন -->
+    <!-- হিরো সেকশন -->
     <section class="hero-creative">
         <div class="hero-text-creative">
             <span class="greeting">Hello, World!</span>
             <h1>I'm <span>Foysal Raja</span></h1>
             <p>Web Developer & Gamer. I build responsive, modern websites and create fun browser games. Explore my portfolio and check out my game zone!</p>
             <div class="hero-btns-creative">
-<a href="checkout.html" class="btn-creative btn-secondary" style="border-color: #3b82f6; color: #3b82f6;">💳 Make a Payment</a>
                 <a href="about.html" class="btn-creative btn-primary">About Me</a>
                 <a href="game.html" class="btn-creative btn-secondary">Play Games 🎮</a>
             </div>
@@ -151,7 +218,21 @@
         </div>
     </section>
 
-    <!-- আপনার ফুটার (এটি আগের মতোই থাকবে) -->
+    <!-- নতুন ৩ডি ঘড়ি সেকশন -->
+    <section class="clock-section">
+        <div class="clock-card">
+            <div class="clock-face">
+                <div class="hand hour-hand" id="hourHand"></div>
+                <div class="hand minute-hand" id="minuteHand"></div>
+                <div class="hand second-hand" id="secondHand"></div>
+                <div class="center-dot"></div>
+            </div>
+            <div class="digital-time" id="digitalClock">00:00:00</div>
+            <div class="digital-date" id="digitalDate">MONDAY, NOV <span>21</span></div>
+        </div>
+    </section>
+
+    <!-- আপনার ফুটার (আগের মতোই) -->
     <footer>
         <div class="footer-container">
             <div class="footer-brand">
@@ -199,6 +280,34 @@
             hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); navLinks.classList.toggle('active'); });
             document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListener('click', () => { hamburger.classList.remove('active'); navLinks.classList.remove('active'); }); });
         }
+
+        // লাইভ ঘড়ির স্ক্রিপ্ট
+        function updateClock() {
+            const now = new Date();
+            
+            // ডিজিটাল টাইম
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('digitalClock').innerText = `${hours}:${minutes}:${seconds}`;
+
+            // ডেট
+            const options = { weekday: 'long', month: 'short', day: 'numeric' };
+            const dateStr = now.toLocaleDateString('en-US', options).toUpperCase();
+            document.getElementById('digitalDate').innerHTML = dateStr.replace(/(\d+)/, '<span>$1</span>');
+
+            // এনালগ কাঁটা
+            const secDeg = now.getSeconds() * 6;
+            const minDeg = now.getMinutes() * 6 + now.getSeconds() * 0.1;
+            const hourDeg = (now.getHours() % 12) * 30 + now.getMinutes() * 0.5;
+
+            document.getElementById('secondHand').style.transform = `translateX(-50%) rotate(${secDeg}deg)`;
+            document.getElementById('minuteHand').style.transform = `translateX(-50%) rotate(${minDeg}deg)`;
+            document.getElementById('hourHand').style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock(); // প্রথমবার কল করা
     </script>
 </body>
 </html>
