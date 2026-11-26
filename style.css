@@ -380,3 +380,29 @@ footer { padding: 25px 5% 15px; }
 .details { display: flex; justify-content: space-between; font-size: 0.8rem; text-transform: uppercase; }
 
 }
+/* Back to Top Button Style */
+#backToTopBtn {
+    display: none; 
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: #00d4ff;
+    color: #0b1120;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+    transition: all 0.3s ease;
+}
+#backToTopBtn:hover {
+    background-color: #0ea5e9;
+    transform: translateY(-5px);
+}
+#backToTopBtn.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
