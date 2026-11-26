@@ -183,17 +183,27 @@
                     navLinks.classList.remove('active');
                 });
             });
-        }// Back to Top Button Logic
+// Back to Top Button Logic (শুধু পেজের নিচে গেলে দেখাবে)
 const backToTopBtn = document.getElementById("backToTopBtn");
+
 window.onscroll = function() {
-    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+    // পেজের মোট উচ্চতা এবং স্ক্রলের পরিমাণ বের করা
+    let scrollTotal = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    let scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
+
+    // যদি পেজের একদম নিচে (প্রায় ৯০%) চলে যায়, তবেই বাটন দেখাবে
+    if ((scrollPosition / scrollTotal) > 0.85) {
         backToTopBtn.classList.add("show");
     } else {
         backToTopBtn.classList.remove("show");
     }
 };
+
 backToTopBtn.onclick = function() {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 };
     </script>
 <!-- Back to Top Button -->
