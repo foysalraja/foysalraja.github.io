@@ -7,40 +7,103 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* =========================================
-           Splash Screen Styles (Welcome Page)
-           ========================================= */
-        #splash-screen {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: radial-gradient(circle at center, #1e293b 0%, #0b1120 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
+/* =========================================
+   Splash Screen Styles (Premium Design)
+   ========================================= */
+#splash-screen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: linear-gradient(135deg, #0b1120 0%, #1e293b 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
 
-        .splash-content { text-align: center; animation: fadeInScale 1s forwards; }
-        @keyframes fadeInScale { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+.splash-content { 
+    text-align: center; 
+    animation: slideUp 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; 
+    opacity: 0;
+    transform: translateY(30px);
+}
 
-        .splash-logo { width: 120px; height: 120px; border-radius: 50%; border: 3px solid #00d4ff; box-shadow: 0 0 30px rgba(0, 212, 255, 0.5); margin-bottom: 20px; object-fit: cover; }
-        .splash-title { font-size: 2.5rem; font-weight: 800; color: #fff; margin-bottom: 10px; letter-spacing: 1px; }
-        .splash-title span { color: #00d4ff; }
-        .splash-subtitle { color: #94a3b8; font-size: 1rem; margin-bottom: 40px; letter-spacing: 2px; text-transform: uppercase; }
+@keyframes slideUp {
+    to { opacity: 1; transform: translateY(0); }
+}
 
-        .enter-btn {
-            padding: 15px 40px; background: transparent; color: #00d4ff;
-            border: 2px solid #00d4ff; border-radius: 50px; font-size: 1.1rem;
-            font-weight: 600; cursor: pointer; transition: all 0.3s;
-            display: inline-block;
-        }
-        .enter-btn:hover { background: #00d4ff; color: #0b1120; box-shadow: 0 0 20px rgba(0, 212, 255, 0.6); transform: translateY(-3px); }
+/* প্রোফাইল ছবির ডিজাইন */
+.splash-profile {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #00d4ff;
+    box-shadow: 0 0 40px rgba(0, 212, 255, 0.6);
+    margin-bottom: 25px;
+    animation: pulseGlow 2s infinite alternate;
+}
 
-        .splash-hidden { opacity: 0; pointer-events: none; }
+@keyframes pulseGlow {
+    from { box-shadow: 0 0 20px rgba(0, 212, 255, 0.4); }
+    to { box-shadow: 0 0 50px rgba(0, 212, 255, 0.8); }
+}
 
+.splash-title { 
+    font-size: 2.8rem; 
+    font-weight: 800; 
+    color: #fff; 
+    margin-bottom: 8px; 
+    letter-spacing: 1px; 
+}
+.splash-title span { color: #00d4ff; }
+
+.splash-subtitle { 
+    color: #94a3b8; 
+    font-size: 0.9rem; 
+    margin-bottom: 45px; 
+    letter-spacing: 3px; 
+    text-transform: uppercase; 
+    font-weight: 300;
+}
+
+/* গ্লোয়িং এন্টার বাটন */
+.enter-btn {
+    padding: 16px 45px; 
+    background: transparent; 
+    color: #00d4ff;
+    border: 2px solid #00d4ff; 
+    border-radius: 50px; 
+    font-size: 1.1rem;
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+}
+
+.enter-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.4), transparent);
+    transition: 0.5s;
+}
+
+.enter-btn:hover::before { left: 100%; }
+
+.enter-btn:hover { 
+    background: #00d4ff; 
+    color: #0b1120; 
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.8); 
+    transform: translateY(-3px); 
+}
+
+.splash-hidden { opacity: 0; visibility: hidden; }
         /* =========================================
            হোম পেজের স্টাইল (আগের মতোই)
            ========================================= */
@@ -84,18 +147,18 @@
     </style>
 </head>
 <body>
-
-    <!-- =========================================
-         ওয়েলকাম স্ক্রিন (Splash Screen)
-         ========================================= -->
-    <div id="splash-screen">
-        <div class="splash-content">
-            <img src="ptofile.jpg" alt="Foysal Raja Logo" class="splash-logo">
-            <h1 class="splash-title">Foysal Raja</h1>
-            <p class="splash-subtitle">Welcome to my digital space</p>
-            <button class="enter-btn" onclick="enterWebsite()">Enter Website</button>
-        </div>
+	<!-- =========================================
+     ওয়েলকাম স্ক্রিন (Splash Screen)
+     ========================================= -->
+<div id="splash-screen">
+    <div class="splash-content">
+        <!-- এখানে প্রোফাইল ছবি বসানো হলো -->
+        <img src="profile.jpg" alt="Foysal Raja" class="splash-profile">
+        <h1 class="splash-title">Foysal Raja</h1>
+        <p class="splash-subtitle">Welcome to my digital space</p>
+        <button class="enter-btn" onclick="enterWebsite()">Enter Website</button>
     </div>
+</div>
 
     <!-- মূল ওয়েবসাইট -->
     <div id="main-website">
@@ -211,13 +274,18 @@
                 splash.style.display = 'none'; 
             }
         });
+// স্প্ল্যাশ স্ক্রিন লজিক (প্রতিবার ঢুকলেই আসবে)
+// sessionStorage বাদ দেওয়া হয়েছে, তাই প্রতিবার নতুন করে ঢুকলেই এটি দেখাবে
 
-        function enterWebsite() {
-            const splash = document.getElementById('splash-screen');
-            splash.classList.add('splash-hidden'); 
-            sessionStorage.setItem('visited', 'true');
-            setTimeout(() => { splash.style.display = 'none'; }, 500); 
-        }
+function enterWebsite() {
+    const splash = document.getElementById('splash-screen');
+    splash.classList.add('splash-hidden'); 
+    
+    // ০.৮ সেকেন্ড পর স্ক্রিনটি সম্পূর্ণ রিমুভ করে দেওয়া হবে
+    setTimeout(() => {
+        splash.style.display = 'none';
+    }, 800); 
+}
     </script>
 </body>
 </html>
