@@ -92,18 +92,20 @@
         </div>
 
         <div class="tools-grid">
-            
-            <!-- ১. ডেভেলপার টার্মিনাল -->
-            <div class="tool-card">
-                <div class="tool-icon">💻</div>
-                <h3>Developer Terminal</h3>
-                <p>Simulated terminal for basic commands.</p>
-                <div class="terminal-output" id="termOutput">
-                    <div>Foysal's Terminal v1.0</div>
-                    <div>Type 'help' for commands.</div>
-                </div>
-                <input type="text" class="terminal-input" id="termInput" placeholder="Type command..." onkeypress="handleTerminal(event)">
-            </div>
+<!-- ১. ডেভেলপার টার্মিনাল -->
+<div class="tool-card">
+    <div class="tool-icon">💻</div>
+    <h3>Developer Terminal</h3>
+    <p>Type 'help' to see available commands.</p>
+    <div class="terminal-output" id="termOutput">
+        <div>Foysal's Terminal v1.0</div>
+        <div>Type 'help' for commands.</div>
+    </div>
+    <div style="display: flex; gap: 10px;">
+        <input type="text" class="terminal-input" id="termInput" placeholder="Type command..." onkeypress="if(event.key === 'Enter') runCommand()">
+        <button class="tool-btn" onclick="runCommand()" style="width: 80px;">Run</button>
+    </div>
+</div>            
 
             <!-- ২. পাসওয়ার্ড স্ট্রেন্থ -->
             <div class="tool-card">
@@ -253,35 +255,96 @@
             hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); navLinks.classList.toggle('active'); });
             document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListener('click', () => { hamburger.classList.remove('active'); navLinks.classList.remove('active'); }); });
         }
+ডেভেলপার টার্মিনাল লজিক (নতুন সিমুলেশন কমান্ডসহ)
+function runCommand() {
+    const input = document.getElementById('termInput');
+    const output = document.getElementById('termOutput');
+    const command = input.value.trim().toLowerCase();
+    if (command === "") return;
 
-        // ১. ডেভেলপার টার্মিনাল লজিক
-        function handleTerminal(e) {
-            if (e.key === 'Enter') {
-                const input = document.getElementById('termInput');
-                const output = document.getElementById('termOutput');
-                const command = input.value.trim().toLowerCase();
-                if (command === "") return;
-
-                output.innerHTML += `<div><span style="color:#00d4ff;">root@foysal:~#</span> ${command}</div>`;
-                
-                if (command === 'help') {
-                    output.innerHTML += `<div>Available commands: help, whoami, date, ipconfig, clear</div>`;
-                } else if (command === 'whoami') {
-                    output.innerHTML += `<div>Foysal Raja - Web Developer & Gamer</div>`;
-                } else if (command === 'date') {
-                    output.innerHTML += `<div>${new Date().toString()}</div>`;
-                } else if (command === 'ipconfig') {
-                    output.innerHTML += `<div>Local IP: 192.168.1.${Math.floor(Math.random() * 255)}</div>`;
-                } else if (command === 'clear') {
-                    output.innerHTML = `<div>Foysal's Terminal v1.0</div>`;
-                } else {
-                    output.innerHTML += `<div style="color:#ef4444;">bash: ${command}: command not found</div>`;
-                }
-                
+    // কমান্ড প্রম্পট আউটপুট
+    output.innerHTML += `<div><span style="color:#00d4ff;">root@foysal:~#</span> ${command}</div>`;
+    
+    // কমান্ডের লজিক
+    if (command === 'help') {
+        output.innerHTML += `<div>Available commands:<br>
+        - help (Show this menu)<br>
+        - whoami (Show user info)<br>
+        - date (Show current date)<br>
+        - ifconfig (Show network interface info)<br>
+        - scan (Simulate scanning nearby devices)<br>
+        - wifi (Simulate WiFi network list)<br>
+        - crack (Simulate WiFi password cracking)<br>
+        - clear (Clear terminal)</div>`;
+    } 
+    else if (command === 'whoami') {
+        output.innerHTML += `<div>You are Foysal Raja - Web Developer & Gamer.</div>`;
+    } 
+    else if (command === 'date') {
+        output.innerHTML += `<div>${new Date().toString()}</div>`;
+    } 
+    else if (command === 'ifconfig') {
+        output.innerHTML += `<div>eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt; mtu 1500<br>
+        inet 192.168.1.${Math.floor(Math.random() * 255)} netmask 255.255.255.0 broadcast 192.168.1.255<br>
+        ether 00:1A:2B:3C:4D:5E txqueuelen 1000 (Ethernet)<br>
+        RX packets 15243 bytes 18273645 (17.4 MiB)<br>
+        TX packets 8453 bytes 10293845 (9.8 MiB)</div>`;
+    } 
+    else if (command === 'scan') {
+        output.innerHTML += `<div style="color:#f59e0b;">Starting Nmap scan...</div>`;
+        setTimeout(() => {
+            output.innerHTML += `<div style="color:#00d4ff;">Nmap scan report for 192.168.1.1</div>`;
+            setTimeout(() => {
+                output.innerHTML += `<div>Host is up (0.0032s latency).<br>
+                PORT     STATE SERVICE<br>
+                22/tcp   open  ssh<br>
+                80/tcp   open  http<br>
+                443/tcp  open  https</div>`;
                 output.scrollTop = output.scrollHeight;
-                input.value = '';
+            }, 1000);
+        }, 1000);
+    } 
+    else if (command === 'wifi') {
+        output.innerHTML += `<div style="color:#f59e0b;">Scanning WiFi networks...</div>`;
+        setTimeout(() => {
+            output.innerHTML += `<div>BSSID              ESSID             ENCRYPTION<br>
+            AA:BB:CC:DD:EE:01  Home_WiFi_5G      WPA2<br>
+            AA:BB:CC:DD:EE:02  Office_Net        WPA2<br>
+            AA:BB:CC:DD:EE:03  Free_Public_WiFi  OPEN</div>`;
+            output.scrollTop = output.scrollHeight;
+        }, 1500);
+    } 
+    else if (command === 'crack') {
+        output.innerHTML += `<div style="color:#ef4444;">Targeting: Home_WiFi_5G</div>`;
+        let words = ["12345678", "password", "admin123", "qwerty", "letmein", "password123", "admin"];
+        let i = 0;
+        let interval = setInterval(() => {
+            if (i < words.length) {
+                output.innerHTML += `<div>Trying password: ${words[i]}...</div>`;
+                i++;
+                output.scrollTop = output.scrollHeight;
+            } else {
+                clearInterval(interval);
+                output.innerHTML += `<div style="color:#10b981;">Password found: password123</div>`;
+                output.innerHTML += `<div style="color:#f59e0b;">Connecting to network...</div>`;
+                setTimeout(() => {
+                    output.innerHTML += `<div style="color:#10b981;">Successfully connected! (Simulation only)</div>`;
+                    output.scrollTop = output.scrollHeight;
+                }, 1500);
             }
-        }
+        }, 500);
+    } 
+    else if (command === 'clear') {
+        output.innerHTML = `<div>Foysal's Terminal v1.0</div>`;
+    } 
+    else {
+        output.innerHTML += `<div style="color:#ef4444;">bash: ${command}: command not found</div>`;
+    }
+    
+    // অটো স্ক্রল এবং ইনপুট খালি করা
+    output.scrollTop = output.scrollHeight;
+    input.value = '';
+}
 
         // ২. পাসওয়ার্ড স্ট্রেংথ
         function checkStrength() {
