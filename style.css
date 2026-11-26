@@ -388,20 +388,23 @@ footer { padding: 25px 5% 15px; }
     bottom: 30px; /* নিচ থেকে একটু উপরে */
     right: 20px;  /* ডান দিকের কোণায় */
     z-index: 999;
-    width: 55px;
-    height: 55px;
+    width: 50px;
+    height: 50px;
     border: none;
     outline: none;
-    background: linear-gradient(135deg, #00d4ff, #0084ff);
+    background: linear-gradient(135deg, #00d4ff, #0084ff); /* ৩ডি গ্রেডিয়েন্ট */
     color: #ffffff;
     cursor: pointer;
-    border-radius: 50%;
-    box-shadow: 0 6px 0 #005bb5, 0 10px 20px rgba(0, 0, 0, 0.5); /* ৩ডি শ্যাডো */
+    border-radius: 50%; /* গোল আকৃতি */
+    font-size: 20px;
+    /* ৩ডি শ্যাডো ইফেক্ট */
+    box-shadow: 0 6px 0 #005bb5, 0 10px 20px rgba(0, 0, 0, 0.5); 
     transition: all 0.3s ease;
     align-items: center;
     justify-content: center;
 }
 
+/* মাউস নিলে বা ট্যাপ করলে ৩ডি প্রেস ইফেক্ট */
 #backToTopBtn:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 0 #005bb5, 0 15px 25px rgba(0, 212, 255, 0.4);
