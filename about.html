@@ -370,52 +370,58 @@
         <p>Developed by <span class="dev-text">Raja</span></p>
     </div>
 </footer>
+<script>
+    // হ্যামবার্গার মেনু
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => { 
+            hamburger.classList.toggle('active'); 
+            navLinks.classList.toggle('active'); 
+        });
+        document.querySelectorAll('.nav-links a').forEach(link => { 
+            link.addEventListener('click', () => { 
+                hamburger.classList.remove('active'); 
+                navLinks.classList.remove('active'); 
+            }); 
+        });
+    }
 
-    <script>
-        // হ্যামবার্গার মেনু
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-        if (hamburger && navLinks) {
-            hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); navLinks.classList.toggle('active'); });
-            document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListener('click', () => { hamburger.classList.remove('active'); navLinks.classList.remove('active'); }); });
+    // টাইপিং অ্যানিমেশন
+    const text = "Web Developer • Gamer • Rider • Explorer";
+    let i = 0;
+    function typeWriter() {
+        if (i < text.length) {
+            document.getElementById("typingText").innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 100);
         }
+    }
+    window.onload = function() {
+        setTimeout(typeWriter, 500);
+    };
 
-        // টাইপিং অ্যানিমেশন (ট্যাগলাইনের জন্য)
-        const text = "Web Developer • Gamer • Rider • Explorer";
-        let i = 0;
-        function typeWriter() {
-            if (i < text.length) {
-                document.getElementById("typingText").innerHTML += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100);
-            }
+    // Back to Top Button Logic
+    const backToTopBtn = document.getElementById("backToTopBtn");
+    
+    window.addEventListener("scroll", function() {
+        let scrollTotal = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        let scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
+
+        if ((scrollPosition / scrollTotal) > 0.85) {
+            backToTopBtn.classList.add("show");
+        } else {
+            backToTopBtn.classList.remove("show");
         }
-        // পেজ লোড হলে টাইপিং শুরু হবে
-        window.onload = function() {
-            setTimeout(typeWriter, 500);
-};
-        // Back to Top Button Logic
-        const backToTopBtn = document.getElementById("backToTopBtn");
+    });
 
-        window.onscroll = function() {
-            let scrollTotal = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            let scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
-
-            // পেজের একদম নিচে (৮৫% এর পর) গেলে বাটন দেখাবে
-            if ((scrollPosition / scrollTotal) > 0.85) {
-                backToTopBtn.classList.add("show");
-            } else {
-                backToTopBtn.classList.remove("show");
-            }
-        };
-
-        backToTopBtn.onclick = function() {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        };
-    </script>
+    backToTopBtn.addEventListener("click", function() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+</script>
 
     <!-- Back to Top Button -->
     <button id="backToTopBtn" title="Go to top">
