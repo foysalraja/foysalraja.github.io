@@ -14,12 +14,33 @@
 
         /* ১. হিরো সেকশন (ছবি ও নাম) */
         .hero-about { text-align: center; margin-bottom: 50px; }
-        .hero-about img {
-            width: 160px; height: 160px; object-fit: cover;
-            border-radius: 50%; border: 4px solid #00d4ff;
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
-            margin-bottom: 20px;
+/* ছবির ফ্রেম ডিজাইন (স্কয়ার) */
+.profile-frame {
+    width: 200px; 
+    height: 200px; /* উচ্চতা এবং প্রস্থ সমান করা হলো */
+    margin: 0 auto 20px auto;
+    border-radius: 20px; /* কোণাগুলো সামান্য গোল থাকবে */
+    padding: 5px;
+    background: linear-gradient(45deg, #00d4ff, #8b5cf6, #00d4ff);
+    background-size: 200% 200%;
+    animation: gradientMove 3s ease infinite;
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+}
+
+.profile-frame img {
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; /* ছবিটি ফ্রেমের ভেতরে সুন্দরভাবে বসবে */
+    border-radius: 15px; 
+    background: #111827;
+}        
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
+
         .hero-about h1 { font-size: 2.8rem; color: #fff; margin-bottom: 10px; font-weight: 800; }
         .hero-about h1 span { color: #00d4ff; }
         .typing-text { 
@@ -29,9 +50,15 @@
 
         /* ২. আমার গল্প (My Story) */
         .story-section {
-            background: #111827; border: 1px solid #1e293b;
-            border-radius: 20px; padding: 30px; margin-bottom: 40px;
+            background: rgba(17, 24, 39, 0.8); backdrop-filter: blur(10px);
+            border: 1px solid #1e293b; border-radius: 20px; padding: 30px; margin-bottom: 40px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative; overflow: hidden;
+        }
+        .story-section::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.05) 0%, transparent 70%);
+            z-index: -1;
         }
         .story-section h2 { color: #fff; font-size: 1.5rem; margin-bottom: 15px; border-left: 4px solid #00d4ff; padding-left: 10px;}
         .story-section p { color: #cbd5e1; font-size: 0.95rem; line-height: 1.8; text-align: justify; }
@@ -42,9 +69,11 @@
             gap: 15px; margin-bottom: 50px; 
         }
         .stat-box {
-            background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(10px);
+            background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(5px);
             border: 1px solid #334155; border-radius: 15px; padding: 20px 10px; text-align: center;
+            transition: 0.3s;
         }
+        .stat-box:hover { border-color: #00d4ff; transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 212, 255, 0.1); }
         .stat-box h3 { color: #00d4ff; font-size: 1.8rem; margin-bottom: 5px; font-weight: 800; }
         .stat-box p { color: #94a3b8; font-size: 0.75rem; line-height: 1.3; }
 
@@ -55,7 +84,7 @@
         .timeline { position: relative; padding-left: 20px; margin-bottom: 50px; }
         .timeline::before {
             content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-            width: 2px; background: #00d4ff; box-shadow: 0 0 10px #00d4ff;
+            width: 2px; background: linear-gradient(to bottom, #00d4ff, #8b5cf6); box-shadow: 0 0 10px #00d4ff;
         }
         .timeline-item { position: relative; margin-bottom: 25px; }
         .timeline-item::before {
@@ -65,8 +94,9 @@
         }
         .timeline-content {
             background: #111827; border: 1px solid #1e293b;
-            padding: 20px; border-radius: 15px;
+            padding: 20px; border-radius: 15px; transition: 0.3s;
         }
+        .timeline-content:hover { border-color: #00d4ff; box-shadow: 0 5px 15px rgba(0, 212, 255, 0.1); }
         .timeline-content .date { color: #00d4ff; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; display: block; }
         .timeline-content h4 { color: #fff; font-size: 1.1rem; margin-bottom: 5px; }
         .timeline-content .institute { color: #94a3b8; font-size: 0.85rem; margin-bottom: 10px; display: block; }
@@ -84,8 +114,9 @@
         .skills-badges span {
             background: rgba(0, 212, 255, 0.1); color: #00d4ff;
             padding: 8px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600;
-            border: 1px solid #00d4ff;
+            border: 1px solid #00d4ff; transition: 0.3s;
         }
+        .skills-badges span:hover { background: #00d4ff; color: #0b1120; }
 
         /* ৬. কোডিংয়ের বাইরে আমি (Passions) */
         .passions-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 50px; }
@@ -104,6 +135,7 @@
             background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), transparent);
             border: 1px solid #00d4ff; border-radius: 15px;
             padding: 20px; text-align: center; margin-bottom: 30px;
+            box-shadow: inset 0 0 20px rgba(0, 212, 255, 0.05);
         }
         .quote-box p { color: #00d4ff; font-style: italic; font-size: 1rem; font-weight: 500; }
 
@@ -146,7 +178,9 @@
 
         <!-- ১. হিরো সেকশন -->
         <section class="hero-about">
-            <img src="profile.jpg" alt="Foysal Raja">
+            <div class="profile-frame">
+                <img src="about-image.jpg" alt="Foysal Raja">
+            </div>
             <h1>I'm <span>Foysal Raja</span></h1>
             <span class="typing-text" id="typingText"></span>
         </section>
@@ -161,19 +195,19 @@
         <section class="stats-grid">
             <div class="stat-box">
                 <h3>5+</h3>
-                <p>Web Projects & Experiments</p>
+                <p>Web Projects</p>
             </div>
             <div class="stat-box">
                 <h3>2+</h3>
-                <p>Custom Web Games</p>
+                <p>Web Games</p>
             </div>
             <div class="stat-box">
                 <h3>100%</h3>
-                <p>Passion & Positive Energy</p>
+                <p>Passion</p>
             </div>
         </section>
 
-        <!-- ৪. শিক্ষাজীবন -->
+        <!-- ৪. শিক্ষাজীবন (আপনার দেওয়া নতুন তথ্যসহ) -->
         <h2 class="section-title">My <span>Education</span></h2>
         <section class="timeline">
             <div class="timeline-item">
@@ -190,6 +224,24 @@
                     <h4>Secondary School Certificate (SSC)</h4>
                     <span class="institute">Meherpur Govt. High School, Meherpur</span>
                     <p>This is where my school life and interest in technology began.</p>
+                </div>
+            </div>
+            <!-- নতুন যোগ করা JSC -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="date">Past</span>
+                    <h4>Junior School Certificate (JSC)</h4>
+                    <span class="institute">Kobi Nazrul Education Manjil, Meherpur</span>
+                    <p>Completed my JSC from here, building a strong foundation for the future.</p>
+                </div>
+            </div>
+            <!-- নতুন যোগ করা PSC -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="date">Past</span>
+                    <h4>Primary School Certificate (PSC)</h4>
+                    <span class="institute">Daffodil School and College, Meherpur</span>
+                    <p>My primary education where the journey of learning first started.</p>
                 </div>
             </div>
         </section>
@@ -299,6 +351,7 @@
                     <a href="https://github.com/foysalraja" target="_blank" title="GitHub"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
                     <a href="https://www.facebook.com/share/1ELcprAygf/" target="_blank" title="Facebook"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg></a>
                     <a href="https://www.instagram.com/foysal_raja" target="_blank" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                    title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
                     <a href="https://wa.me/8809638576363" target="_blank" title="WhatsApp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
                 </div>
                 <div style="margin-top: 10px;">
