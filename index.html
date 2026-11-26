@@ -274,13 +274,24 @@
                 splash.style.display = 'none'; 
             }
         });
-// স্প্ল্যাশ স্ক্রিন লজিক (প্রতিবার ঢুকলেই আসবে)
-// sessionStorage বাদ দেওয়া হয়েছে, তাই প্রতিবার নতুন করে ঢুকলেই এটি দেখাবে
+// স্প্ল্যাশ স্ক্রিন লজিক
+window.addEventListener('DOMContentLoaded', () => {
+    const splash = document.getElementById('splash-screen');
+    
+    // চেক করা হচ্ছে, ইউজার কি এই সেশনে আগে ঢুকেছে কিনা
+    // যদি না ঢুকে থাকে, তবে স্ক্রিনটি দেখাবে। আর যদি আগে ঢুকে থাকে, তবে স্ক্রিনটি লুকিয়ে ফেলবে।
+    if (sessionStorage.getItem('visited_site')) {
+        splash.style.display = 'none'; 
+    }
+});
 
 function enterWebsite() {
     const splash = document.getElementById('splash-screen');
     splash.classList.add('splash-hidden'); 
     
+    // সেশন স্টোরেজে সেভ করা হলো যে ইউজার ইতিমধ্যে ঢুকেছে
+    sessionStorage.setItem('visited_site', 'true');
+
     // ০.৮ সেকেন্ড পর স্ক্রিনটি সম্পূর্ণ রিমুভ করে দেওয়া হবে
     setTimeout(() => {
         splash.style.display = 'none';
