@@ -88,7 +88,121 @@
     </style>
 </head>
 <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Foysal Raja | Creative Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* =========================================
+           Splash Screen / Welcome Page Styles
+           ========================================= */
+        #splash-screen {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: radial-gradient(circle at center, #1e293b 0%, #0b1120 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
 
+        /* কন্টেন্ট ফেড-ইন অ্যানিমেশন */
+        .splash-content {
+            text-align: center;
+            animation: fadeInScale 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        @keyframes fadeInScale {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .splash-logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #00d4ff;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+
+        .splash-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .splash-title span { color: #00d4ff; }
+
+        .splash-subtitle {
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Enter বাটন */
+        .enter-btn {
+            padding: 15px 40px;
+            background: transparent;
+            color: #00d4ff;
+            border: 2px solid #00d4ff;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .enter-btn:hover {
+            background: #00d4ff;
+            color: #0b1120;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+            transform: translateY(-3px);
+        }
+
+        /* ক্লিক করার পর স্ক্রিন হাইড হওয়া */
+        #splash-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- =========================================
+         নতুন স্প্ল্যাশ স্ক্রিন (Splash Screen)
+         ========================================= -->
+    <div id="splash-screen">
+        <div class="splash-content">
+            <!-- এখানে আপনার লোগো বা ছবি বসাতে পারেন -->
+            <img src="logo.jpg" alt="Foysal Raja Logo" class="splash-logo">
+            <h1 class="splash-title">Foysal<span>.Raja</span></h1>
+            <p class="splash-subtitle">Welcome to my digital space</p>
+            
+            <!-- বাটনে ক্লিক করলে হোম পেজে ঢুকবে -->
+            <button class="enter-btn" onclick="enterWebsite()">Enter Website</button>
+        </div>
+    </div>
+
+    <!-- আপনার আগের নেভিগেশন বার এখান থেকে শুরু হবে -->
+    <nav class="navbar">
     <nav class="navbar">
         <div class="logo"><img src="logo.jpg" alt="FR Logo" class="logo-img"><span>Foysal Raja</span></div>
         <ul class="nav-links" id="navLinks">
@@ -140,6 +254,7 @@
                     <li><a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Home</a></li>
                     <li><a href="about.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> About Me</a></li>
                     <li><a href="services.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg> Services</a></li>
+<li><a href="tools.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg> Tools</a></li>
                     <li><a href="game.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> Games Zone</a></li>
                 </ul>
             </div>
@@ -183,6 +298,15 @@
         }
         setInterval(updateClock, 1000);
         updateClock();
+// স্প্ল্যাশ স্ক্রিন থেকে হোম পেজে যাওয়ার ফাংশন
+function enterWebsite() {
+    const splash = document.getElementById('splash-screen');
+    splash.classList.add('hidden');
+    // ১ সেকেন্ড পর স্ক্রিনটি সম্পূর্ণ রিমুভ করে দেওয়া হবে যাতে স্ক্রল করতে সমস্যা না হয়
+    setTimeout(() => {
+        splash.remove();
+    }, 800); 
+}
     </script>
 </body>
 </html>
